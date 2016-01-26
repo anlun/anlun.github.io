@@ -1,0 +1,66 @@
+---
+layout: post
+title:  "Questions asked by myself about Coq-SSReflect"
+date:   2014-09-05 17:43:29
+categories: jekyll update
+---
+
+This post is created for strange purpose --- I want to post here questions which I had no answer firstly.
+For some of them I have already known answers, so I will deliver it, but for some of them I don't know
+answers.
+
+# 1. Simple tactic (foldUnfold)
+
+I found the next custom tactic useful:
+
+{% highlight coq %}
+Ltac foldUnfold x := rewrite /x=>/=; fold x.
+{% endhighlight %}
+
+It is really handy in proff-pipes (tactics combined by `;`) then simple cases can be solved by `/=`
+tactical after unfolding. Also it moves `x` `Fixpoint` application to subtrees in some cases.
+
+As we can see writing own tactics can be simple and useful even without pattern-matching on assumptions
+and goals.
+
+# 2. Complex chain of tactics
+
+Unfortunately, I don't know how write custom tactics which are not combined by tacticals (contain `.`).
+
+{% highlight coq %}
+Ltac test x := (
+  rewrite x.
+  simpl.
+).
+(* Toplevel input, characters 28-29:
+   Syntax error: ')' expected after [tactic:tactic_expr] (in [tactic:tactic_expr]). *)
+{% endhighlight %}
+
+Yes, in most of the cases `;` can be used instead of `.`. If you need to do something with separated
+goals you can use `[x | y]` notation but it isn't convenient in case of complex `x`, `y` in my opinion.
+I'd rather have ability to place a number of tactics to `()` or `[]` without any change to define new
+tactic.
+
+# 3. SSReflect in Ltac
+
+Also there is a problem with SSReflect symbols in Ltac definitions.
+
+{% highlight coq %}
+Ltac test x := move=> H.
+(* Toplevel input, characters 19-21:
+   Syntax error: [id_or_meta] expected after 'move' (in [tactic:simple_tactic]).*)
+
+Ltac test x := move: (id x).
+(* Toplevel input, characters 19-20:
+   Syntax error: [id_or_meta] expected after 'move' (in [tactic:simple_tactic]). *)
+{% endhighlight%}
+
+# 4. Smth for test
+
+# Example stuff
+
+Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
+
+[jekyll]:      http://jekyllrb.com
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-help]: https://github.com/jekyll/jekyll-help

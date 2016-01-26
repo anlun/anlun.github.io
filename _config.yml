@@ -1,0 +1,57 @@
+# Site Info
+title:              "Anton Podkopaev"
+description:        "Personal site of Anton Podkopaev"
+google_verify:      epFgX0s_0RM3CdjwFcsewfXzPov2g8s9ZBOLyaIUH-o # Put your Google Verification here
+google_analytics:   UA-72869824-1 # Put your Google Analytics code
+
+# Author Info
+author_name:        "Anton Podkopaev"
+author_email:       anton@podkopaev.net
+author_gravatar:    549914defbc2c8505615165f5ecf1ebc # Gravatar md5 hash
+twitter_username:   inf_anlun
+github_username:    anlun
+
+# Site Settings
+baseurl:            "" # Base URL must end WITHOUT a slash, default: ""
+url:                "podkopaev.net"
+permalink:          /notes/:title # Post permalink
+timezone:           Russia/Moscow # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+# Site Build
+# highlighter:        pygments
+#markdown:           redcarpet
+#redcarpet:
+#    extensions:     ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data", "highlight", "footnotes"]
+markdown:           kramdown
+kramdown:
+    input:          GFM
+sass:
+    style:          :compressed
+
+# Other Params
+include:            [ "robots.txt" ]
+exclude:            [ "README.md", "CNAME", "vendor", "Gemfile" ]
+gems:
+  - jekyll-sitemap
+
+compress_html:
+    clippings:      all
+    ingore:
+        envs:       [ "test" ]
+
+defaults:
+  -
+    scope:
+      path:         ""
+    values:
+      layout:       "null"
+  -
+    scope:
+      type:         "pages"
+    values:
+      layout:       "page"
+  -
+    scope:
+      type:         "posts"
+    values:
+      layout:       "post"
