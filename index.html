@@ -2,11 +2,18 @@
 layout: default
 ---
 
-<script src="{{site.baseurl}}/assets/podkopaev.js"></script>
+<script>
+var Podkopaev = {} ;
+
+Podkopaev.emailme = function (text) {
+    if (!text) text = 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't';
+      document.write('<a href="mai'+'lto:' + 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't">'+text+'</a>');
+};
+</script>
 
 <section>
     Email:
-    <a href="mailto:{{ site.author_email }}"> {{ site.author_email }} </a>
+    <script>Podkopaev.emailme();</script>
   <br />
     Twitter:
     <a href="https://twitter.com/{{ site.twitter_username }}"> @{{ site.twitter_username }} </a>
@@ -20,7 +27,8 @@ layout: default
   <br />
 
 <section>
-I am a PhD student at Saint Petersburg State University, Russia.
+I am a PhD student at Saint Petersburg State University, Russia,
+and a <a href="https://research.jetbrains.org/researchers/anton">researcher</a> at JetBrains Research.
 I was a research intern at IMDEA Software Institute, Madrid (June - August 2015). 
 I'm interested in weak memory models, and language semantics.
 </section>
@@ -50,13 +58,22 @@ I'm interested in weak memory models, and language semantics.
     <li> Spring 2015
       <ul>
         <li> Software Engineering (1 year, undergrads), SPbSU </li>
-        <li> Compilers (1 year, master students), IFMO </li>
+        <li> Compilers (1 year, master students), IFMO
+          <br /> 
+             [<a href="https://drive.google.com/open?id=0B3UPtzTx9FB1fmtncDZodzFnRkJRNlRLR2tqenc2eEJhZkh3clFVaGR3QUVkMTUyTjJjbGM&authuser=0">slides</a>]
+        </li>
       </ul>
     </li>
     <li> Fall 2015
       <ul>
-        <li> Software Engineering (2 year, undergrads), SPbSU </li>
-        <li> Compilers (2 year, master students), AU </li>
+        <li> Software Engineering (2 year, undergrads), SPbSU
+             <br />
+             [<a href="https://github.com/practice271/assignments">assignments repo</a>]
+        </li>
+        <li> Compilers (2 year, master students), AU
+          <br /> 
+             [<a href="https://drive.google.com/folderview?id=0B3UPtzTx9FB1fl9Va3BpNE5RNnJ6bmpfeGdmY1JTUkloN1FlQm5nRk5CbWJ0Qk13YVdvajg&usp=sharing">slides</a>]
+        </li>
       </ul>
     </li>
 
