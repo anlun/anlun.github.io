@@ -22,14 +22,20 @@ a {
   // color: inherit;
   color: blue;
   text-decoration: none;
+  border-bottom: 1px solid transparent;
   // border-bottom: 1px solid #555;
   &.image {
     display: block;
     text-align: center;
-    border: 0;
+    // border: 0;
     border-radius: 5px;
     margin: 30px 0;
   }
+    &:hover {
+            border-color: #000;
+            // border-color: blue;
+          }
+
 }
 mark {
   background: #fffc76;
@@ -298,7 +304,8 @@ article {
     margin: 40px auto 0;
     display: inline-block;
     padding: 10px;
-    border: 0;
+    // border: 0;
+    border-bottom: 1px solid transparent;
     &:before {
       content: "<<";
       margin-right: 5px;
@@ -324,11 +331,17 @@ section {
         word-wrap: normal !important;
       }
       a {
-        text-decoration: none;
-        border: 0;
+        // text-decoration: none;
+        // border: 0;
         color: blue;
         // color: #000;
         box-sizing: border-box;
+        border-bottom: 1px solid transparent;
+          &:hover {
+            border-color: #000;
+            // border-color: blue;
+          }
+
       }
       .post-date {
         float: right;
@@ -342,7 +355,7 @@ section {
       }
       @media (min-width: 992px) {
         a {
-          border-bottom: 2px solid transparent;
+          border-bottom: 1px solid transparent;
           &:hover {
             border-color: #000;
             // border-color: blue;
