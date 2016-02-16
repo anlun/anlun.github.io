@@ -93,6 +93,7 @@ Software verification, program language semantics, functional programming.
 - Russian (mother tongue)
 
 ### References
+
 | [Ilya Sergey](http://ilyasergey.net/) | [Aleksandar Nanevski](http://software.imdea.org/~aleks/) |
 | :-- | :-- |
 |  Lecturer <br /> University College London | Associate Research Professor <br /> IMDEA Software Institute <br /> Madrid
