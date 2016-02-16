@@ -1,6 +1,6 @@
 body {
   font-family: 'Fira Sans', sans-serif;
-  padding: 20px;
+  padding: 5px;
   margin: 0;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -13,7 +13,7 @@ h2,
 h3,
 h4,
 h5 {
-  margin: 45px 0 25px;
+  margin: 5px 0 0px;
 }
 img {
   max-width: 100%;
@@ -191,13 +191,13 @@ iframe {
 }
 ul,
 ol {
-  margin: 20px 0;
+  margin: 5px 0;
   padding-left: 50px;
   li {
     word-wrap: break-word;
   }
   img {
-    margin: 40px 0;
+    margin: 20px 0;
     border-radius: 5px;
   }
 }
@@ -241,7 +241,7 @@ pre {
 table {
   width: 100%;
   table-layout: fixed;
-  margin: 45px 0;
+  margin: 10px 0;
   thead {
     background: #f2f2f2;
   }
