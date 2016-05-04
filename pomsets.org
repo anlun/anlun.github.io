@@ -10,7 +10,7 @@ f_rlx := 1  || r = d_na
 #+END_SRC
 
 #+BEGIN_COMMENT
-#+name: vertex-table-rlx+na
+#+name: vertex-table-mp-rlx+na
 | a | f_rlx := 0 |
 | b | d_na  := 0 |
 | c | d_na  := 5 |
@@ -21,7 +21,7 @@ f_rlx := 1  || r = d_na
 | h | f_rlx  = 1 |
 | i | d_na   = v |
 
-#+name: edge-table-rlx+na
+#+name: edge-table-mp-rlx+na
 | a | d |
 | a | e |
 | e | f |
@@ -31,7 +31,7 @@ f_rlx := 1  || r = d_na
 | b | i |
 
 #+name: make-mp-rlx+na
-#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-rlx+na :var edge-table=edge-table-rlx+na :results output :exports none
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-rlx+na :var edge-table=edge-table-mp-rlx+na :results output :exports none
   (mapcar #'(lambda (x)
               (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
                              (first x) (second x)))) vertex-table)
@@ -56,7 +56,7 @@ f_rel := 1  || r = d_na
 #+END_SRC
 
 #+BEGIN_COMMENT
-#+name: vertex-table-rel+rlx+na
+#+name: vertex-table-mp-rel+rlx+na
 | a | f_rlx := 0 |
 | b | d_na  := 0 |
 | c | d_na  := 5 |
@@ -67,7 +67,7 @@ f_rel := 1  || r = d_na
 | h | f_rlx  = 1 |
 | i | d_na   = v |
 
-#+name: edge-table-rel+rlx+na
+#+name: edge-table-mp-rel+rlx+na
 | a | d |
 | a | e |
 | e | f |
@@ -78,7 +78,7 @@ f_rel := 1  || r = d_na
 | c | d |
 
 #+name: make-mp-rel+rlx+na
-#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-rel+rlx+na :var edge-table=edge-table-rel+rlx+na :results output :exports none
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-rel+rlx+na :var edge-table=edge-table-mp-rel+rlx+na :results output :exports none
   (mapcar #'(lambda (x)
               (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
                              (first x) (second x)))) vertex-table)
@@ -103,7 +103,7 @@ f_rlx := 1  || r = d_na
 #+END_SRC
 
 #+BEGIN_COMMENT
-#+name: vertex-table-acq+rlx+na
+#+name: vertex-table-mp-acq+rlx+na
 | a | f_rlx := 0 |
 | b | d_na  := 0 |
 | c | d_na  := 5 |
@@ -114,7 +114,7 @@ f_rlx := 1  || r = d_na
 | h | f_acq  = 1 |
 | i | d_na   = v |
 
-#+name: edge-table-acq+rlx+na
+#+name: edge-table-mp-acq+rlx+na
 | a | d |
 | a | e |
 | e | f |
@@ -125,7 +125,7 @@ f_rlx := 1  || r = d_na
 | h | i |
 
 #+name: make-mp-acq+rlx+na
-#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-acq+rlx+na :var edge-table=edge-table-acq+rlx+na :results output :exports none
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-acq+rlx+na :var edge-table=edge-table-mp-acq+rlx+na :results output :exports none
   (mapcar #'(lambda (x)
               (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
                              (first x) (second x)))) vertex-table)
@@ -150,7 +150,7 @@ f_rel := 1  || r = d_na
 #+END_SRC
 
 #+BEGIN_COMMENT
-#+name: vertex-table-rel+acq+na
+#+name: vertex-table-mp-rel+acq+na
 | a | f_rel := 0 |
 | b | d_na  := 0 |
 | c | d_na  := 5 |
@@ -161,7 +161,7 @@ f_rel := 1  || r = d_na
 | h | f_acq  = 1 |
 | i | d_na   = v |
 
-#+name: edge-table-rel+acq+na
+#+name: edge-table-mp-rel+acq+na
 | a | d |
 | a | e |
 | e | f |
@@ -169,12 +169,11 @@ f_rel := 1  || r = d_na
 | g | h |
 | b | c |
 | b | i |
-| a | b |
 | c | d |
 | h | i |
 
 #+name: make-mp-rel+acq+na
-#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-rel+acq+na :var edge-table=edge-table-rel+acq+na :results output :exports none
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-rel+acq+na :var edge-table=edge-table-mp-rel+acq+na :results output :exports none
   (mapcar #'(lambda (x)
               (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
                              (first x) (second x)))) vertex-table)
@@ -187,6 +186,185 @@ f_rel := 1  || r = d_na
 
 #+BEGIN_SRC dot :file images/mp-rel+acq+na.png :var input=make-mp-rel+acq+na :exports results
 digraph {
+  { rank = same; a; b; }
   $input
+}
+#+END_SRC
+** With release, acquire, and relaxed modifiers (MP rel+acq+na+rlx)
+#+BEGIN_SRC pascal
+  f_rel := 0; d_na := 0;
+d_na  := 5; || repeat f_acq end;
+f_rel := 1; || r = d_na
+f_rlx := 2  ||
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-mp-rel+acq+na+rlx
+| a | f_rel := 0 |
+| b | d_na  := 0 |
+| c | d_na  := 5 |
+| d | f_rel := 1 |
+| j | f_rlx := 2 |
+| e | f_acq  = 0 |
+| f | ...        |
+| g | f_acq  = 0 |
+| h | f_acq  = 1 |
+| i | d_na   = v |
+
+#+name: edge-table-mp-rel+acq+na+rlx
+| a | d |
+| a | e |
+| e | f |
+| f | g |
+| g | h |
+| b | c |
+| b | i |
+| c | d |
+| h | i |
+| d | j |
+
+#+name: make-mp-rel+acq+na+rlx
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-rel+acq+na+rlx :var edge-table=edge-table-mp-rel+acq+na+rlx :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/mp-rel+acq+na+rlx.png :var input=make-mp-rel+acq+na+rlx :exports results
+digraph {
+  { rank = same; a; b; }
+  $input
+}
+#+END_SRC
+* Load Buffering (LB)
+** With relaxed modifiers (LB rlx)
+#+BEGIN_SRC pascal
+  x_rlx := 0; y_rlx := 0;
+r1 = y_rlx; || r2 = x_rlx;
+x_rlx := 1  || y_rlx := 1
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-lb-rlx
+| a | x_rlx := 0   |
+| b | y_rlx := 0   |
+| c | y_rlx  = v_1 |
+| d | x_rlx := 1   |
+| e | x_rlx  = v_2 |
+| f | y_rlx := 1   |
+
+#+name: edge-table-lb-rlx
+| a | d |
+| a | e |
+| b | f |
+| b | c |
+
+#+name: make-lb-rlx
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rlx :var edge-table=edge-table-lb-rlx :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/lb-rlx.png :var input=make-lb-rlx :exports results
+digraph {
+ $input
+}
+#+END_SRC
+** With release and relaxed modifiers (LB rel+rlx)
+#+BEGIN_SRC pascal
+  x_rlx := 0; y_rlx := 0;
+r1 = y_rlx; || r2 = x_rlx;
+x_rel := 1  || y_rel := 1
+#+END_SRC
+
+It should be possible to get $r1 = 0 \land r2 = 0$ (=v_1= and =v_2=).
+Because of that there should be no edges between reads and writes
+in left and right subthreads. 
+
+#+BEGIN_COMMENT
+#+name: vertex-table-lb-rel+rlx
+| a | x_rlx := 0   |
+| b | y_rlx := 0   |
+| c | y_rlx  = v_1 |
+| d | x_rel := 1   |
+| e | x_rlx  = v_2 |
+| f | y_rel := 1   |
+
+#+name: edge-table-lb-rel+rlx
+| a | d |
+| a | e |
+| b | f |
+| b | c |
+
+#+name: make-lb-rel+rlx
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rel+rlx :var edge-table=edge-table-lb-rel+rlx :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/lb-rel+rlx.png :var input=make-lb-rel+rlx :exports results
+digraph {
+ { rank = same; a; b; }
+ $input
+}
+#+END_SRC
+** With release, acquire, and relaxed modifiers (LB rel+acq+rlx)
+#+BEGIN_SRC pascal
+  x_rlx := 0; y_rlx := 0;
+r1 = y_acq; || r2 = x_rlx;
+x_rlx := 1  || y_rel := 1
+#+END_SRC
+
+*Problem:* The snippet can't be executed with $r1 = 0 \land r2 = 0$ (=v_1= and =v_2=),
+but the pomset doesn't address it.
+
+#+BEGIN_COMMENT
+#+name: vertex-table-lb-rel+acq+rlx
+| a | x_rlx := 0   |
+| b | y_rlx := 0   |
+| c | y_acq  = v_1 |
+| d | x_rlx := 1   |
+| e | x_rlx  = v_2 |
+| f | y_rel := 1   |
+
+#+name: edge-table-lb-rel+acq+rlx
+| a | d |
+| a | e |
+| b | f |
+| b | c |
+
+#+name: make-lb-rel+acq+rlx
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rel+acq+rlx :var edge-table=edge-table-lb-rel+acq+rlx :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/lb-rel+acq+rlx.png :var input=make-lb-rel+acq+rlx :exports results
+digraph {
+ { rank = same; a; b; }
+ $input
 }
 #+END_SRC

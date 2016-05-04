@@ -132,6 +132,48 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
 </head>
 <body>
 <div id="content">
@@ -211,6 +253,98 @@ f_rel := 1  || r = d_na
 
 <div class="figure">
 <p><img src="images/mp-rel+acq+na.png" alt="mp-rel+acq+na.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> With release, acquire, and relaxed modifiers (MP rel+acq+na+rlx)</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="org-src-container">
+
+<pre class="src src-pascal">  f_rel := 0; d_na := 0;
+d_na  := 5; || repeat f_acq end;
+f_rel := 1; || r = d_na
+f_rlx := 2  ||
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/mp-rel+acq+na+rlx.png" alt="mp-rel+acq+na+rlx.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Load Buffering (LB)</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> With relaxed modifiers (LB rlx)</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+
+<pre class="src src-pascal">  x_rlx := 0; y_rlx := 0;
+r1 = y_rlx; || r2 = x_rlx;
+x_rlx := 1  || y_rlx := 1
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/lb-rlx.png" alt="lb-rlx.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> With release and relaxed modifiers (LB rel+rlx)</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+
+<pre class="src src-pascal">  x_rlx := 0; y_rlx := 0;
+r1 = y_rlx; || r2 = x_rlx;
+x_rel := 1  || y_rel := 1
+</pre>
+</div>
+
+<p>
+It should be possible to get \(r1 = 0 \land r2 = 0\) (<code>v_1</code> and <code>v_2</code>).
+Because of that there should be no edges between reads and writes
+in left and right subthreads. 
+</p>
+
+
+<div class="figure">
+<p><img src="images/lb-rel+rlx.png" alt="lb-rel+rlx.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> With release, acquire, and relaxed modifiers (LB rel+acq+rlx)</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+
+<pre class="src src-pascal">  x_rlx := 0; y_rlx := 0;
+r1 = y_acq; || r2 = x_rlx;
+x_rlx := 1  || y_rel := 1
+</pre>
+</div>
+
+<p>
+<b>Problem:</b> The snippet can't be executed with \(r1 = 0 \land r2 = 0\) (<code>v_1</code> and <code>v_2</code>),
+but the pomset doesn't address it.
+</p>
+
+
+<div class="figure">
+<p><img src="images/lb-rel+acq+rlx.png" alt="lb-rel+acq+rlx.png" />
 </p>
 </div>
 </div>
