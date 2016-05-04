@@ -288,7 +288,7 @@ r1 = y_rlx; || r2 = x_rlx;
 x_rel := 1  || y_rel := 1
 #+END_SRC
 
-It should be possible to get $r1 = 0 \land r2 = 0$ (=v_1= and =v_2=).
+It should be possible to get $r1 = 1 \land r2 = 1$ (=v_1= and =v_2=).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
 
@@ -332,7 +332,7 @@ r1 = y_acq; || r2 = x_rlx;
 x_rlx := 1  || y_rel := 1
 #+END_SRC
 
-*Problem:* The snippet can't be executed with $r1 = 0 \land r2 = 0$ (=v_1= and =v_2=),
+*Problem:* C11 outlaws $r1 = 1 \land r2 = 1$ (=v_1= and =v_2=) outcome for the snippet,
 but the pomset doesn't address it.
 
 #+BEGIN_COMMENT

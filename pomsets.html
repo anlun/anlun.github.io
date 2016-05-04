@@ -313,7 +313,7 @@ x_rel := 1  || y_rel := 1
 </div>
 
 <p>
-It should be possible to get \(r1 = 0 \land r2 = 0\) (<code>v_1</code> and <code>v_2</code>).
+It should be possible to get \(r1 = 1 \land r2 = 1\) (<code>v_1</code> and <code>v_2</code>).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
 </p>
@@ -338,7 +338,7 @@ x_rlx := 1  || y_rel := 1
 </div>
 
 <p>
-<b>Problem:</b> The snippet can't be executed with \(r1 = 0 \land r2 = 0\) (<code>v_1</code> and <code>v_2</code>),
+<b>Problem:</b> C11 outlaws \(r1 = 1 \land r2 = 1\) (<code>v_1</code> and <code>v_2</code>) outcome for the snippet,
 but the pomset doesn't address it.
 </p>
 
