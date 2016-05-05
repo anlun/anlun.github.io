@@ -325,6 +325,50 @@ digraph {
  $input
 }
 #+END_SRC
+** With acquire and relaxed modifiers (LB acq+rlx)
+#+BEGIN_SRC pascal
+  x_rlx := 0; y_rlx := 0;
+r1 = y_acq; || r2 = x_acq;
+x_rlx := 1  || y_rlx := 1
+#+END_SRC
+
+It should be possible to get $r1 = 1 \land r2 = 1$ (=v_1= and =v_2=).
+Because of that there should be no edges between reads and writes
+in left and right subthreads. 
+
+#+BEGIN_COMMENT
+#+name: vertex-table-lb-acq+rlx
+| a | x_rlx := 0   |
+| b | y_rlx := 0   |
+| c | y_acq  = v_1 |
+| d | x_rlx := 1   |
+| e | x_acq  = v_2 |
+| f | y_rlx := 1   |
+
+#+name: edge-table-lb-acq+rlx
+| a | d |
+| a | e |
+| b | f |
+| b | c |
+
+#+name: make-lb-acq+rlx
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-acq+rlx :var edge-table=edge-table-lb-acq+rlx :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/lb-acq+rlx.png :var input=make-lb-acq+rlx :exports results
+digraph {
+ { rank = same; a; b; }
+ $input
+}
+#+END_SRC
 ** With release, acquire, and relaxed modifiers (LB rel+acq+rlx)
 #+BEGIN_SRC pascal
   x_rlx := 0; y_rlx := 0;
