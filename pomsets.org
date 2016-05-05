@@ -281,14 +281,14 @@ digraph {
  $input
 }
 #+END_SRC
-** With release and relaxed modifiers (LB rel+rlx)
+** With release and relaxed modifiers (LB rel+rlx) <<LB rel+rlx>>
 #+BEGIN_SRC pascal
   x_rlx := 0; y_rlx := 0;
 r1 = y_rlx; || r2 = x_rlx;
 x_rel := 1  || y_rel := 1
 #+END_SRC
 
-It should be possible to get $r1 = 1 \land r2 = 1$ (=v_1= and =v_2=).
+It should be possible to get ~r1 = r2 = 1~ (=v_1= and =v_2=).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
 
@@ -325,14 +325,14 @@ digraph {
  $input
 }
 #+END_SRC
-** With acquire and relaxed modifiers (LB acq+rlx)
+** With acquire and relaxed modifiers (LB acq+rlx) <<LB acq+rlx>>
 #+BEGIN_SRC pascal
   x_rlx := 0; y_rlx := 0;
 r1 = y_acq; || r2 = x_acq;
 x_rlx := 1  || y_rlx := 1
 #+END_SRC
 
-It should be possible to get $r1 = 1 \land r2 = 1$ (=v_1= and =v_2=).
+It should be possible to get ~r1 = r2 = 1~ (=v_1= and =v_2=).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
 
@@ -369,14 +369,14 @@ digraph {
  $input
 }
 #+END_SRC
-** With release, acquire, and relaxed modifiers (LB rel+acq+rlx)
+** With release, acquire, and relaxed modifiers (LB rel+acq+rlx) <<LB rel+acq+rlx>>
 #+BEGIN_SRC pascal
   x_rlx := 0; y_rlx := 0;
 r1 = y_acq; || r2 = x_rlx;
 x_rlx := 1  || y_rel := 1
 #+END_SRC
 
-*Problem:* C11 outlaws $r1 = 1 \land r2 = 1$ (=v_1= and =v_2=) outcome for the snippet,
+*Problem:* C11 outlaws ~r1 = r2 = 1~ (=v_1= and =v_2=) outcome for the snippet,
 but the pomset doesn't address it.
 
 #+BEGIN_COMMENT
@@ -412,3 +412,126 @@ digraph {
  $input
 }
 #+END_SRC
+
+** Notes
+As it stated in [[LB rel+rlx][LB rel+rlx]] and [[LB acq+rlx][LB acq+rlx]] sections,
+it should be possible to get ~r1 = r2 = 1~ executing the LB snippet with
+corresponding modifiers (rel+rlx or acq+rlx).
+But not in case of [[LB rel+acq+rlx][LB rel+acq+rlx]]. The cause of such restriction is the /sw/
+(synchronizes-with) edge, which appears in the corresponding graph,
+see Fig. [[fig:LB_rel+acq+rlx]].
+Such edge might connect /only/ release writes and acquire reads, which isn't the case
+in [[LB rel+rlx][LB rel+rlx]] and [[LB acq+rlx][LB acq+rlx]].
+
+#+BEGIN_SRC dot :file images/lb-acq+rlx-notes.png :exports results
+  digraph {
+   splines=true;
+   overlap=false;
+   ranksep = 0.2;
+   nodesep = 0.25;
+  /* legend */
+  fontsize=10 fontname="Helvetica" label=""; 
+
+  { rank = same; nodec; nodee; }
+
+  nodea [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="a:Wrlx x=0", pos="1.000000,3.100000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+  nodeb [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="b:Wrlx y=0", pos="1.000000,2.400000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+  /* column */
+
+  nodec [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="c:Racq y=1", pos="2.500000,1.700000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+  noded [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="d:Wrlx x=1", pos="2.500000,1.000000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+  /* column */
+
+  nodee [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="e:Racq x=1", pos="4.000000,1.700000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+  nodef [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="f:Wrlx y=1", pos="4.000000,1.000000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+  nodec -> noded [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+  nodee -> nodef [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+  nodea -> nodeb [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+  noded -> nodee [label=<<font color="red">rf</font>>, color="red", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+  nodef -> nodec [label=<<font color="red">rf</font>>, color="red", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+  // nodeb -> noded [label=<<font color="blue">mo</font>>, color="blue", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+  // nodea -> nodef [label=<<font color="blue">mo</font>>, color="blue", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+  nodeb -> nodee [label=<<font color="deeppink4">asw</font>>, color="deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+  nodeb -> nodec [label=<<font color="deeppink4">asw</font>>, color="deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+  }
+#+END_SRC
+
+#+CAPTION: LB acq+rlx (slightly modified output of [[http://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/index.html][cppmem]])
+#+RESULTS:
+
+#+BEGIN_SRC dot :file images/lb-rel+rlx-notes.png :exports results
+digraph G {
+ splines=true;
+ overlap=false;
+ ranksep = 0.2;
+ nodesep = 0.25;
+/* legend */
+fontsize=10 fontname="Helvetica" label=""; 
+
+  { rank = same; nodec; nodee; }
+/* columns */
+/* column */
+
+nodea [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="a:Wna x=0", pos="1.000000,3.100000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodeb [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="b:Wna y=0", pos="1.000000,2.400000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+/* column */
+
+nodec [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="c:Rrlx y=1", pos="2.500000,3.100000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+noded [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="d:Wrel x=1", pos="2.500000,2.400000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+/* column */
+
+nodee [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="e:Rrlx x=1", pos="4.000000,3.100000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodef [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="f:Wrel y=1", pos="4.000000,2.400000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodec -> noded [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodee -> nodef [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodea -> nodeb [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+noded -> nodee [label=<<font color="red">rf</font>>, color="red", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodef -> nodec [label=<<font color="red">rf</font>>, color="red", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+//nodeb -> noded [label=<<font color="blue">mo</font>>, color="blue", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+//nodea -> nodef [label=<<font color="blue">mo</font>>, color="blue", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodeb -> nodee [label=<<font color="deeppink4">asw</font>>, color="deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodeb -> nodec [label=<<font color="deeppink4">asw</font>>, color="deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+}
+#+END_SRC
+
+#+CAPTION: LB rel+rlx (slightly modified output of [[http://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/index.html][cppmem]])
+#+RESULTS:
+
+#+BEGIN_SRC dot :file images/lb-rel+acq+rlx-notes.png :exports results
+digraph G {
+ splines=true;
+ overlap=false;
+ ranksep = 0.2;
+ nodesep = 0.25;
+/* legend */
+fontsize=10 fontname="Helvetica" label=""; 
+
+/* columns */
+/* column */
+  { rank = same; nodec; nodee; }
+
+nodea [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="a:Wna x=0", pos="1.000000,3.100000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodeb [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="b:Wna y=0", pos="1.000000,2.400000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+/* column */
+
+nodec [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="c:Racq y=1", pos="2.500000,1.700000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+noded [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="d:Wrlx x=1", pos="2.500000,1.000000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+/* column */
+
+nodee [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="e:Rrlx x=1", pos="4.000000,1.700000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodef [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="f:Wrel y=1", pos="4.000000,1.000000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodec -> noded [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodee -> nodef [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodea -> nodeb [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+noded -> nodee [label=<<font color="red">rf</font>>, color="red", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+//noded -> nodea [label=<<font color="blue">mo</font>>, color="blue", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+//nodef -> nodeb [label=<<font color="blue">mo</font>>, color="blue", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodeb -> nodee [label=<<font color="deeppink4">asw</font>>, color="deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodeb -> nodec [label=<<font color="deeppink4">asw</font>>, color="deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodef -> nodec [label=<<font color="red">rf</font>,<font color="deeppink4">sw</font>>, color="red:deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="1.0"];
+}
+#+END_SRC
+
+#+NAME: fig:LB_rel+acq+rlx
+#+CAPTION: *Incorrect* LB rel+acq+rlx graph, which *violates* acyclicity of /happens-before/ (sb+sw+sb) + /read-from/ (rf) (slightly modified output of [[http://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/index.html][cppmem]])
+#+RESULTS:

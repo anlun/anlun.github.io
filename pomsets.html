@@ -132,48 +132,6 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
-<script type="text/javascript">
-<!--/*--><![CDATA[/*><!--*/
-    MathJax.Hub.Config({
-        // Only one of the two following lines, depending on user settings
-        // First allows browser-native MathML display, second forces HTML/CSS
-        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
-            jax: ["input/TeX", "output/HTML-CSS"],
-        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
-                     "TeX/noUndefined.js"],
-        tex2jax: {
-            inlineMath: [ ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
-            skipTags: ["script","noscript","style","textarea","pre","code"],
-            ignoreClass: "tex2jax_ignore",
-            processEscapes: false,
-            processEnvironments: true,
-            preview: "TeX"
-        },
-        showProcessingMessages: true,
-        displayAlign: "center",
-        displayIndent: "2em",
-
-        "HTML-CSS": {
-             scale: 100,
-             availableFonts: ["STIX","TeX"],
-             preferredFont: "TeX",
-             webFont: "TeX",
-             imageFont: "TeX",
-             showMathMenu: true,
-        },
-        MMLorHTML: {
-             prefer: {
-                 MSIE:    "MML",
-                 Firefox: "MML",
-                 Opera:   "HTML",
-                 other:   "HTML"
-             }
-        }
-    });
-/*]]>*///-->
-</script>
 </head>
 <body>
 <div id="content">
@@ -194,9 +152,10 @@ for the JavaScript code in this tag.
 <li><a href="#sec-2">2. Load Buffering (LB)</a>
 <ul>
 <li><a href="#sec-2-1">2.1. With relaxed modifiers (LB rlx)</a></li>
-<li><a href="#sec-2-2">2.2. With release and relaxed modifiers (LB rel+rlx)</a></li>
-<li><a href="#sec-2-3">2.3. With acquire and relaxed modifiers (LB acq+rlx)</a></li>
-<li><a href="#sec-2-4">2.4. With release, acquire, and relaxed modifiers (LB rel+acq+rlx)</a></li>
+<li><a href="#sec-2-2">2.2. With release and relaxed modifiers (LB rel+rlx) </a></li>
+<li><a href="#sec-2-3">2.3. With acquire and relaxed modifiers (LB acq+rlx) </a></li>
+<li><a href="#sec-2-4">2.4. With release, acquire, and relaxed modifiers (LB rel+acq+rlx) </a></li>
+<li><a href="#sec-2-5">2.5. Notes</a></li>
 </ul>
 </li>
 </ul>
@@ -326,7 +285,7 @@ x_rlx := 1  || y_rlx := 1
 </div>
 
 <div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> With release and relaxed modifiers (LB rel+rlx)</h3>
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> With release and relaxed modifiers (LB rel+rlx) <a id="LB-rel-rlx" name="LB-rel-rlx"></a></h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 
@@ -337,7 +296,7 @@ x_rel := 1  || y_rel := 1
 </div>
 
 <p>
-It should be possible to get \(r1 = 1 \land r2 = 1\) (<code>v_1</code> and <code>v_2</code>).
+It should be possible to get <code>r1 = r2 = 1</code> (<code>v_1</code> and <code>v_2</code>).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
 </p>
@@ -351,7 +310,7 @@ in left and right subthreads.
 </div>
 
 <div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3"><span class="section-number-3">2.3</span> With acquire and relaxed modifiers (LB acq+rlx)</h3>
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> With acquire and relaxed modifiers (LB acq+rlx) <a id="LB-acq-rlx" name="LB-acq-rlx"></a></h3>
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
 
@@ -362,7 +321,7 @@ x_rlx := 1  || y_rlx := 1
 </div>
 
 <p>
-It should be possible to get \(r1 = 1 \land r2 = 1\) (<code>v_1</code> and <code>v_2</code>).
+It should be possible to get <code>r1 = r2 = 1</code> (<code>v_1</code> and <code>v_2</code>).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
 </p>
@@ -376,7 +335,7 @@ in left and right subthreads.
 </div>
 
 <div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4"><span class="section-number-3">2.4</span> With release, acquire, and relaxed modifiers (LB rel+acq+rlx)</h3>
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> With release, acquire, and relaxed modifiers (LB rel+acq+rlx) <a id="LB-rel-acq-rlx" name="LB-rel-acq-rlx"></a></h3>
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 
@@ -387,7 +346,7 @@ x_rlx := 1  || y_rel := 1
 </div>
 
 <p>
-<b>Problem:</b> C11 outlaws \(r1 = 1 \land r2 = 1\) (<code>v_1</code> and <code>v_2</code>) outcome for the snippet,
+<b>Problem:</b> C11 outlaws <code>r1 = r2 = 1</code> (<code>v_1</code> and <code>v_2</code>) outcome for the snippet,
 but the pomset doesn't address it.
 </p>
 
@@ -395,6 +354,43 @@ but the pomset doesn't address it.
 <div class="figure">
 <p><img src="images/lb-rel+acq+rlx.png" alt="lb-rel+acq+rlx.png" />
 </p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Notes</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+As it stated in <a href="#LB-rel-rlx">LB rel+rlx</a> and <a href="#LB-acq-rlx">LB acq+rlx</a> sections,
+it should be possible to get <code>r1 = r2 = 1</code> executing the LB snippet with
+corresponding modifiers (rel+rlx or acq+rlx).
+But not in case of <a href="#LB-rel-acq-rlx">LB rel+acq+rlx</a>. The cause of such restriction is the <i>sw</i>
+(synchronizes-with) edge, which appears in the corresponding graph,
+see Fig. <a href="#fig:LB_rel-acq-rlx">12</a>.
+Such edge might connect <i>only</i> release writes and acquire reads, which isn't the case
+in <a href="#LB-rel-rlx">LB rel+rlx</a> and <a href="#LB-acq-rlx">LB acq+rlx</a>.
+</p>
+
+
+<div class="figure">
+<p><img src="images/lb-acq+rlx-notes.png" alt="lb-acq+rlx-notes.png" />
+</p>
+<p><span class="figure-number">Figure 10:</span> LB acq+rlx (slightly modified output of <a href="http://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/index.html">cppmem</a>)</p>
+</div>
+
+
+<div class="figure">
+<p><img src="images/lb-rel+rlx-notes.png" alt="lb-rel+rlx-notes.png" />
+</p>
+<p><span class="figure-number">Figure 11:</span> LB rel+rlx (slightly modified output of <a href="http://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/index.html">cppmem</a>)</p>
+</div>
+
+
+<div id="fig:LB_rel-acq-rlx" class="figure">
+<p><img src="images/lb-rel+acq+rlx-notes.png" alt="lb-rel+acq+rlx-notes.png" />
+</p>
+<p><span class="figure-number">Figure 12:</span> <b>Incorrect</b> LB rel+acq+rlx graph, which <b>violates</b> acyclicity of <i>happens-before</i> (sb+sw+sb) + <i>read-from</i> (rf) (slightly modified output of <a href="http://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/index.html">cppmem</a>)</p>
 </div>
 </div>
 </div>
