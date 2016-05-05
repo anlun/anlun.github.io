@@ -1,5 +1,5 @@
 #+TITLE: Examples of pomsets from Podkopaev-al:draft
-#+OPTIONS: toc:nil author:nil email:nil creator:nil timestamp:nil html-postamble:nil
+#+OPTIONS: author:nil email:nil creator:nil timestamp:nil html-postamble:nil
 
 * Message-Passing (MP)
 ** With relaxed modifiers (MP rlx+na)
