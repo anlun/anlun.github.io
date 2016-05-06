@@ -535,3 +535,335 @@ nodef -> nodec [label=<<font color="red">rf</font>,<font color="deeppink4">sw</f
 #+NAME: fig:LB_rel+acq+rlx
 #+CAPTION: *Incorrect* LB rel+acq+rlx graph, which *violates* acyclicity of /happens-before/ (sb+sw+sb) + /read-from/ (rf) (slightly modified output of [[http://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/index.html][cppmem]])
 #+RESULTS:
+** With relaxed modifiers and usage of values (LB rlx+use) <<LB rlx+use>>
+#+BEGIN_SRC pascal
+   x_rlx := 0; y_rlx := 0;
+r1 = y_rlx;  || r2 = x_rlx; 
+z1_rlx := r1 || z2_rlx := r2
+x_rlx := 1   || y_rlx := 1
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-lb-rlx+use
+| a | x_rlx := 0    |
+| b | y_rlx := 0    |
+| c | y_rlx = v_1   |
+| d | z1_rlx := v_1 |
+| e | x_rlx := 1    |
+| f | x_rlx = v_2   |
+| g | z2_rlx := v_2 |
+| h | y_rlx := 1    |
+
+#+name: edge-table-lb-rlx+use
+| a | e |
+| a | f |
+| b | c |
+| b | h |
+| c | d |
+| f | g |
+
+#+name: make-lb-rlx+use
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rlx+use :var edge-table=edge-table-lb-rlx+use :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/lb-rlx+use.png :var input=make-lb-rlx+use :exports results
+digraph {
+ { rank = same; a; b; }
+ $input
+}
+#+END_SRC
+
+*NB:* Obviously, there are edges between ~r1 = y_rlx~ and ~z1_rlx := r1~, ~r2 = x_rlx~ and ~z2_rlx := r2~.
+** With relaxed modifiers and join (LB rlx+join) <<LB rlx+join>>
+#+BEGIN_SRC pascal
+           x_rlx := 0; y_rlx := 0;
+r1 = y_rlx;  || skip || r2 = x_rlx;  || skip
+z1_rlx := r1 ||      || z2_rlx := r2 ||
+         x_rlx := 1  ||          y_rlx := 1
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-lb-rlx+join
+| a | x_rlx := 0    |
+| b | y_rlx := 0    |
+| c | y_rlx = v_1   |
+| d | z1_rlx := v_1 |
+| e | x_rlx := 1    |
+| f | x_rlx = v_2   |
+| g | z2_rlx := v_2 |
+| h | y_rlx := 1    |
+
+#+name: edge-table-lb-rlx+join
+| a | e |
+| a | f |
+| b | c |
+| b | h |
+| c | d |
+| f | g |
+
+#+name: make-lb-rlx+join
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rlx+join :var edge-table=edge-table-lb-rlx+join :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/lb-rlx+join.png :var input=make-lb-rlx+join :exports results
+digraph {
+ { rank = same; a; b; }
+ $input
+}
+#+END_SRC
+
+*NB:* Obviously, there are edges between ~r1 = y_rlx~ and ~z1_rlx := r1~, ~r2 = x_rlx~ and ~z2_rlx := r2~.
+* Coherence of Read-Read (CoRR)
+** With relaxed modifiers (CoRR rlx)
+#+BEGIN_SRC pascal
+                       x_rlx := 0;
+x_rlx := 1  || x_rlx := 2 || r1 = x_rlx; || r3 = x_rlx;
+            ||            || r2 = x_rlx  || r4 = x_rlx
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-corr-rlx
+| a | x_rlx := 0   |
+| b | x_rlx := 1   |
+| c | x_rlx := 2   |
+| d | x_rlx  = v_1 |
+| e | x_rlx  = v_2 |
+| f | x_rlx  = v_3 |
+| g | x_rlx  = v_4 |
+
+#+name: edge-table-corr-rlx
+| a | b |
+| a | c |
+| a | d |
+| a | f |
+| d | e |
+| f | g |
+
+#+name: make-corr-rlx
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-corr-rlx :var edge-table=edge-table-corr-rlx :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/corr-rlx.png :var input=make-corr-rlx :exports results
+digraph {
+ $input
+}
+#+END_SRC
+
+It should be impossible to get ~r1 == r4 == 1 and r2 == r3 == 2~,
+or ~r1 == r4 == 2 and r2 == r3 == 1~.
+** With release and acquire modifiers (CoRR rel+acq)
+#+BEGIN_SRC pascal
+                       x_rel := 0;
+x_rel := 1  || x_rel := 2 || r1 = x_acq; || r3 = x_acq;
+            ||            || r2 = x_acq  || r4 = x_acq
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-corr-rel+acq
+| a | x_rel := 0   |
+| b | x_rel := 1   |
+| c | x_rel := 2   |
+| d | x_acq  = v_1 |
+| e | x_acq  = v_2 |
+| f | x_acq  = v_3 |
+| g | x_acq  = v_4 |
+
+#+name: edge-table-corr-rel+acq
+| a | b |
+| a | c |
+| a | d |
+| a | f |
+| d | e |
+| f | g |
+
+#+name: make-corr-rel+acq
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-corr-rel+acq :var edge-table=edge-table-corr-rel+acq :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/corr-rel+acq.png :var input=make-corr-rel+acq :exports results
+digraph {
+ $input
+}
+#+END_SRC
+
+It should be impossible to get ~r1 == r4 == 1 and r2 == r3 == 2~,
+or ~r1 == r4 == 2 and r2 == r3 == 1~.
+* Independent Reads of Independent Writes (IRIW)
+** With relaxed modifiers (IRIW rlx)
+#+BEGIN_SRC pascal
+                x_rlx := 0; y_rlx := 0;
+x_rlx := 1  || y_rlx := 1 || r1 = x_rlx; || r3 = y_rlx;
+            ||            || r2 = y_rlx  || r4 = x_rlx
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-iriw-rlx
+| a | x_rlx := 0   |
+| h | y_rlx := 0   |
+| b | x_rlx := 1   |
+| c | y_rlx := 1   |
+| d | x_rlx  = v_1 |
+| e | y_rlx  = v_2 |
+| f | y_rlx  = v_3 |
+| g | x_rlx  = v_4 |
+
+#+name: edge-table-iriw-rlx
+| a | b |
+| h | c |
+| a | d |
+| h | f |
+| h | e |
+| a | g |
+
+#+name: make-iriw-rlx
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-iriw-rlx :var edge-table=edge-table-iriw-rlx :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/iriw-rlx.png :var input=make-iriw-rlx :exports results
+digraph {
+ $input
+}
+#+END_SRC
+
+All outcomes are possible (~v_1, v_2, v_3, v_4 in {0, 1}~).
+** With release and acquire modifiers (IRIW rel+acq)
+#+BEGIN_SRC pascal
+                x_rel := 0; y_rel := 0;
+x_rel := 1  || y_rel := 1 || r1 = x_acq; || r3 = y_acq;
+            ||            || r2 = y_acq  || r4 = x_acq
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-iriw-rel+acq
+| a | x_rel := 0  |
+| h | y_rel := 0  |
+| b | x_rel := 1  |
+| c | y_rel := 1  |
+| d | x_acq  = v_1 |
+| e | y_acq  = v_2 |
+| f | y_acq  = v_3 |
+| g | x_acq  = v_4 |
+
+#+name: edge-table-iriw-rel+acq
+| a | b |
+| a | h |
+| h | c |
+| a | d |
+| h | f |
+| h | e |
+| a | g |
+| d | e |
+| f | g |
+
+#+name: make-iriw-rel+acq
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-iriw-rel+acq :var edge-table=edge-table-iriw-rel+acq :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/iriw-rel+acq.png :var input=make-iriw-rel+acq :exports results
+digraph {
+ { rank = same; b; c; }
+ { rank = same; d; f; }
+ $input
+}
+#+END_SRC
+
+All outcomes are possible (~v_1, v_2, v_3, v_4 in {0, 1}~).
+** With SC modifiers (IRIW sc)
+#+BEGIN_SRC pascal
+                x_sc := 0; y_sc := 0;
+x_sc := 1  || y_sc := 1 || r1 = x_sc; || r3 = y_sc;
+           ||           || r2 = y_sc  || r4 = x_sc
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-iriw-sc
+| a | x_sc := 0   |
+| h | y_sc := 0   |
+| b | x_sc := 1   |
+| c | y_sc := 1   |
+| d | x_sc  = v_1 |
+| e | y_sc  = v_2 |
+| f | y_sc  = v_3 |
+| g | x_sc  = v_4 |
+
+#+name: edge-table-iriw-sc
+| a | b |
+| a | h |
+| h | c |
+| a | d |
+| h | f |
+| h | e |
+| a | g |
+| d | e |
+| f | g |
+
+#+name: make-iriw-sc
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-iriw-sc :var edge-table=edge-table-iriw-sc :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/iriw-sc.png :var input=make-iriw-sc :exports results
+digraph {
+ { rank = same; b; c; }
+ { rank = same; d; f; }
+ $input
+}
+#+END_SRC
+
+The ~v_1 == v_3 == 1 and v_2 == v_4 == 0~ outcome is forbidden,
+but it should be outlawed at execution level (not in pomsets).

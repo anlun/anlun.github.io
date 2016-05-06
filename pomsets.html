@@ -156,6 +156,21 @@ for the JavaScript code in this tag.
 <li><a href="#sec-2-3">2.3. With acquire and relaxed modifiers (LB acq+rlx) </a></li>
 <li><a href="#sec-2-4">2.4. With release, acquire, and relaxed modifiers (LB rel+acq+rlx) </a></li>
 <li><a href="#sec-2-5">2.5. Notes</a></li>
+<li><a href="#sec-2-6">2.6. With relaxed modifiers and usage of values (LB rlx+use) </a></li>
+<li><a href="#sec-2-7">2.7. With relaxed modifiers and join (LB rlx+join) </a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Coherence of Read-Read (CoRR)</a>
+<ul>
+<li><a href="#sec-3-1">3.1. With relaxed modifiers (CoRR rlx)</a></li>
+<li><a href="#sec-3-2">3.2. With release and acquire modifiers (CoRR rel+acq)</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Independent Reads of Independent Writes (IRIW)</a>
+<ul>
+<li><a href="#sec-4-1">4.1. With relaxed modifiers (IRIW rlx)</a></li>
+<li><a href="#sec-4-2">4.2. With release and acquire modifiers (IRIW rel+acq)</a></li>
+<li><a href="#sec-4-3">4.3. With SC modifiers (IRIW sc)</a></li>
 </ul>
 </li>
 </ul>
@@ -392,6 +407,173 @@ in <a href="#LB-rel-rlx">LB rel+rlx</a> and <a href="#LB-acq-rlx">LB acq+rlx</a>
 </p>
 <p><span class="figure-number">Figure 12:</span> <b>Incorrect</b> LB rel+acq+rlx graph, which <b>violates</b> acyclicity of <i>happens-before</i> (sb+sw+sb) + <i>read-from</i> (rf) (slightly modified output of <a href="http://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/index.html">cppmem</a>)</p>
 </div>
+</div>
+</div>
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> With relaxed modifiers and usage of values (LB rlx+use) <a id="LB-rlx-use" name="LB-rlx-use"></a></h3>
+<div class="outline-text-3" id="text-2-6">
+<div class="org-src-container">
+
+<pre class="src src-pascal">   x_rlx := 0; y_rlx := 0;
+r1 = y_rlx;  || r2 = x_rlx; 
+z1_rlx := r1 || z2_rlx := r2
+x_rlx := 1   || y_rlx := 1
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/lb-rlx+use.png" alt="lb-rlx+use.png" />
+</p>
+</div>
+
+<p>
+<b>NB:</b> Obviously, there are edges between <code>r1 = y_rlx</code> and <code>z1_rlx := r1</code>, <code>r2 = x_rlx</code> and <code>z2_rlx := r2</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> With relaxed modifiers and join (LB rlx+join) <a id="LB-rlx-join" name="LB-rlx-join"></a></h3>
+<div class="outline-text-3" id="text-2-7">
+<div class="org-src-container">
+
+<pre class="src src-pascal">           x_rlx := 0; y_rlx := 0;
+r1 = y_rlx;  || skip || r2 = x_rlx;  || skip
+z1_rlx := r1 ||      || z2_rlx := r2 ||
+         x_rlx := 1  ||          y_rlx := 1
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/lb-rlx+join.png" alt="lb-rlx+join.png" />
+</p>
+</div>
+
+<p>
+<b>NB:</b> Obviously, there are edges between <code>r1 = y_rlx</code> and <code>z1_rlx := r1</code>, <code>r2 = x_rlx</code> and <code>z2_rlx := r2</code>.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Coherence of Read-Read (CoRR)</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> With relaxed modifiers (CoRR rlx)</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+
+<pre class="src src-pascal">                       x_rlx := 0;
+x_rlx := 1  || x_rlx := 2 || r1 = x_rlx; || r3 = x_rlx;
+            ||            || r2 = x_rlx  || r4 = x_rlx
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/corr-rlx.png" alt="corr-rlx.png" />
+</p>
+</div>
+
+<p>
+It should be impossible to get <code>r1 == r4 == 1 and r2 == r3 == 2</code>,
+or <code>r1 == r4 == 2 and r2 == r3 == 1</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> With release and acquire modifiers (CoRR rel+acq)</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+
+<pre class="src src-pascal">                       x_rel := 0;
+x_rel := 1  || x_rel := 2 || r1 = x_acq; || r3 = x_acq;
+            ||            || r2 = x_acq  || r4 = x_acq
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/corr-rel+acq.png" alt="corr-rel+acq.png" />
+</p>
+</div>
+
+<p>
+It should be impossible to get <code>r1 == r4 == 1 and r2 == r3 == 2</code>,
+or <code>r1 == r4 == 2 and r2 == r3 == 1</code>.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Independent Reads of Independent Writes (IRIW)</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> With relaxed modifiers (IRIW rlx)</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+
+<pre class="src src-pascal">                x_rlx := 0; y_rlx := 0;
+x_rlx := 1  || y_rlx := 1 || r1 = x_rlx; || r3 = y_rlx;
+            ||            || r2 = y_rlx  || r4 = x_rlx
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/iriw-rlx.png" alt="iriw-rlx.png" />
+</p>
+</div>
+
+<p>
+All outcomes are possible (<code>v_1, v_2, v_3, v_4 in {0, 1}</code>).
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> With release and acquire modifiers (IRIW rel+acq)</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+
+<pre class="src src-pascal">                x_rel := 0; y_rel := 0;
+x_rel := 1  || y_rel := 1 || r1 = x_acq; || r3 = y_acq;
+            ||            || r2 = y_acq  || r4 = x_acq
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/iriw-rel+acq.png" alt="iriw-rel+acq.png" />
+</p>
+</div>
+
+<p>
+All outcomes are possible (<code>v_1, v_2, v_3, v_4 in {0, 1}</code>).
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> With SC modifiers (IRIW sc)</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+
+<pre class="src src-pascal">                x_sc := 0; y_sc := 0;
+x_sc := 1  || y_sc := 1 || r1 = x_sc; || r3 = y_sc;
+           ||           || r2 = y_sc  || r4 = x_sc
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="images/iriw-sc.png" alt="iriw-sc.png" />
+</p>
+</div>
+
+<p>
+The <code>v_1 == v_3 == 1 and v_2 == v_4 == 0</code> outcome is forbidden,
+but it should be outlawed at execution level (not in pomsets).
+</p>
 </div>
 </div>
 </div>
