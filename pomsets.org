@@ -884,10 +884,10 @@ x_rel := 0; y_rel := 0; d_na := 0;
 | b | y_rel := 0 |
 | c | d_na  := 0 |
 | d | x_rel := 1 |
-| e | y_acq  = 1 |
+| e | y_acq  = 0 |
 | f | d_na  := 5 |
 | g | y_rel := 1 |
-| h | x_acq  = 1 |
+| h | x_acq  = 0 |
 | i | d_na  := 6 |
 
 #+name: edge-table-lock-dekker
