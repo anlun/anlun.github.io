@@ -173,6 +173,17 @@ for the JavaScript code in this tag.
 <li><a href="#sec-4-3">4.3. With SC modifiers (IRIW sc)</a></li>
 </ul>
 </li>
+<li><a href="#sec-5">5. Locks</a>
+<ul>
+<li><a href="#sec-5-1">5.1. Dekker's lock</a></li>
+<li><a href="#sec-5-2">5.2. Cohen's lock</a>
+<ul>
+<li><a href="#sec-5-2-1">5.2.1. If <code>x_rel := choice(1, 2)</code> and <code>y_rel := choice(1, 2)</code> have written the same value (<code>v_1 == v_2</code>).</a></li>
+<li><a href="#sec-5-2-2">5.2.2. If <code>x_rel := choice(1, 2)</code> and <code>y_rel := choice(1, 2)</code> have written different values (<code>v_1 != v_2</code>).</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -574,6 +585,75 @@ x_sc := 1  || y_sc := 1 || r1 = x_sc; || r3 = y_sc;
 The <code>v_1 == v_3 == 1 and v_2 == v_4 == 0</code> outcome is forbidden,
 but it should be outlawed at execution level (not in pomsets).
 </p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Locks</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Dekker's lock</h3>
+<div class="outline-text-3" id="text-5-1">
+<div class="org-src-container">
+
+<pre class="src src-pascal">x_rel := 0; y_rel := 0; d_na := 0;
+  x_rel := 1;    || y_rel := 1;
+  if y_acq == 0  || if x_acq == 0
+  then d_na := 5 || then d_na := 6
+  else skip      || else skip
+  fi             || fi
+</pre>
+</div>
+
+<p>
+One of the possible pomsets. It leads to undefined behavior,
+because of the datarace on <code>d</code> location.
+</p>
+
+
+<div class="figure">
+<p><img src="images/lock-dekker.png" alt="lock-dekker.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Cohen's lock</h3>
+<div class="outline-text-3" id="text-5-2">
+<div class="org-src-container">
+
+<pre class="src src-pascal">      x_rel := 0; y_rel := 0; d_na := 0;
+x_rel := choice(1, 2); || y_rel := choice(1, 2);
+repeat y_acq end;      || repeat x_acq end;
+if x_acq == y_acq      || if x_acq != y_acq
+then d_na := 5         || then d_na := 6
+else skip              || else skip
+fi                     || fi
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2-1" class="outline-4">
+<h4 id="sec-5-2-1"><span class="section-number-4">5.2.1</span> If <code>x_rel := choice(1, 2)</code> and <code>y_rel := choice(1, 2)</code> have written the same value (<code>v_1 == v_2</code>).</h4>
+<div class="outline-text-4" id="text-5-2-1">
+
+<div class="figure">
+<p><img src="images/lock-cohen-1.png" alt="lock-cohen-1.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2-2" class="outline-4">
+<h4 id="sec-5-2-2"><span class="section-number-4">5.2.2</span> If <code>x_rel := choice(1, 2)</code> and <code>y_rel := choice(1, 2)</code> have written different values (<code>v_1 != v_2</code>).</h4>
+<div class="outline-text-4" id="text-5-2-2">
+
+<div class="figure">
+<p><img src="images/lock-cohen-2.png" alt="lock-cohen-2.png" />
+</p>
+</div>
+</div>
 </div>
 </div>
 </div>

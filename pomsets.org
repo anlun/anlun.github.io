@@ -867,3 +867,197 @@ digraph {
 
 The ~v_1 == v_3 == 1 and v_2 == v_4 == 0~ outcome is forbidden,
 but it should be outlawed at execution level (not in pomsets).
+* Locks
+** Dekker's lock
+#+BEGIN_SRC pascal
+x_rel := 0; y_rel := 0; d_na := 0;
+  x_rel := 1;    || y_rel := 1;
+  if y_acq == 0  || if x_acq == 0
+  then d_na := 5 || then d_na := 6
+  else skip      || else skip
+  fi             || fi
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-lock-dekker
+| a | x_rel := 0 |
+| b | y_rel := 0 |
+| c | d_na  := 0 |
+| d | x_rel := 1 |
+| e | y_acq  = 1 |
+| f | d_na  := 5 |
+| g | y_rel := 1 |
+| h | x_acq  = 1 |
+| i | d_na  := 6 |
+
+#+name: edge-table-lock-dekker
+| a | b |
+| c | d |
+| a | d |
+| c | g |
+| b | g |
+| c | f |
+| c | i |
+| a | h |
+| b | e |
+| d | e |
+| e | f |
+| g | h |
+| h | i |
+
+#+name: make-lock-dekker
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lock-dekker :var edge-table=edge-table-lock-dekker :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+One of the possible pomsets. It leads to undefined behavior,
+because of the datarace on ~d~ location.
+
+#+BEGIN_SRC dot :file images/lock-dekker.png :var input=make-lock-dekker :exports results
+digraph {
+ { rank = same; d; g; }
+ $input
+}
+#+END_SRC
+
+** Cohen's lock
+#+BEGIN_SRC pascal
+      x_rel := 0; y_rel := 0; d_na := 0;
+x_rel := choice(1, 2); || y_rel := choice(1, 2);
+repeat y_acq end;      || repeat x_acq end;
+if x_acq == y_acq      || if x_acq != y_acq
+then d_na := 5         || then d_na := 6
+else skip              || else skip
+fi                     || fi
+#+END_SRC
+
+*** If ~x_rel := choice(1, 2)~ and ~y_rel := choice(1, 2)~ have written the same value (~v_1 == v_2~).
+#+BEGIN_COMMENT
+#+name: vertex-table-lock-cohen-1
+| a  | x_rel := 0   |
+| b  | y_rel := 0   |
+| c  | d_na  := 0   |
+| d  | x_rel := v_1 |
+| f  | y_acq  = 0   |
+| g  | ...          |
+| h  | y_acq  = 0   |
+| i  | y_acq  = v_2 |
+| e  | x_acq  = v_1 |
+| i2 | y_acq  = v_2 |
+| j  | d_na  := 5   |
+| k  | y_rel := v_2 |
+| m  | x_acq  = 0   |
+| n  | ...          |
+| o  | x_acq  = 0   |
+| p  | x_acq  = v_1 |
+| l  | y_acq  = v_2 |
+| p2 | x_acq  = v_1 |
+
+#+name: edge-table-lock-cohen-1
+| a  | b  |
+| b  | c  |
+| a  | d  |
+| c  | d  |
+| b  | k  |
+| c  | k  |
+| d  | f  |
+| f  | g  |
+| g  | h  |
+| h  | i  |
+| i  | e  |
+| e  | i2 |
+| i2 | j  |
+| k  | m  |
+| m  | n  |
+| n  | o  |
+| o  | p  |
+| p  | l  |
+| l  | p2 |
+
+#+name: make-lock-cohen-1
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lock-cohen-1 :var edge-table=edge-table-lock-cohen-1 :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/lock-cohen-1.png :var input=make-lock-cohen-1 :exports results
+digraph {
+ $input
+}
+#+END_SRC
+
+*** If ~x_rel := choice(1, 2)~ and ~y_rel := choice(1, 2)~ have written different values (~v_1 != v_2~).
+
+#+BEGIN_COMMENT
+#+name: vertex-table-lock-cohen-2
+| a  | x_rel := 0   |
+| b  | y_rel := 0   |
+| c  | d_na  := 0   |
+| d  | x_rel := v_1 |
+| f  | y_acq  = 0   |
+| g  | ...          |
+| h  | y_acq  = 0   |
+| i  | y_acq  = v_2 |
+| e  | x_acq  = v_1 |
+| i2 | y_acq  = v_2 |
+| k  | y_rel := v_2 |
+| m  | x_acq  = 0   |
+| n  | ...          |
+| o  | x_acq  = 0   |
+| p  | x_acq  = v_1 |
+| l  | y_acq  = v_2 |
+| p2 | x_acq  = v_1 |
+| j  | d_na  := 6  |
+
+#+name: edge-table-lock-cohen-2
+| a  | b  |
+| b  | c  |
+| a  | d  |
+| c  | d  |
+| b  | k  |
+| c  | k  |
+| d  | f  |
+| f  | g  |
+| g  | h  |
+| h  | i  |
+| i  | e  |
+| e  | i2 |
+| k  | m  |
+| m  | n  |
+| n  | o  |
+| o  | p  |
+| p  | l  |
+| l  | p2 |
+| p2 | j  |
+
+#+name: make-lock-cohen-2
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lock-cohen-2 :var edge-table=edge-table-lock-cohen-2 :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/lock-cohen-2.png :var input=make-lock-cohen-2 :exports results
+digraph {
+ $input
+}
+#+END_SRC
+
