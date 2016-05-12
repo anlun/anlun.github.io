@@ -1100,7 +1100,7 @@ x_rel := 1 || r1 = x_acq; || r2 = y_acq;
 #+END_COMMENT
 
 It's impossible to get ~r2 == 1~ and ~r3 == 0~
-(~v_2 == 1~ and ~v_3 == 0~ ) at the same time.
+(~v_2 == 1~ and ~v_3 == 0~) at the same time.
 
 #+BEGIN_SRC dot :file images/wrc-rel+acq.png :var input=make-wrc-rel+acq :exports results
 digraph {
@@ -1145,7 +1145,7 @@ x_rlx := 1 || r1 = x_rlx; || r2 = y_rlx;
 #+END_COMMENT
 
 It's possible to get ~r2 == 1~ and ~r3 == 0~
-(~v_2 == 1~ and ~v_3 == 0~ ) at the same time.
+(~v_2 == 1~ and ~v_3 == 0~) at the same time.
 
 #+BEGIN_SRC dot :file images/wrc-rlx.png :var input=make-wrc-rlx :exports results
 digraph {
