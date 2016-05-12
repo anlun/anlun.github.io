@@ -868,6 +868,19 @@ digraph {
 The ~v_1 == v_3 == 1 and v_2 == v_4 == 0~ outcome is forbidden,
 but it should be outlawed at execution level (not in pomsets).
 * Locks
+A couple of locks, Dekker's and Cohen's ones,
+are presented in this section.
+They are intended to provide a mutual exclusion of two threads.
+
+The Dekker's one is known to fail it for release-acquire modifiers,
+thus the corresponding snippet has an undefined behavior, because of
+a data race on ~d~ location.
+
+In contrast, the Cohen's lock does provide the mutual exclusion.
+It uses non-deterministic ~choice~ operator.
+
+The pomset semantics coincides exactly with the C11 standard on the locks.
+
 ** Dekker's lock
 #+BEGIN_SRC pascal
 x_rel := 0; y_rel := 0; d_na := 0;

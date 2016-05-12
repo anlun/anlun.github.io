@@ -603,7 +603,29 @@ but it should be outlawed at execution level (not in pomsets).
 <div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5"><span class="section-number-2">5</span> Locks</h2>
 <div class="outline-text-2" id="text-5">
-</div><div id="outline-container-sec-5-1" class="outline-3">
+<p>
+A couple of locks, Dekker's and Cohen's ones,
+are presented in this section.
+They are intended to provide a mutual exclusion of two threads.
+</p>
+
+<p>
+The Dekker's one is known to fail it for release-acquire modifiers,
+thus the corresponding snippet has an undefined behavior, because of
+a data race on <code>d</code> location.
+</p>
+
+<p>
+In contrast, the Cohen's lock does provide the mutual exclusion.
+It uses non-deterministic <code>choice</code> operator.
+</p>
+
+<p>
+The pomset semantics coincides exactly with the C11 standard on the locks.
+</p>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
 <h3 id="sec-5-1"><span class="section-number-3">5.1</span> Dekker's lock</h3>
 <div class="outline-text-3" id="text-5-1">
 <div class="org-src-container">
