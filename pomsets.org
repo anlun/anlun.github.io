@@ -1061,3 +1061,194 @@ digraph {
 }
 #+END_SRC
 
+* Write-to-Read Causality (WRC)
+** With release and acquire modifiers (WRC rel+acq)
+#+BEGIN_SRC pascal
+        x_rel := 0; y_rel := 0;
+x_rel := 1 || r1 = x_acq; || r2 = y_acq;
+           || y_rel := r1 || r3 = x_acq 
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-wrc-rel+acq
+| a | x_rel := 0   |
+| b | y_rel := 0   |
+| c | x_rel := 1   |
+| d | x_acq  = v_1 |
+| e | y_rel := v_1 |
+| f | y_acq  = v_2 |
+| g | x_acq  = v_3 |
+
+#+name: edge-table-wrc-rel+acq
+| a | b |
+| b | c |
+| b | d |
+| b | f |
+| d | e |
+| f | g |
+
+#+name: make-wrc-rel+acq
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-wrc-rel+acq :var edge-table=edge-table-wrc-rel+acq :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+It's impossible to get ~r2 == 1~ and ~r3 == 0~
+(~v_2 == 1~ and ~v_3 == 0~ ) at the same time.
+
+#+BEGIN_SRC dot :file images/wrc-rel+acq.png :var input=make-wrc-rel+acq :exports results
+digraph {
+ $input
+}
+#+END_SRC
+** With relaxed modifiers (WRC rlx)
+#+BEGIN_SRC pascal
+        x_rlx := 0; y_rlx := 0;
+x_rlx := 1 || r1 = x_rlx; || r2 = y_rlx;
+           || y_rlx := r1 || r3 = x_rlx 
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-wrc-rlx
+| a | x_rlx := 0   |
+| b | y_rlx := 0   |
+| c | x_rlx := 1   |
+| d | x_rlx  = v_1 |
+| e | y_rlx := v_1 |
+| f | y_rlx  = v_2 |
+| g | x_rlx  = v_3 |
+
+#+name: edge-table-wrc-rlx
+| a | c |
+| a | d |
+| a | g |
+| b | e |
+| b | f |
+| d | e |
+
+#+name: make-wrc-rlx
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-wrc-rlx :var edge-table=edge-table-wrc-rlx :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+It's possible to get ~r2 == 1~ and ~r3 == 0~
+(~v_2 == 1~ and ~v_3 == 0~ ) at the same time.
+
+#+BEGIN_SRC dot :file images/wrc-rlx.png :var input=make-wrc-rlx :exports results
+digraph {
+ $input
+}
+#+END_SRC
+* Write Reorder (WR, 2+2W from Lahav-al:POPL16)
+** With release and acquire modifiers (WR rel+acq)
+#+BEGIN_SRC pascal
+  x_rel := 0; y_rel := 0;
+x_rel := 1; || y_rel := 1;
+y_rel := 2; || x_rel := 2
+  r1 = x_acq; r2 = y_acq
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-wr-rel+acq
+| a | x_rel := 0   |
+| b | y_rel := 0   |
+| c | x_rel := 1   |
+| d | y_rel := 2   |
+| e | y_rel := 1   |
+| f | x_rel := 2   |
+| g | x_acq  = v_1 |
+| h | y_acq  = v_2 |
+
+#+name: edge-table-wr-rel+acq
+| a | b |
+| b | c |
+| c | d |
+| d | g |
+| g | h |
+| b | e |
+| e | f |
+| f | g |
+
+#+name: make-wr-rel+acq
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-wr-rel+acq :var edge-table=edge-table-wr-rel+acq :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+The C11 standard allows to get ~r1 == r2 == 1~
+(~v_1 == v_2 == 1~) here, but it's forbidden
+by SRA [Lahav-al:POPL16], as well as by the pomset semantics.
+
+#+BEGIN_SRC dot :file images/wr-rel+acq.png :var input=make-wr-rel+acq :exports results
+digraph {
+ $input
+}
+#+END_SRC
+** With relaxed modifiers (WR rlx)
+#+BEGIN_SRC pascal
+  x_rlx := 0; y_rlx := 0;
+x_rlx := 1; || y_rlx := 1;
+y_rlx := 2; || x_rlx := 2
+  r1 = x_rlx; r2 = y_rlx
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-wr-rlx
+| a | x_rlx := 0   |
+| b | y_rlx := 0   |
+| c | x_rlx := 1   |
+| d | y_rlx := 2   |
+| e | y_rlx := 1   |
+| f | x_rlx := 2   |
+| g | x_rlx  = v_1 |
+| h | y_rlx  = v_2 |
+
+#+name: edge-table-wr-rlx
+| a | c |
+| a | f |
+| c | g |
+| f | g |
+| b | d |
+| d | h |
+| b | e |
+| e | h |
+
+#+name: make-wr-rlx
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-wr-rlx :var edge-table=edge-table-wr-rlx :results output :exports none
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table)
+#+END_SRC
+#+END_COMMENT
+
+It's possible to get ~r1 == r2 == 1~ (~v_1 == v_2 == 1~) as in
+the C11 standard.
+
+#+BEGIN_SRC dot :file images/wr-rlx.png :var input=make-wr-rlx :exports results
+digraph {
+ $input
+}
+#+END_SRC
