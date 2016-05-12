@@ -978,8 +978,8 @@ fi                     || fi
 | m  | n  |
 | n  | o  |
 | o  | p  |
-| p  | l  |
-| l  | p2 |
+| p  | p2 |
+| p2 | l  |
 
 #+name: make-lock-cohen-1
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lock-cohen-1 :var edge-table=edge-table-lock-cohen-1 :results output :exports none
@@ -1039,9 +1039,9 @@ digraph {
 | m  | n  |
 | n  | o  |
 | o  | p  |
-| p  | l  |
-| l  | p2 |
-| p2 | j  |
+| p  | p2 |
+| p2 | l  |
+| l  | j  |
 
 #+name: make-lock-cohen-2
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lock-cohen-2 :var edge-table=edge-table-lock-cohen-2 :results output :exports none
