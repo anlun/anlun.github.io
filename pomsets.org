@@ -1,6 +1,23 @@
 #+TITLE: Examples of pomsets from Podkopaev-al:draft
 #+OPTIONS: author:nil email:nil creator:nil timestamp:nil html-postamble:nil
 
+#+BEGIN_COMMENT
+Unfortunately, I don't know how to define elisp functions in a visible
+way inside a document, so there is the same definition in
+the Emacs configuration file.
+
+#+BEGIN_SRC emacs-lisp
+(defun anlun/tables-to-dot (vertex-table edge-table)
+  (mapcar #'(lambda (x)
+              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
+                             (first x) (second x)))) vertex-table)
+  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
+  (mapcar #'(lambda (x)
+              (princ (format "%s -> %s;\n"
+                             (first x) (second x)))) edge-table))
+#+END_SRC
+#+END_COMMENT
+
 * Message-Passing (MP)
 ** With relaxed modifiers (MP rlx+na)
 #+BEGIN_SRC pascal
@@ -32,13 +49,7 @@ f_rlx := 1  || r = d_na
 
 #+name: make-mp-rlx+na
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-rlx+na :var edge-table=edge-table-mp-rlx+na :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -79,13 +90,7 @@ f_rel := 1  || r = d_na
 
 #+name: make-mp-rel+rlx+na
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-rel+rlx+na :var edge-table=edge-table-mp-rel+rlx+na :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -126,13 +131,7 @@ f_rlx := 1  || r = d_na
 
 #+name: make-mp-acq+rlx+na
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-acq+rlx+na :var edge-table=edge-table-mp-acq+rlx+na :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -174,13 +173,7 @@ f_rel := 1  || r = d_na
 
 #+name: make-mp-rel+acq+na
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-rel+acq+na :var edge-table=edge-table-mp-rel+acq+na :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -225,13 +218,7 @@ f_rlx := 2  ||
 
 #+name: make-mp-rel+acq+na+rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-mp-rel+acq+na+rlx :var edge-table=edge-table-mp-rel+acq+na+rlx :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -266,13 +253,7 @@ x_rlx := 1  || y_rlx := 1
 
 #+name: make-lb-rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rlx :var edge-table=edge-table-lb-rlx :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -309,13 +290,7 @@ in left and right subthreads.
 
 #+name: make-lb-rel+rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rel+rlx :var edge-table=edge-table-lb-rel+rlx :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -353,13 +328,7 @@ in left and right subthreads.
 
 #+name: make-lb-acq+rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-acq+rlx :var edge-table=edge-table-lb-acq+rlx :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -396,13 +365,7 @@ but the pomset doesn't address it.
 
 #+name: make-lb-rel+acq+rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rel+acq+rlx :var edge-table=edge-table-lb-rel+acq+rlx :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -564,13 +527,7 @@ x_rlx := 1   || y_rlx := 1
 
 #+name: make-lb-rlx+use
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rlx+use :var edge-table=edge-table-lb-rlx+use :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -611,13 +568,7 @@ z1_rlx := r1 ||      || z2_rlx := r2 ||
 
 #+name: make-lb-rlx+join
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rlx+join :var edge-table=edge-table-lb-rlx+join :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -657,13 +608,7 @@ x_rlx := 1  || x_rlx := 2 || r1 = x_rlx; || r3 = x_rlx;
 
 #+name: make-corr-rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-corr-rlx :var edge-table=edge-table-corr-rlx :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -702,13 +647,7 @@ x_rel := 1  || x_rel := 2 || r1 = x_acq; || r3 = x_acq;
 
 #+name: make-corr-rel+acq
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-corr-rel+acq :var edge-table=edge-table-corr-rel+acq :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -749,13 +688,7 @@ x_rlx := 1  || y_rlx := 1 || r1 = x_rlx; || r3 = y_rlx;
 
 #+name: make-iriw-rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-iriw-rlx :var edge-table=edge-table-iriw-rlx :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -797,13 +730,7 @@ x_rel := 1  || y_rel := 1 || r1 = x_acq; || r3 = y_acq;
 
 #+name: make-iriw-rel+acq
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-iriw-rel+acq :var edge-table=edge-table-iriw-rel+acq :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -847,13 +774,7 @@ x_sc := 1  || y_sc := 1 || r1 = x_sc; || r3 = y_sc;
 
 #+name: make-iriw-sc
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-iriw-sc :var edge-table=edge-table-iriw-sc :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -920,13 +841,7 @@ x_rel := 0; y_rel := 0; d_na := 0;
 
 #+name: make-lock-dekker
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lock-dekker :var edge-table=edge-table-lock-dekker :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -996,13 +911,7 @@ fi                     || fi
 
 #+name: make-lock-cohen-1
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lock-cohen-1 :var edge-table=edge-table-lock-cohen-1 :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -1058,13 +967,7 @@ digraph {
 
 #+name: make-lock-cohen-2
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lock-cohen-2 :var edge-table=edge-table-lock-cohen-2 :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -1102,13 +1005,7 @@ x_rel := 1 || r1 = x_acq; || r2 = y_acq;
 
 #+name: make-wrc-rel+acq
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-wrc-rel+acq :var edge-table=edge-table-wrc-rel+acq :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -1147,13 +1044,7 @@ x_rlx := 1 || r1 = x_rlx; || r2 = y_rlx;
 
 #+name: make-wrc-rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-wrc-rlx :var edge-table=edge-table-wrc-rlx :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -1197,13 +1088,7 @@ y_rel := 2; || x_rel := 2
 
 #+name: make-wr-rel+acq
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-wr-rel+acq :var edge-table=edge-table-wr-rel+acq :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
@@ -1247,13 +1132,7 @@ y_rlx := 2; || x_rlx := 2
 
 #+name: make-wr-rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-wr-rlx :var edge-table=edge-table-wr-rlx :results output :exports none
-  (mapcar #'(lambda (x)
-              (princ (format "%s [label =\"%s\", shape = \"box\"];\n"
-                             (first x) (second x)))) vertex-table)
-  (princ "edge [arrowhead=normal,arrowtail=dot];\n")
-  (mapcar #'(lambda (x)
-              (princ (format "%s -> %s;\n"
-                             (first x) (second x)))) edge-table)
+(anlun/tables-to-dot vertex-table edge-table)
 #+END_SRC
 #+END_COMMENT
 
