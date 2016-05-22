@@ -1144,3 +1144,83 @@ digraph {
  $input
 }
 #+END_SRC
+* Some release/acquire examples
+** With release and acquire modifiers (Ex rel+acq)
+#+BEGIN_SRC pascal
+  x_rel := 0; y_rel := 0;
+x_rel := 1; || y_rel := 2;
+y_rel := 1; || r2 := x_acq
+r1 := y_acq ||
+#+END_SRC
+
+#+BEGIN_COMMENT
+#+name: vertex-table-rel+acq
+| a | x_rel := 0   |
+| b | y_rel := 0   |
+| c | x_rel := 1   |
+| d | y_rel := 1   |
+| e | y_acq  = v_1 |
+| f | y_rel := 2   |
+| g | x_acq  = v_2 |
+
+#+name: edge-table-rel+acq
+| a | b |
+| b | c |
+| c | d |
+| d | e |
+| b | f |
+| f | g |
+
+#+name: make-rel+acq
+#+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-rel+acq :var edge-table=edge-table-rel+acq :results output :exports none
+(anlun/tables-to-dot vertex-table edge-table)
+#+END_SRC
+#+END_COMMENT
+
+#+BEGIN_SRC dot :file images/rel+acq.png :var input=make-rel+acq :exports results
+digraph {
+ $input
+}
+#+END_SRC
+
+*Problem:* The C11 allows to get ~r1 = 2; r2 = 0~ (~v1 = 2; v2 = 0~) (see a corresponding Batty-style graph below).
+Unfortunately, this behavior isn't observable under the pomset semantics with
+the current definition of executions.
+
+#+BEGIN_SRC dot :file images/rel+acq_notes.png :exports results
+digraph G {
+ splines=true;
+ overlap=false;
+ ranksep = 0.2;
+ nodesep = 0.25;
+/* legend */
+fontsize=10 fontname="Helvetica" label=""; 
+
+  { rank = same; nodec; nodef; }
+/* columns */
+/* column */
+
+nodea [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="a:Wna x=0", pos="1.000000,3.800000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodeb [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="b:Wna y=0", pos="1.000000,3.100000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+/* column */
+
+nodec [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="c:Wrel x=1", pos="2.500000,2.400000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+noded [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="d:Wrel y=1", pos="2.500000,1.700000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodee [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="e:Racq y=2", pos="2.500000,1.000000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+/* column */
+
+nodef [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="f:Wrel y=2", pos="4.000000,2.400000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodeg [shape=plaintext, fontname="Helvetica", fontsize=10]  [label="g:Racq x=0", pos="4.000000,1.700000!"] [margin="0.0,0.0"][fixedsize="true"][height="0.200000"][width="0.900000"];
+nodec -> noded [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+noded -> nodee [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodef -> nodeg [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodea -> nodeb [label=<<font color="black">sb</font>>, color="black", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodea -> nodeg [label=<<font color="red">rf</font>>, color="red", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+//nodeb -> noded [label=<<font color="blue">mo</font>>, color="blue", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+noded -> nodef [label=<<font color="blue">mo</font>>, color="blue", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+//nodea -> nodec [label=<<font color="blue">mo</font>>, color="blue", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodeb -> nodef [label=<<font color="deeppink4">sw</font>>, color="deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodeb -> nodec [label=<<font color="deeppink4">sw</font>>, color="deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="0.8"];
+nodef -> nodee [label=<<font color="red">rf</font>,<font color="deeppink4">sw</font>>, color="red:deeppink4", fontname="Helvetica", fontsize=10, penwidth=1., arrowsize="1.0"];
+}
+#+END_SRC
