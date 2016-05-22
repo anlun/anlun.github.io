@@ -269,9 +269,12 @@ r1 = y_rlx; || r2 = x_rlx;
 x_rel := 1  || y_rel := 1
 #+END_SRC
 
-It should be possible to get ~r1 = r2 = 1~ (=v_1= and =v_2=).
+In C11 it  is possible to get ~r1 = r2 = 1~ (~v_1 = v_2 = 1~).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
+However, this behavior isn't
+observable on x86-TSO, Power, and (likely) ARM architectures
+under sound compilations schemes to them.
 
 #+BEGIN_COMMENT
 #+name: vertex-table-lb-rel+rlx
@@ -287,6 +290,8 @@ in left and right subthreads.
 | a | e |
 | b | f |
 | b | c |
+| c | d |
+| e | f |
 
 #+name: make-lb-rel+rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-rel+rlx :var edge-table=edge-table-lb-rel+rlx :results output :exports none
@@ -307,9 +312,12 @@ r1 = y_acq; || r2 = x_acq;
 x_rlx := 1  || y_rlx := 1
 #+END_SRC
 
-It should be possible to get ~r1 = r2 = 1~ (=v_1= and =v_2=).
+In C11 it is possible to get ~r1 = r2 = 1~ (~v_1 = v_2 = 1~).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
+However, this behavior isn't
+observable on x86-TSO, Power, and (likely) ARM architectures
+under sound compilations schemes to them.
 
 #+BEGIN_COMMENT
 #+name: vertex-table-lb-acq+rlx
@@ -325,6 +333,8 @@ in left and right subthreads.
 | a | e |
 | b | f |
 | b | c |
+| c | d |
+| e | f |
 
 #+name: make-lb-acq+rlx
 #+BEGIN_SRC emacs-lisp :var vertex-table=vertex-table-lb-acq+rlx :var edge-table=edge-table-lb-acq+rlx :results output :exports none

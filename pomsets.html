@@ -339,9 +339,12 @@ x_rel := 1  || y_rel := 1
 </div>
 
 <p>
-It should be possible to get <code>r1 = r2 = 1</code> (<code>v_1</code> and <code>v_2</code>).
+In C11 it  is possible to get <code>r1 = r2 = 1</code> (<code>v_1 = v_2 = 1</code>).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
+However, this behavior isn't
+observable on x86-TSO, Power, and (likely) ARM architectures
+under sound compilations schemes to them.
 </p>
 
 
@@ -364,9 +367,12 @@ x_rlx := 1  || y_rlx := 1
 </div>
 
 <p>
-It should be possible to get <code>r1 = r2 = 1</code> (<code>v_1</code> and <code>v_2</code>).
+In C11 it is possible to get <code>r1 = r2 = 1</code> (<code>v_1 = v_2 = 1</code>).
 Because of that there should be no edges between reads and writes
 in left and right subthreads. 
+However, this behavior isn't
+observable on x86-TSO, Power, and (likely) ARM architectures
+under sound compilations schemes to them.
 </p>
 
 
