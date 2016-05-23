@@ -1159,8 +1159,8 @@ digraph {
 #+BEGIN_SRC pascal
   x_rel := 0; y_rel := 0;
 x_rel := 1; || y_rel := 2;
-y_rel := 1; || r2 := x_acq
-r1 := y_acq ||
+y_rel := 1; || r2 = x_acq
+r1 = y_acq  ||
 #+END_SRC
 
 #+BEGIN_COMMENT
