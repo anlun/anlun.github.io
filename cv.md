@@ -40,10 +40,10 @@ functional programming.
   - Topic: computer games programming class.
 
 ### Internships 
--  [MPI-SWS](http://mpi-sws.org/), May to August 2016.
+- [MPI-SWS](http://mpi-sws.org/), May to August 2016.
   - Adviser: [Viktor Vafeiadis](http://www.mpi-sws.org/~viktor/).
   - Topic: Compilation soundness of C++11 atomics to ARM.
--  [IMDEA Software Institute](http://software.imdea.org/), June to August 2015.
+- [IMDEA Software Institute](http://software.imdea.org/), June to August 2015.
   - Advisers: [Ilya Sergey](http://ilyasergey.net/) and [Aleksandar Nanevski](http://software.imdea.org/~aleks/).
   - Topic: An operational semantics for the C/C++11 memory.
 
