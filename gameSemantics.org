@@ -34,6 +34,8 @@
 #+LATEX_HEADER: 
 #+END:
 
+Notes on the game semantics summer school taught by [[www.cs.bham.ac.uk/~drg/][Dan R. Ghica]].
+
 #+BEGIN_HTML
 This page is interactive. To unfold/fold a section press on its header.
 #+END_HTML
@@ -72,7 +74,7 @@ Here $x$ and $\lambda x . M$ are /values/.
 Thus, we can assume that a term is reduced to a value in the rule.
 
 #+attr_html: :width 300px
-[[./lecture 1_1.jpg]]
+[[./images/lecture 1_1.jpg]]
 
 \begin{array}{l l l}
 PCF & ::= & \dots \; | \; k \; | \; M + M' \; | \; if \; M \; then \; M' \; else \; M'' \; | \; fix
@@ -83,11 +85,11 @@ We can add rules to define semantics for $PCF$ in the same style.
 The rule for $if-then-else$.
 
 #+attr_html: :width 300px
-[[./lecture 1_2.jpg]]
+[[./images/lecture 1_2.jpg]]
 
 The rule for $fix$.
 #+attr_html: :width 200px
-[[./lecture 1_3.jpg]]
+[[./images/lecture 1_3.jpg]]
 
 The rule doesn't give an intuition how to implement the language.
 It's also non-compositional, and it's a problem.
@@ -114,7 +116,7 @@ Just a lot of term rewriting.
      $M_1'[M_2 / x], s \Rightarrow V$
      
 #+attr_html: :width 400px
-[[./lecture 1_4.jpg]]
+[[./images/lecture 1_4.jpg]]
      
      Here in the latter rule we introduce fresh location $l$ to avoiding the problem
      with multiple bindings to $x$.
@@ -122,7 +124,7 @@ Just a lot of term rewriting.
     We add rules for parrallel compositional.
     
 #+attr_html: :width 200px
-[[./lecture 1_5.jpg]]
+[[./images/lecture 1_5.jpg]]
     
     There is no convient way to define proper interleaving in terms of big-step semantics.
     
