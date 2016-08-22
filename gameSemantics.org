@@ -34,7 +34,7 @@
 #+LATEX_HEADER: 
 #+END:
 
-Notes on the game semantics summer school taught by <a href="www.cs.bham.ac.uk/~drg/">Dan R. Ghica</a>.
+Notes on the game semantics summer school taught by Dan R. Ghica, [[www.cs.bham.ac.uk/~drg/]].
 
 #+BEGIN_HTML
 This page is interactive. To unfold/fold a section press on its header.
