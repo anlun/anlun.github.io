@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>The Game Semantics summer school, August 2016</title>
+<!-- 2016-08-22 Mon 14:02 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+
+<script type="text/javascript" src="http://orgmode.org/org-info.js">
+/**
+ *
+ * @source: http://orgmode.org/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#cccccc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "0");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ TeX: { extensions: ["autobold.js"] }});
+</script>
+<script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">The Game Semantics summer school, August 2016</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Day 1</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Applied simply typed <b>call-by-name</b> &lambda; calculus</a></li>
+<li><a href="#sec-1-2">1.2. Operational Semantics I: Evaluation semantics / Big-step operational semantics</a>
+<ul>
+<li><a href="#sec-1-2-1">1.2.1. &lambda;-calculus</a></li>
+<li><a href="#sec-1-2-2">1.2.2. Idealized Algol</a></li>
+<li><a href="#sec-1-2-3">1.2.3. Idealized Concurrent Algol</a></li>
+<li><a href="#sec-1-2-4">1.2.4. Conclusion</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-3">1.3. Operational Semantics II: (Felleisen-style)</a>
+<ul>
+<li><a href="#sec-1-3-1">1.3.1. \(PCF\) Rules:</a></li>
+<li><a href="#sec-1-3-2">1.3.2. Idealized Algol Rules:</a></li>
+<li><a href="#sec-1-3-3">1.3.3. Idealized Concurrent Algol Rules:</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">1.4. Operational Semantics III: Abstract machines</a></li>
+<li><a href="#sec-1-5">1.5. Comments on Operational Semantics</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+\(
+  % One needs to update dynamic block after updating the macros.
+  % To do this one has to press `C-c C-c` at `block-macro` position.
+  \newcommand\semState[2]{⟦#1⟧#2}
+  \newcommand\angled[1]{\langle #1 \rangle}
+  \newcommand\tick{😌}
+  \newcommand\fail{😒}
+\)
+
+This page is interactive. To unfold/fold a section press on its header.
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Day 1</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Applied simply typed <b>call-by-name</b> &lambda; calculus</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+We can do the same for <i>call-by-value</i>, but it's harder from the game semantics
+point of view.
+</p>
+
+<ul class="org-ul">
+<li><i>Call-By-Name</i>
+    For teaching purpose.
+</li>
+<li>&lambda; <i>calculus</i>
+    For high-order functions.
+</li>
+<li><i>Simply typed</i>
+    For teaching purpose.
+</li>
+<li><i>Applied</i>
+    For extensions.<br  />
+</li>
+</ul>
+
+<p>
+<b>Ex:</b>
+</p>
+<ul class="org-ul">
+<li>(classic) &lambda; + arithmetic + <i>if-then-else</i> + recursion = PCF
+</li>
+<li>(classic) PCF + local state + assignment + deref = (Idealized) Algol
+</li>
+<li>(non-classic) I. Algol + concurrency + binary semaphores = I. Concurrent Algol
+</li>
+</ul>
+
+<p>
+We will discuss I. C. Algol.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Operational Semantics I: Evaluation semantics / Big-step operational semantics</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Here we define an evaluation relation \(\Rightarrow\).
+</p>
+</div>
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> &lambda;-calculus</h4>
+<div class="outline-text-4" id="text-1-2-1">
+\begin{array}{l l l}
+M & ::= & x \; | \; \lambda x . M \; | \; M \; M'
+\end{array}
+
+<p>
+<b>Def:</b> If there is no rule for a term, the term is a <i>value</i>.
+</p>
+
+<p>
+Here \(x\) and \(\lambda x . M\) are <i>values</i>.
+Thus, we can assume that a term is reduced to a value in the rule.
+</p>
+
+
+<div class="figure">
+<p><img src="./lecture 1_1.jpg" alt="lecture 1_1.jpg" width="300px" />
+</p>
+</div>
+
+\begin{array}{l l l}
+PCF & ::= & \dots \; | \; k \; | \; M + M' \; | \; if \; M \; then \; M' \; else \; M'' \; | \; fix
+\end{array}
+
+<p>
+We can add rules to define semantics for \(PCF\) in the same style.
+</p>
+
+<p>
+The rule for \(if-then-else\).
+</p>
+
+
+<div class="figure">
+<p><img src="./lecture 1_2.jpg" alt="lecture 1_2.jpg" width="300px" />
+</p>
+</div>
+
+<p>
+The rule for \(fix\).
+</p>
+
+<div class="figure">
+<p><img src="./lecture 1_3.jpg" alt="lecture 1_3.jpg" width="200px" />
+</p>
+</div>
+
+<p>
+The rule doesn't give an intuition how to implement the language.
+It's also non-compositional, and it's a problem.
+</p>
+
+<p>
+<b>Problem 1</b>:
+</p>
+<ul class="org-ul">
+<li>It is defined by inductive rules \(\tick\), but
+</li>
+<li>It is not defined <i>compositionally</i> \(\fail\).
+</li>
+</ul>
+
+<p>
+<b>Problem 2</b>: It doesn't look like a potential interpreter / compiler \(\fail\).
+Just a lot of term rewriting.
+</p>
+
+<p>
+<b>Note on Problem 2:</b> However, it <i>is</i> implementable, but not in a efficient way.
+</p>
+
+<p>
+<b>Advantage:</b>
+</p>
+<ul class="org-ul">
+<li>It is usually simpler, clearer and more concise than the alternatives.
+</li>
+<li>It is god as a <i>SPEC</i>.
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> Idealized Algol</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+We need state to define the semantics.
+</p>
+
+<p>
+<b>Def:</b> Configurations \(\angled{M , S}\), where \(S: L \rightharpoonup \mathbb{Z}\).
+</p>
+</div>
+<ol class="org-ol"><li><a id="sec-1-2-2-1" name="sec-1-2-2-1"></a>\(PCF\) rules<br  /><div class="outline-text-5" id="text-1-2-2-1">
+<p>
+\(M_1,s \Rightarrow \lambda x.M'_1, s'\)
+</p>
+
+<p>
+\(M_1'[M_2 / x], s \Rightarrow V\)
+</p>
+
+
+<div class="figure">
+<p><img src="./lecture 1_4.jpg" alt="lecture 1_4.jpg" width="400px" />
+</p>
+</div>
+
+<p>
+Here in the latter rule we introduce fresh location \(l\) to avoiding the problem
+with multiple bindings to \(x\).
+</p>
+</div>
+</li></ol>
+</div>
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> Idealized Concurrent Algol</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+We add rules for parrallel compositional.
+</p>
+
+
+<div class="figure">
+<p><img src="./lecture 1_5.jpg" alt="lecture 1_5.jpg" width="200px" />
+</p>
+</div>
+
+<p>
+There is no convient way to define proper interleaving in terms of big-step semantics.
+</p>
+
+<p>
+<b>Problem 3:</b> The big-step semantics style isn't expressive enough for some features.
+</p>
+<ul class="org-ul">
+<li>Paralleliation and concurrency;
+</li>
+<li>Control (<i>e.g.</i> exceptions).
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2-4" class="outline-4">
+<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> Conclusion</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<p>
+It's too high-level, and doesn't expressive enough. 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Operational Semantics II: (Felleisen-style)</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Reduction contexts.
+</p>
+
+\begin{array}{l l l l}
+\lambda: & \epsilon  & ::= & \dots \; | \; [-] \; | \; \epsilon M \; | \; V \epsilon \; (\text{for Call-By-Value}) \\
+PCF    : &           & |   & \dots \; | \; if \; \epsilon \; then \; M \; else \; M \; | \; \dots \\
+IA     : &           & |   & \dots \; | \; M := \epsilon \; | \; \epsilon := V \; | \; \dots (\text{Configurations + Frame stack Fs (= list of } \epsilon\text{s}) \\
+ICA    : &           & |   & \dots \; | \; M || \epsilon \; | \; \epsilon || M \; | \; \dots \\
+\end{array}
+</div>
+
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> \(PCF\) Rules:</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<ul class="org-ul">
+<li>\(\angled{S, M N} \rightarrow \angled{S \circ ([] N), M}\);
+</li>
+<li>\(\angled{S \circ, \lambda x . M} \rightarrow \angled{S, M[N / x]}\).
+</li>
+</ul>
+
+<p>
+<b>Note:</b> <br  />
+</p>
+<ul class="org-ul">
+<li>No assumptions for the rules! \(\tick\);
+</li>
+<li>It uses substitution. \(\fail\) 
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> Idealized Algol Rules:</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<ul class="org-ul">
+<li>\(\angled{\sigma, S \circ ([] := n), \iota} \rightarrow \angled{(\sigma | \iota \mapsto n), S, skip}\), where <br  />
+<ul class="org-ul">
+<li>\(\sigma : L \rightarrow \mathbb{Z}\) is a local state;
+</li>
+<li>\(\iota\) is a location;
+</li>
+<li>\((\sigma | \iota \mapsto n)(z) = if \; z = \iota \; then \; n \; else \sigma(z)\).
+</li>
+</ul>
+</li>
+
+<li>\(\angled{\sigma, S, M; \; N} \rightarrow \angled{\sigma, S \circ ([]; \; N), M}\).
+</li>
+<li>\(\angled{\sigma, S \circ ([]; \; N), skip} \rightarrow \angled{\sigma, S, N}\).
+</li>
+</ul>
+
+
+<ul class="org-ul">
+<li><b>Wrong:</b> \(\angled{\sigma, S, new \; x \; in \; M} \rightarrow \angled{\sigma \oplus (\iota \mapsto x), S, M[l/x]}\),<br  />
+<ul class="org-ul">
+<li>where \(\iota \in dom \; \sigma\).
+</li>
+</ul>
+<p>
+<b>Comments:</b> Here we leak \(\iota\), which becomes garbage. But when we will need to have a garbage collector.
+It's not a big deal, however, we can put something to the stack to erase \(\iota\) at the point we won't require \(\iota\).
+</p>
+</li>
+
+<li><b>Right:</b> \(\angled{\sigma, S, new \; x \; in \; M} \rightarrow \angled{\sigma \oplus (\iota \mapsto x), S \circ (new \; \iota \; in \; []), M[l/x]}\),<br  />
+<ul class="org-ul">
+<li>where \(\iota \in dom \; \sigma\).
+</li>
+</ul>
+</li>
+</ul>
+
+
+<ul class="org-ul">
+<li>\(\angled{\sigma, S \circ (new \; \iota \; in \; []), V} \rightarrow \angled{\sigma \setminus \iota, S, V}\).
+</li>
+</ul>
+
+<p>
+<b>Observation:</b> Smart vs. Stupid rule. <br  />
+    The latter guarantees safety, but you need to prove safety in the case of the Smart rule.
+</p>
+
+<p>
+<b>Syntax observation:</b> All constants can be seen as higher-order constants, having most of statements a syntactic sugar for
+function calls, <i>i.e.</i>: <br  />
+</p>
+<ul class="org-ul">
+<li>\(``M := N" \; = \; ``asg \; M \; N"\);
+</li>
+<li>\(``new \; x \; in \; M" \; = \; ``new \; (\lambda \; x. M)"\).
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> Idealized Concurrent Algol Rules:</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<p>
+We add <b>non-deterministic</b> rules!
+</p>
+<ul class="org-ul">
+<li>\(\angled{\sigma, S, M_0 || M_1} \rightarrow \angled{\sigma, S \circ (M_i \; || \; []), M_{i - 1}}\), where \(i \in \{0, 1\}\).
+</li>
+<li>\(\angled{\sigma, S \circ (M_0 \; || \; []), M_1} \rightarrow \angled{\sigma, S \circ (M_1 \; || \; []), M_0}\).
+</li>
+</ul>
+
+<p>
+<b>Problem:</b>:
+</p>
+<ul class="org-ul">
+<li>We are <i>not</i> guaranteed progress anymore! We can swap threads infinitely;
+</li>
+<li>We <i>lose</i> some of the potential for concurrency. <i>I.e.</i> we require to have concurrent context on the top of the stack.
+</li>
+<li>Any impact on the old rules (esp. <i>state</i>).
+</li>
+</ul>
+
+<p>
+<b>Theoretical task:</b> Proper rules for concurrency here.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Operational Semantics III: Abstract machines</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+<b>Examples:</b>
+</p>
+<ul class="org-ul">
+<li>SECD / CEK (CBV);
+</li>
+<li>Krivine (CBN);
+</li>
+<li>ZINC (OCaml).
+</li>
+</ul>
+
+<p>
+Such machines are inductively defined <i>translations</i>: Syntax \(\rightarrow\) Bytecode \(\rightarrow\) ASM.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Comments on Operational Semantics</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+<b>Aim 1:</b> Operational Semantics II \(\overset{\text{via Game Semantics}}{\longrightarrow}\) OperationalSemantics III.<br  />
+   <b>Aim 2:</b> How do we know that compiler optimizations are correct?
+</p>
+
+<p>
+In general PL setting:<br  />
+</p>
+<ol class="org-ol">
+<li>SPEC \(\rightarrow\) COMP (<i>e.g.</i> correctly, principled);
+</li>
+<li>Program correctness (<i>e.g.</i> compiler optimizations).
+</li>
+</ol>
+
+<p>
+<b>Observation:</b> In Operational Semantics (I, II, and III) you work with <i>Programs</i> (<i>i.e.</i> no free variables) not <i>Terms</i>.
+</p>
+
+<p>
+<b>Def:</b> \(P_1 \equiv P_2\) iff \(P1 \overset{*}{\rightarrow} V \Leftrightarrow P_2 \overset{*}{\rightarrow} V\).
+</p>
+<ul class="org-ul">
+<li><b>Observation:</b> with same further complications for non-determinism.
+</li>
+</ul>
+
+<p>
+However, what does it mean for terms to be equivalent? \(M \overset{?}{\equiv} N\).<br  />
+   <b>Ex:</b> \(1 + 1 \equiv 2\), but it doesn't hold for \(x - x \overset{?}{\equiv} 0\) (<i>i.e.</i> \(x\) is a free variable).
+</p>
+
+<p>
+<b>Def:</b> \(M \equiv N\) iff \(\forall C[-] \; (\text{a program with a hole}), C[M] \equiv C[N]\) (as a programs).
+</p>
+<ul class="org-ul">
+<li>congruence by definition;
+</li>
+<li>super-awkward definition \(\fail\);
+</li>
+<li>obviously useful for compiler optimizations and front end, <i>e.g.</i> constant folding, constant propagation;
+</li>
+<li>also generally for correctness \(M; \; assert(P) \not \equiv fail\).
+</li>
+<li>How to make it useful? Check HOOT workshop proceedings.
+</li>
+</ul>
+
+<p>
+<b>Alternative:</b> Denotational Semantics, \(\semState{-}{}: Terms \rightarrow Mathy \; Universe\).<br  />
+   When \(M \equiv N \Leftrightarrow \semState{M}{} = \semState{N}{}\), where we can check objects on equality.<br  />
+   If there is such a propertry, the semantics is called <i>fully abstract denotational semantics</i>.
+</p>
+<ul class="org-ul">
+<li>\(M \equiv N \Leftarrow \semState{M}{} = \semState{N}{}\) is <i>soundness</i>;
+</li>
+<li>\(M \equiv N \Rightarrow \semState{M}{} = \semState{N}{}\) is <i>completeness</i>.
+</li>
+</ul>
+<p>
+<b>Note:</b> Usually the prove of completeness is harder. The reason is that \(Mathy \; Universe\) might be quite bigger than the Term one.
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

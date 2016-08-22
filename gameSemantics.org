@@ -1,0 +1,232 @@
+#+TITLE: The Game Semantics summer school, August 2016
+#+OPTIONS: toc:nil
+
+# #+INFOJS_OPT: view:overview toc:nil mouse:#cccccc ltoc:nil
+# #+INFOJS_OPT: view:info toc:nil mouse:#cccccc ltoc:nil
+#+INFOJS_OPT: view:showall toc:nil mouse:#cccccc ltoc:nil
+
+#+NAME: macros
+#+BEGIN_SRC latex :exports none
+  % One needs to update dynamic block after updating the macros.
+  % To do this one has to press `C-c C-c` at `block-macro` position.
+  \newcommand\semState[2]{⟦#1⟧#2}
+  \newcommand\angled[1]{\langle #1 \rangle}
+  \newcommand\tick{😌}
+  \newcommand\fail{😒}
+#+END_SRC
+#+BEGIN: block-macro
+#+BEGIN_HTML
+\(
+  % One needs to update dynamic block after updating the macros.
+  % To do this one has to press `C-c C-c` at `block-macro` position.
+  \newcommand\semState[2]{⟦#1⟧#2}
+  \newcommand\angled[1]{\langle #1 \rangle}
+  \newcommand\tick{😌}
+  \newcommand\fail{😒}
+\)
+#+END_HTML
+#+LATEX_HEADER:   % One needs to update dynamic block after updating the macros.
+#+LATEX_HEADER:   % To do this one has to press `C-c C-c` at `block-macro` position.
+#+LATEX_HEADER:   \newcommand\semState[2]{⟦#1⟧#2}
+#+LATEX_HEADER:   \newcommand\angled[1]{\langle #1 \rangle}
+#+LATEX_HEADER:   \newcommand\tick{😌}
+#+LATEX_HEADER:   \newcommand\fail{😒}
+#+LATEX_HEADER: 
+#+END:
+
+#+BEGIN_HTML
+This page is interactive. To unfold/fold a section press on its header.
+#+END_HTML
+
+* Day 1
+** Applied simply typed *call-by-name* \lambda calculus
+   We can do the same for /call-by-value/, but it's harder from the game semantics
+   point of view.
+   
+  - /Call-By-Name/
+    For teaching purpose.
+  - \lambda /calculus/
+    For high-order functions.
+  - /Simply typed/
+    For teaching purpose.
+  - /Applied/
+    For extensions.\\
+  
+  *Ex:*
+  - (classic) \lambda + arithmetic + /if-then-else/ + recursion = PCF
+  - (classic) PCF + local state + assignment + deref = (Idealized) Algol
+  - (non-classic) I. Algol + concurrency + binary semaphores = I. Concurrent Algol
+
+  We will discuss I. C. Algol.
+
+** Operational Semantics I: Evaluation semantics / Big-step operational semantics
+   Here we define an evaluation relation $\Rightarrow$.
+*** \lambda-calculus
+\begin{array}{l l l}
+M & ::= & x \; | \; \lambda x . M \; | \; M \; M'
+\end{array}
+
+*Def:* If there is no rule for a term, the term is a /value/.
+
+Here $x$ and $\lambda x . M$ are /values/.
+Thus, we can assume that a term is reduced to a value in the rule.
+
+#+attr_html: :width 300px
+[[./lecture 1_1.jpg]]
+
+\begin{array}{l l l}
+PCF & ::= & \dots \; | \; k \; | \; M + M' \; | \; if \; M \; then \; M' \; else \; M'' \; | \; fix
+\end{array}
+
+We can add rules to define semantics for $PCF$ in the same style.
+
+The rule for $if-then-else$.
+
+#+attr_html: :width 300px
+[[./lecture 1_2.jpg]]
+
+The rule for $fix$.
+#+attr_html: :width 200px
+[[./lecture 1_3.jpg]]
+
+The rule doesn't give an intuition how to implement the language.
+It's also non-compositional, and it's a problem.
+
+*Problem 1*:
+- It is defined by inductive rules $\tick$, but
+- It is not defined /compositionally/ $\fail$.
+
+*Problem 2*: It doesn't look like a potential interpreter / compiler $\fail$.
+Just a lot of term rewriting.
+
+*Note on Problem 2:* However, it /is/ implementable, but not in a efficient way.
+
+*Advantage:*
+- It is usually simpler, clearer and more concise than the alternatives.
+- It is god as a /SPEC/.
+*** Idealized Algol
+    We need state to define the semantics.
+    
+    *Def:* Configurations $\angled{M , S}$, where $S: L \rightharpoonup \mathbb{Z}$.
+**** $PCF$ rules
+     $M_1,s \Rightarrow \lambda x.M'_1, s'$
+
+     $M_1'[M_2 / x], s \Rightarrow V$
+     
+#+attr_html: :width 400px
+[[./lecture 1_4.jpg]]
+     
+     Here in the latter rule we introduce fresh location $l$ to avoiding the problem
+     with multiple bindings to $x$.
+*** Idealized Concurrent Algol
+    We add rules for parrallel compositional.
+    
+#+attr_html: :width 200px
+[[./lecture 1_5.jpg]]
+    
+    There is no convient way to define proper interleaving in terms of big-step semantics.
+    
+    *Problem 3:* The big-step semantics style isn't expressive enough for some features.
+    - Paralleliation and concurrency;
+    - Control (/e.g./ exceptions).
+
+*** Conclusion
+    It's too high-level, and doesn't expressive enough. 
+
+** Operational Semantics II: (Felleisen-style)
+   Reduction contexts.
+
+\begin{array}{l l l l}
+\lambda: & \epsilon  & ::= & \dots \; | \; [-] \; | \; \epsilon M \; | \; V \epsilon \; (\text{for Call-By-Value}) \\
+PCF    : &           & |   & \dots \; | \; if \; \epsilon \; then \; M \; else \; M \; | \; \dots \\
+IA     : &           & |   & \dots \; | \; M := \epsilon \; | \; \epsilon := V \; | \; \dots (\text{Configurations + Frame stack Fs (= list of } \epsilon\text{s}) \\
+ICA    : &           & |   & \dots \; | \; M || \epsilon \; | \; \epsilon || M \; | \; \dots \\
+\end{array}
+
+*** $PCF$ Rules:
+    - $\angled{S, M N} \rightarrow \angled{S \circ ([] N), M}$;
+    - $\angled{S \circ, \lambda x . M} \rightarrow \angled{S, M[N / x]}$.
+
+    *Note:* \\
+    - No assumptions for the rules! $\tick$;
+    - It uses substitution. $\fail$ 
+
+*** Idealized Algol Rules:
+    - $\angled{\sigma, S \circ ([] := n), \iota} \rightarrow \angled{(\sigma | \iota \mapsto n), S, skip}$, where \\
+      - $\sigma : L \rightarrow \mathbb{Z}$ is a local state;
+      - $\iota$ is a location;
+      - $(\sigma | \iota \mapsto n)(z) = if \; z = \iota \; then \; n \; else \sigma(z)$.
+
+    - $\angled{\sigma, S, M; \; N} \rightarrow \angled{\sigma, S \circ ([]; \; N), M}$.
+    - $\angled{\sigma, S \circ ([]; \; N), skip} \rightarrow \angled{\sigma, S, N}$.
+
+
+    - *Wrong:* $\angled{\sigma, S, new \; x \; in \; M} \rightarrow \angled{\sigma \oplus (\iota \mapsto x), S, M[l/x]}$,\\
+      - where $\iota \in dom \; \sigma$.
+
+      *Comments:* Here we leak $\iota$, which becomes garbage. But when we will need to have a garbage collector.
+      It's not a big deal, however, we can put something to the stack to erase $\iota$ at the point we won't require $\iota$.
+
+    - *Right:* $\angled{\sigma, S, new \; x \; in \; M} \rightarrow \angled{\sigma \oplus (\iota \mapsto x), S \circ (new \; \iota \; in \; []), M[l/x]}$,\\
+      - where $\iota \in dom \; \sigma$.
+
+
+    - $\angled{\sigma, S \circ (new \; \iota \; in \; []), V} \rightarrow \angled{\sigma \setminus \iota, S, V}$.
+    
+    *Observation:* Smart vs. Stupid rule. \\
+    The latter guarantees safety, but you need to prove safety in the case of the Smart rule.
+
+    *Syntax observation:* All constants can be seen as higher-order constants, having most of statements a syntactic sugar for
+    function calls, /i.e./: \\
+    - $``M := N" \; = \; ``asg \; M \; N"$;
+    - $``new \; x \; in \; M" \; = \; ``new \; (\lambda \; x. M)"$.
+
+*** Idealized Concurrent Algol Rules:
+    We add *non-deterministic* rules!
+    - $\angled{\sigma, S, M_0 || M_1} \rightarrow \angled{\sigma, S \circ (M_i \; || \; []), M_{i - 1}}$, where $i \in \{0, 1\}$.
+    - $\angled{\sigma, S \circ (M_0 \; || \; []), M_1} \rightarrow \angled{\sigma, S \circ (M_1 \; || \; []), M_0}$.
+
+    *Problem:*:
+    - We are /not/ guaranteed progress anymore! We can swap threads infinitely;
+    - We /lose/ some of the potential for concurrency. /I.e./ we require to have concurrent context on the top of the stack.
+    - Any impact on the old rules (esp. /state/).
+   
+    *Theoretical task:* Proper rules for concurrency here.
+
+** Operational Semantics III: Abstract machines
+   *Examples:*
+   - SECD / CEK (CBV);
+   - Krivine (CBN);
+   - ZINC (OCaml).
+   
+   Such machines are inductively defined /translations/: Syntax $\rightarrow$ Bytecode $\rightarrow$ ASM.
+ 
+** Comments on Operational Semantics
+   *Aim 1:* Operational Semantics II $\overset{\text{via Game Semantics}}{\longrightarrow}$ OperationalSemantics III.\\
+   *Aim 2:* How do we know that compiler optimizations are correct?
+   
+   In general PL setting:\\
+   1) SPEC $\rightarrow$ COMP (/e.g./ correctly, principled);
+   2) Program correctness (/e.g./ compiler optimizations).
+   
+   *Observation:* In Operational Semantics (I, II, and III) you work with /Programs/ (/i.e./ no free variables) not /Terms/.
+   
+   *Def:* $P_1 \equiv P_2$ iff $P1 \overset{*}{\rightarrow} V \Leftrightarrow P_2 \overset{*}{\rightarrow} V$.
+   - *Observation:* with same further complications for non-determinism.
+   
+   However, what does it mean for terms to be equivalent? $M \overset{?}{\equiv} N$.\\
+   *Ex:* $1 + 1 \equiv 2$, but it doesn't hold for $x - x \overset{?}{\equiv} 0$ (/i.e./ $x$ is a free variable).
+
+   *Def:* $M \equiv N$ iff $\forall C[-] \; (\text{a program with a hole}), C[M] \equiv C[N]$ (as a programs).
+   - congruence by definition;
+   - super-awkward definition $\fail$;
+   - obviously useful for compiler optimizations and front end, /e.g./ constant folding, constant propagation;
+   - also generally for correctness $M; \; assert(P) \not \equiv fail$.
+   - How to make it useful? Check HOOT workshop proceedings.
+   
+   *Alternative:* Denotational Semantics, $\semState{-}{}: Terms \rightarrow Mathy \; Universe$.\\
+   When $M \equiv N \Leftrightarrow \semState{M}{} = \semState{N}{}$, where we can check objects on equality.\\
+   If there is such a propertry, the semantics is called /fully abstract denotational semantics/.
+   - $M \equiv N \Leftarrow \semState{M}{} = \semState{N}{}$ is /soundness/;
+   - $M \equiv N \Rightarrow \semState{M}{} = \semState{N}{}$ is /completeness/.
+   *Note:* Usually the prove of completeness is harder. The reason is that $Mathy \; Universe$ might be quite bigger than the Term one.
