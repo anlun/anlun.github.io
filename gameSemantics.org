@@ -40,7 +40,7 @@ Notes on the game semantics summer school taught by [[www.cs.bham.ac.uk/~drg/][D
 This page is interactive. To unfold/fold a section press on its header.
 #+END_HTML
 
-* Day 1
+* Day
 ** Applied simply typed *call-by-name* \lambda calculus
    We can do the same for /call-by-value/, but it's harder from the game semantics
    point of view.
