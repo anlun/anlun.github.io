@@ -13,6 +13,7 @@
   \newcommand\angled[1]{\langle #1 \rangle}
   \newcommand\tick{😌}
   \newcommand\fail{😒}
+  \newcommand\bN{\mathbb{N}}
 #+END_SRC
 #+BEGIN: block-macro
 #+BEGIN_HTML
@@ -23,6 +24,7 @@
   \newcommand\angled[1]{\langle #1 \rangle}
   \newcommand\tick{😌}
   \newcommand\fail{😒}
+  \newcommand\bN{\mathbb{N}}
 \)
 #+END_HTML
 #+LATEX_HEADER:   % One needs to update dynamic block after updating the macros.
@@ -31,6 +33,7 @@
 #+LATEX_HEADER:   \newcommand\angled[1]{\langle #1 \rangle}
 #+LATEX_HEADER:   \newcommand\tick{😌}
 #+LATEX_HEADER:   \newcommand\fail{😒}
+#+LATEX_HEADER:   \newcommand\bN{\mathbb{N}}
 #+LATEX_HEADER: 
 #+END:
 
@@ -40,6 +43,14 @@ Notes on the game semantics summer school taught by Dan R. Ghica, [[www.cs.bham.
 This page is interactive. To unfold/fold a section press on its header.
 #+END_HTML
 
+* References
+- Ghica & McCusker ICALP 2000, TCS 2003
+- Abramsky, Ghicka, Murawski, Ong TACAS 2004
+- Ghica, Murawski, Ong ICALP 2004, TCS 2006
+- Ghica POPL 2007
+- Ghica, Smith POPL 2011
+- Ghica, Singh, Smith ICFP 2011
+- Ghica & al DATE 2015, FPGA 2015
 * Day
 ** Applied simply typed *call-by-name* \lambda calculus
    We can do the same for /call-by-value/, but it's harder from the game semantics
@@ -232,3 +243,170 @@ ICA    : &           & |   & \dots \; | \; M || \epsilon \; | \; \epsilon || M \
    - $M \equiv N \Leftarrow \semState{M}{} = \semState{N}{}$ is /soundness/;
    - $M \equiv N \Rightarrow \semState{M}{} = \semState{N}{}$ is /completeness/.
    *Note:* Usually the prove of completeness is harder. The reason is that $Mathy \; Universe$ might be quite bigger than the Term one.
+* Day
+  [[bit.ly/laudience]], code: 775797 \\
+  *To Check:* The Chemical abstract machine style.
+
+   If you want to prove that there is no way to derive $\bot$ in a logic, it's quite hard.
+   One way is to define a denotational semantics, /i.e./ using set and other classic stuff, like Tarski did.
+** Game semantics + Logics 
+
+\begin{array}{l l l}
+P & ::= & a \; | \; true \; | \; false \; | \; P \land Q \; | \; P \lor Q \; | \; \forall x . P \; | \; \exists x . P
+\end{array} 
+
+Lorenz & Lorenzen : a /game/ between Verifier and Falsifier. The /game/ is defined by the proposition.
+
+
+\begin{array}{l l l}
+\semState{true}{} & = & \text{V wins} \\
+\semState{false}{} & = & \text{F wins} \\
+\semState{P_1 \land P_2}{} & = & \text{F chooses on } i \in \{1, 2\} \text{the play in } \semState{P_i}{} \; \text{V} \\
+\semState{P_1 \land P_2}{} & = & \text{V chooses on } i \in \{1, 2\} \text{the play in } \semState{P_i}{} \; \text{F} \\
+\semState{\forall x. P}{}  & = & \text{F chooses } x \; \text{then play } \semState{P_i}{(u | x \mapsto X)} \\
+\semState{\exists x. P}{}  & = & \text{V chooses } x \; \text{then play } \semState{P_i}{(u | x \mapsto X)} \\
+\semState{\triangledown x. P}{}  & = & \dots \\
+\\
+\semState{\lnot P}{} & = & \text{V and F swaps places.}\\
+\end{array} 
+
+*To Check:* Hintikka, /Principles of mathematics revisited/.
+Hintikka is a philosopher firstly. He says compositionality is wrong (like static analysis vs. denotational semantics).
+
+*** Connection to programming 
+    Logic vs. Programming Language --- Curry-Howard correspondence.
+    *Ex:*
+    \begin{array}{l l}
+    Proof & Term \\
+    Proposition & Type \\
+    A \rightarrow B & A \rightarrow B
+    \end{array}
+    
+    In 90s J.Y.Girard invented/discovered /Linear Logic/. (*Check:* Paul-Andy Melleies tutorial).\\
+    /Classical/ logic: (I have 100 rubels) $\land$ (I have 100 rubels) $\leftrightarrow$ (I have 100 rubels). The rule is called weakening The rule is called weakening. \\
+    /Linear/ logic: (I have 100 rubels) $\otimes$ (I have 100 rubels) $\leftrightarrow$ (I have 200 rubels). As Linear Logic is a resourse-aware.
+
+    $A \rightarrow B = A \multimap B$, where $!A$ means the proposition is duplicable. \\
+    But $\semState{A \multimap B}{} = ?$
+    
+    Andreas Blass gave Game Semantics for Linear Logic. But it has a problem, as it is not compositional $\fail$.
+    And Samson Abramsky and Radha Jagadeesan made it compositional.
+    They and Pasquale Malacoria applied it to define the semantics of PCF.
+    
+** Idea: How to `operational' your denotational semantics
+   Language: Serially Reentrant Algol (SRA) (Reynolds's  Syntactic Control functions ??)
+   
+   \begin{array}{l l l}
+   t & ::= & nat \; | \; t \times  t \; | \; t \rightarrow t \\
+   \end{array}
+   
+   $x_1:t_1, \dots, x_n:t_n \vdash M : t$, where
+   - $x_1$ --- a variable;
+   - $t_1$ --- a type;
+   - $M$   --- a term;
+   - $t$   --- a type.
+
+*** Typing rules
+   <<Pic1>>
+
+   *Axiom*: $\Gamma, x:t \vdash x:t$. /Non-linear/ (discarding is OK).
+   
+   *Abstraction*:
+   (linear ... irrelevant)
+   <<Pic2>>
+   
+   *Constants:*
+   - $0, 1, 2, \dots \mathbb{N}$;
+   - $+, -, ;, \dots \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}$;
+   - $ifzero : \mathbb{N} \times \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}$;
+   - $while  : \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}$.
+
+   *Imperative:*
+   - $var = \bN \times (\bN \rightarrow \bN)$;
+   - $der : var \rightarrow \bN$;
+   - $asg : var \times \bN \rightarrow \bN$;
+   - $newvar : (var \rightarrow \bN) \times \bN \rightarrow \bN$;
+   
+   "Object-oriented view" ~ Reynolds.
+   
+   <<Pic3>>
+   
+   *Note:* it's quite expressive language.
+   
+   *Example:*\\
+   $\lambda u . FIB$, where $FIB$ is a loop to calculate a Fibonacci number.\\
+   $(let \; x \; = \; M \; in \; N) = (\lambda x.N) M$ \\
+   ...
+
+   <<Pic4>>
+   *Check:* GhicaSmith:POPL'11.
+
+   <<Pic5>>
+
+   - Evaluation semantics for the language is very /easy/ to do, however
+   - Denotational semantics is quite /hard/, as there are a number of challenges:
+     - $\semState{-}{} : SRA \rightarrow Mathy$ ?
+       - $Mathy$ is a ``Domain", as in Domain-theory.
+     - Imperative / local variables
+     - Weird types
+     - Iterations
+   
+   Denotational semantics is all about characterizing for a term interacts with a context, $C[M]$.
+   
+   *Constants*:
+   - $7:nat$
+   <<Pic6>>
+
+   *Operations*:
+   <<Pic7>>
+   
+   Here is why Game Semantics provides so precise way to model a semantics of a language.
+
+   <<Pic8>>
+   
+   *Exercise:* $ifz : \bN \times \bN \times \bN \rightarrow \bN$:
+   <<Pic9>>
+
+   <<Pic10>>
+
+   *Exercise:* $while : \bN \times \bN \rightarrow \bN$:
+   The picture is wrong: <<Pic11>>
+   
+   $while : \bN_3 \times \bN_2 \rightarrow \bN_1$: $q_{<1>} (q_{<3>}; \underset{u \in \bN, u \not = 0}{\Sigma} u_{<3>}; q_{<2>}; \underset{u \in \bN}{\Sigma} u_{<2>})^* 0_{<1>}$
+   
+   *Observation:* All iteractions for all constants can ber represented as regular expressions (over a finite $\bN$).\\
+   *Structural rules:* $\semState{x_1:t_1, \dots, x_n:t_n \vdash M:t}{}$ is an /interaction/ (set of sequences) over some alphabet ($\Gamma, t$).
+
+   $A\semState{nat}{} = \angled{\{ Q^a, 0^a, 1^a, 2^a, \dots \}, \{Q\} \times \bN, \{(Q \mapsto 0), (0 \mapsto P, 1 \mapsto P, \dots \}}$, where
+   - $A$ is an /arena/;
+   - $\{Q\} \times \bN$, justification = basic causality;
+   - polarity;
+   - $\lambda Q = 0, \lambda n = P$ is a ``labelling".
+   
+   $A\semState{t_1 \times t_2}{} = \angled{M_1 \disjointcup M_2, J_1 \disjointcup J_2, P_1 \disjointcup P_2}
+   - $M_1 \disjointcup M_2$ --- ...;
+   - $J_1 \disjointcup J_2$ --- justification relation;
+   - $P_1 \disjointcup P_2$ --- labelling function. 
+     
+   $A\semState{nat \times nat}{} = \angled{\{Q^a, Q^b,0^a,0^b, \dots\} \dots}$
+   - Initial moves = moves with justification, /e.g./ $I_{\semState{nat}{}} = \{Q\}$
+
+   $A\semState{t_1 \rightarrow t_2}{} = \angled{M_1 \disjointcup M_2, (I_1 \times I_2) \disjointcup J_1 \disjointcup J_2, P_1^* \disjointcup P_2}, where
+   - $P_1^*$ --- reverse O/P polarity.
+
+   $A\semState{x_1:t_1, \dots, x_n:t_n \vdash M:t}{} = A\semState{t_1 \times \dots \times t_n \rightarrow t}{}$.
+   
+
+   *Axiom:* $\semState{\Gamma, x:t \vdash x:t}{} = \Gamma \times t \rightarrow t$
+   <<Pic11>>
+   
+   *Rule of the initial move:*
+   - always from the Opponent;
+   - not justified;
+   /I.e./ it's in $I$, the initial move set.
+
+   *Rule of justification:*
+   - any subsequent move must be /justified/ by a previous move.
+   
+   *Application:* $\semState{\Gamma,\triangle \vdash F M: t}{} = \semState{\Gamma \vdash F : t' \rightarrow t}{} \bigdot \semState{\traingle \vdash M : t'}{}$
+   <<Pic12>>

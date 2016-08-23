@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>The Game Semantics summer school, August 2016</title>
-<!-- 2016-08-22 Mon 15:41 -->
+<!-- 2016-08-23 Tue 16:05 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -219,26 +219,41 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. Day</a>
+<li><a href="#sec-1">1. References</a></li>
+<li><a href="#sec-2">2. Day</a>
 <ul>
-<li><a href="#sec-1-1">1.1. Applied simply typed <b>call-by-name</b> &lambda; calculus</a></li>
-<li><a href="#sec-1-2">1.2. Operational Semantics I: Evaluation semantics / Big-step operational semantics</a>
+<li><a href="#sec-2-1">2.1. Applied simply typed <b>call-by-name</b> &lambda; calculus</a></li>
+<li><a href="#sec-2-2">2.2. Operational Semantics I: Evaluation semantics / Big-step operational semantics</a>
 <ul>
-<li><a href="#sec-1-2-1">1.2.1. &lambda;-calculus</a></li>
-<li><a href="#sec-1-2-2">1.2.2. Idealized Algol</a></li>
-<li><a href="#sec-1-2-3">1.2.3. Idealized Concurrent Algol</a></li>
-<li><a href="#sec-1-2-4">1.2.4. Conclusion</a></li>
+<li><a href="#sec-2-2-1">2.2.1. &lambda;-calculus</a></li>
+<li><a href="#sec-2-2-2">2.2.2. Idealized Algol</a></li>
+<li><a href="#sec-2-2-3">2.2.3. Idealized Concurrent Algol</a></li>
+<li><a href="#sec-2-2-4">2.2.4. Conclusion</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-3">1.3. Operational Semantics II: (Felleisen-style)</a>
+<li><a href="#sec-2-3">2.3. Operational Semantics II: (Felleisen-style)</a>
 <ul>
-<li><a href="#sec-1-3-1">1.3.1. \(PCF\) Rules:</a></li>
-<li><a href="#sec-1-3-2">1.3.2. Idealized Algol Rules:</a></li>
-<li><a href="#sec-1-3-3">1.3.3. Idealized Concurrent Algol Rules:</a></li>
+<li><a href="#sec-2-3-1">2.3.1. \(PCF\) Rules:</a></li>
+<li><a href="#sec-2-3-2">2.3.2. Idealized Algol Rules:</a></li>
+<li><a href="#sec-2-3-3">2.3.3. Idealized Concurrent Algol Rules:</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-4">1.4. Operational Semantics III: Abstract machines</a></li>
-<li><a href="#sec-1-5">1.5. Comments on Operational Semantics</a></li>
+<li><a href="#sec-2-4">2.4. Operational Semantics III: Abstract machines</a></li>
+<li><a href="#sec-2-5">2.5. Comments on Operational Semantics</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Day</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Game semantics + Logics</a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1. Connection to programming</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2">3.2. Idea: How to `operational' your denotational semantics</a>
+<ul>
+<li><a href="#sec-3-2-1">3.2.1. Typing rules</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -251,6 +266,7 @@ for the JavaScript code in this tag.
   \newcommand\angled[1]{\langle #1 \rangle}
   \newcommand\tick{😌}
   \newcommand\fail{😒}
+  \newcommand\bN{\mathbb{N}}
 \)
 
 <p>
@@ -260,11 +276,32 @@ Notes on the game semantics summer school taught by Dan R. Ghica, <i>www.cs.bham
 This page is interactive. To unfold/fold a section press on its header.
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> Day</h2>
+<h2 id="sec-1"><span class="section-number-2">1</span> References</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Applied simply typed <b>call-by-name</b> &lambda; calculus</h3>
-<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Ghica &amp; McCusker ICALP 2000, TCS 2003
+</li>
+<li>Abramsky, Ghicka, Murawski, Ong TACAS 2004
+</li>
+<li>Ghica, Murawski, Ong ICALP 2004, TCS 2006
+</li>
+<li>Ghica POPL 2007
+</li>
+<li>Ghica, Smith POPL 2011
+</li>
+<li>Ghica, Singh, Smith ICFP 2011
+</li>
+<li>Ghica &amp; al DATE 2015, FPGA 2015
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Day</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Applied simply typed <b>call-by-name</b> &lambda; calculus</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 We can do the same for <i>call-by-value</i>, but it's harder from the game semantics
 point of view.
@@ -303,16 +340,16 @@ We will discuss I. C. Algol.
 </div>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Operational Semantics I: Evaluation semantics / Big-step operational semantics</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Operational Semantics I: Evaluation semantics / Big-step operational semantics</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 Here we define an evaluation relation \(\Rightarrow\).
 </p>
 </div>
-<div id="outline-container-sec-1-2-1" class="outline-4">
-<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> &lambda;-calculus</h4>
-<div class="outline-text-4" id="text-1-2-1">
+<div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> &lambda;-calculus</h4>
+<div class="outline-text-4" id="text-2-2-1">
 \begin{array}{l l l}
 M & ::= & x \; | \; \lambda x . M \; | \; M \; M'
 \end{array}
@@ -394,9 +431,9 @@ Just a lot of term rewriting.
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-1-2-2" class="outline-4">
-<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> Idealized Algol</h4>
-<div class="outline-text-4" id="text-1-2-2">
+<div id="outline-container-sec-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> Idealized Algol</h4>
+<div class="outline-text-4" id="text-2-2-2">
 <p>
 We need state to define the semantics.
 </p>
@@ -405,7 +442,7 @@ We need state to define the semantics.
 <b>Def:</b> Configurations \(\angled{M , S}\), where \(S: L \rightharpoonup \mathbb{Z}\).
 </p>
 </div>
-<ol class="org-ol"><li><a id="sec-1-2-2-1" name="sec-1-2-2-1"></a>\(PCF\) rules<br  /><div class="outline-text-5" id="text-1-2-2-1">
+<ol class="org-ol"><li><a id="sec-2-2-2-1" name="sec-2-2-2-1"></a>\(PCF\) rules<br  /><div class="outline-text-5" id="text-2-2-2-1">
 <p>
 \(M_1,s \Rightarrow \lambda x.M'_1, s'\)
 </p>
@@ -427,9 +464,9 @@ with multiple bindings to \(x\).
 </div>
 </li></ol>
 </div>
-<div id="outline-container-sec-1-2-3" class="outline-4">
-<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> Idealized Concurrent Algol</h4>
-<div class="outline-text-4" id="text-1-2-3">
+<div id="outline-container-sec-2-2-3" class="outline-4">
+<h4 id="sec-2-2-3"><span class="section-number-4">2.2.3</span> Idealized Concurrent Algol</h4>
+<div class="outline-text-4" id="text-2-2-3">
 <p>
 We add rules for parrallel compositional.
 </p>
@@ -456,9 +493,9 @@ There is no convient way to define proper interleaving in terms of big-step sema
 </div>
 </div>
 
-<div id="outline-container-sec-1-2-4" class="outline-4">
-<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> Conclusion</h4>
-<div class="outline-text-4" id="text-1-2-4">
+<div id="outline-container-sec-2-2-4" class="outline-4">
+<h4 id="sec-2-2-4"><span class="section-number-4">2.2.4</span> Conclusion</h4>
+<div class="outline-text-4" id="text-2-2-4">
 <p>
 It's too high-level, and doesn't expressive enough. 
 </p>
@@ -466,9 +503,9 @@ It's too high-level, and doesn't expressive enough.
 </div>
 </div>
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Operational Semantics II: (Felleisen-style)</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Operational Semantics II: (Felleisen-style)</h3>
+<div class="outline-text-3" id="text-2-3">
 <p>
 Reduction contexts.
 </p>
@@ -481,9 +518,9 @@ ICA    : &           & |   & \dots \; | \; M || \epsilon \; | \; \epsilon || M \
 \end{array}
 </div>
 
-<div id="outline-container-sec-1-3-1" class="outline-4">
-<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> \(PCF\) Rules:</h4>
-<div class="outline-text-4" id="text-1-3-1">
+<div id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> \(PCF\) Rules:</h4>
+<div class="outline-text-4" id="text-2-3-1">
 <ul class="org-ul">
 <li>\(\angled{S, M N} \rightarrow \angled{S \circ ([] N), M}\);
 </li>
@@ -503,9 +540,9 @@ ICA    : &           & |   & \dots \; | \; M || \epsilon \; | \; \epsilon || M \
 </div>
 </div>
 
-<div id="outline-container-sec-1-3-2" class="outline-4">
-<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> Idealized Algol Rules:</h4>
-<div class="outline-text-4" id="text-1-3-2">
+<div id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> Idealized Algol Rules:</h4>
+<div class="outline-text-4" id="text-2-3-2">
 <ul class="org-ul">
 <li>\(\angled{\sigma, S \circ ([] := n), \iota} \rightarrow \angled{(\sigma | \iota \mapsto n), S, skip}\), where <br  />
 <ul class="org-ul">
@@ -569,9 +606,9 @@ function calls, <i>i.e.</i>: <br  />
 </div>
 </div>
 
-<div id="outline-container-sec-1-3-3" class="outline-4">
-<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> Idealized Concurrent Algol Rules:</h4>
-<div class="outline-text-4" id="text-1-3-3">
+<div id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> Idealized Concurrent Algol Rules:</h4>
+<div class="outline-text-4" id="text-2-3-3">
 <p>
 We add <b>non-deterministic</b> rules!
 </p>
@@ -601,9 +638,9 @@ We add <b>non-deterministic</b> rules!
 </div>
 </div>
 
-<div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Operational Semantics III: Abstract machines</h3>
-<div class="outline-text-3" id="text-1-4">
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Operational Semantics III: Abstract machines</h3>
+<div class="outline-text-3" id="text-2-4">
 <p>
 <b>Examples:</b>
 </p>
@@ -622,9 +659,9 @@ Such machines are inductively defined <i>translations</i>: Syntax \(\rightarrow\
 </div>
 </div>
 
-<div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Comments on Operational Semantics</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Comments on Operational Semantics</h3>
+<div class="outline-text-3" id="text-2-5">
 <p>
 <b>Aim 1:</b> Operational Semantics II \(\overset{\text{via Game Semantics}}{\longrightarrow}\) OperationalSemantics III.<br  />
    <b>Aim 2:</b> How do we know that compiler optimizations are correct?
@@ -687,6 +724,334 @@ However, what does it mean for terms to be equivalent? \(M \overset{?}{\equiv} N
 <p>
 <b>Note:</b> Usually the prove of completeness is harder. The reason is that \(Mathy \; Universe\) might be quite bigger than the Term one.
 </p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Day</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<i>bit.ly/laudience</i>, code: 775797 <br  />
+  <b>To Check:</b> The Chemical abstract machine style.
+</p>
+
+<p>
+If you want to prove that there is no way to derive \(\bot\) in a logic, it's quite hard.
+One way is to define a denotational semantics, <i>i.e.</i> using set and other classic stuff, like Tarski did.
+</p>
+</div>
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Game semantics + Logics</h3>
+<div class="outline-text-3" id="text-3-1">
+\begin{array}{l l l}
+P & ::= & a \; | \; true \; | \; false \; | \; P \land Q \; | \; P \lor Q \; | \; \forall x . P \; | \; \exists x . P
+\end{array} 
+
+<p>
+Lorenz &amp; Lorenzen : a <i>game</i> between Verifier and Falsifier. The <i>game</i> is defined by the proposition.
+</p>
+
+
+\begin{array}{l l l}
+\semState{true}{} & = & \text{V wins} \\
+\semState{false}{} & = & \text{F wins} \\
+\semState{P_1 \land P_2}{} & = & \text{F chooses on } i \in \{1, 2\} \text{the play in } \semState{P_i}{} \; \text{V} \\
+\semState{P_1 \land P_2}{} & = & \text{V chooses on } i \in \{1, 2\} \text{the play in } \semState{P_i}{} \; \text{F} \\
+\semState{\forall x. P}{}  & = & \text{F chooses } x \; \text{then play } \semState{P_i}{(u | x \mapsto X)} \\
+\semState{\exists x. P}{}  & = & \text{V chooses } x \; \text{then play } \semState{P_i}{(u | x \mapsto X)} \\
+\semState{\triangledown x. P}{}  & = & \dots \\
+\\
+\semState{\lnot P}{} & = & \text{V and F swaps places.}\\
+\end{array} 
+
+<p>
+<b>To Check:</b> Hintikka, <i>Principles of mathematics revisited</i>.
+Hintikka is a philosopher firstly. He says compositionality is wrong (like static analysis vs. denotational semantics).
+</p>
+</div>
+
+<div id="outline-container-sec-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> Connection to programming</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+Logic vs. Programming Language &#x2014; Curry-Howard correspondence.
+<b>Ex:</b>
+</p>
+\begin{array}{l l}
+Proof & Term \\
+Proposition & Type \\
+A \rightarrow B & A \rightarrow B
+\end{array}
+
+<p>
+In 90s J.Y.Girard invented/discovered <i>Linear Logic</i>. (<b>Check:</b> Paul-Andy Melleies tutorial).<br  />
+    <i>Classical</i> logic: (I have 100 rubels) \(\land\) (I have 100 rubels) \(\leftrightarrow\) (I have 100 rubels). The rule is called weakening The rule is called weakening. <br  />
+    <i>Linear</i> logic: (I have 100 rubels) \(\otimes\) (I have 100 rubels) \(\leftrightarrow\) (I have 200 rubels). As Linear Logic is a resourse-aware.
+</p>
+
+<p>
+\(A \rightarrow B = A \multimap B\), where \(!A\) means the proposition is duplicable. <br  />
+    But \(\semState{A \multimap B}{} = ?\)
+</p>
+
+<p>
+Andreas Blass gave Game Semantics for Linear Logic. But it has a problem, as it is not compositional \(\fail\).
+And Samson Abramsky and Radha Jagadeesan made it compositional.
+They and Pasquale Malacoria applied it to define the semantics of PCF.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Idea: How to `operational' your denotational semantics</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Language: Serially Reentrant Algol (SRA) (Reynolds's  Syntactic Control functions ??)
+</p>
+
+\begin{array}{l l l}
+t & ::= & nat \; | \; t \times  t \; | \; t \rightarrow t \\
+\end{array}
+
+<p>
+\(x_1:t_1, \dots, x_n:t_n \vdash M : t\), where
+</p>
+<ul class="org-ul">
+<li>\(x_1\) &#x2014; a variable;
+</li>
+<li>\(t_1\) &#x2014; a type;
+</li>
+<li>\(M\)   &#x2014; a term;
+</li>
+<li>\(t\)   &#x2014; a type.
+</li>
+</ul>
+</div>
+
+<div id="outline-container-sec-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Typing rules</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+<a id="Pic1" name="Pic1"></a>
+</p>
+
+<p>
+<b>Axiom</b>: \(\Gamma, x:t \vdash x:t\). <i>Non-linear</i> (discarding is OK).
+</p>
+
+<p>
+<b>Abstraction</b>:
+(linear &#x2026; irrelevant)
+<a id="Pic2" name="Pic2"></a>
+</p>
+
+<p>
+<b>Constants:</b>
+</p>
+<ul class="org-ul">
+<li>\(0, 1, 2, \dots \mathbb{N}\);
+</li>
+<li>\(+, -, ;, \dots \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}\);
+</li>
+<li>\(ifzero : \mathbb{N} \times \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}\);
+</li>
+<li>\(while  : \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}\).
+</li>
+</ul>
+
+<p>
+<b>Imperative:</b>
+</p>
+<ul class="org-ul">
+<li>\(var = \bN \times (\bN \rightarrow \bN)\);
+</li>
+<li>\(der : var \rightarrow \bN\);
+</li>
+<li>\(asg : var \times \bN \rightarrow \bN\);
+</li>
+<li>\(newvar : (var \rightarrow \bN) \times \bN \rightarrow \bN\);
+</li>
+</ul>
+
+<p>
+"Object-oriented view" ~ Reynolds.
+</p>
+
+<p>
+<a id="Pic3" name="Pic3"></a>
+</p>
+
+<p>
+<b>Note:</b> it's quite expressive language.
+</p>
+
+<p>
+<b>Example:</b><br  />
+   \(\lambda u . FIB\), where \(FIB\) is a loop to calculate a Fibonacci number.<br  />
+   \((let \; x \; = \; M \; in \; N) = (\lambda x.N) M\) <br  />
+   &#x2026;
+</p>
+
+<p>
+<a id="Pic4" name="Pic4"></a>
+<b>Check:</b> GhicaSmith:POPL'11.
+</p>
+
+<p>
+<a id="Pic5" name="Pic5"></a>
+</p>
+
+<ul class="org-ul">
+<li>Evaluation semantics for the language is very <i>easy</i> to do, however
+</li>
+<li>Denotational semantics is quite <i>hard</i>, as there are a number of challenges:
+<ul class="org-ul">
+<li>\(\semState{-}{} : SRA \rightarrow Mathy\) ?
+<ul class="org-ul">
+<li>\(Mathy\) is a ``Domain", as in Domain-theory.
+</li>
+</ul>
+</li>
+<li>Imperative / local variables
+</li>
+<li>Weird types
+</li>
+<li>Iterations
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Denotational semantics is all about characterizing for a term interacts with a context, \(C[M]\).
+</p>
+
+<p>
+<b>Constants</b>:
+</p>
+<ul class="org-ul">
+<li>\(7:nat\)
+</li>
+</ul>
+<p>
+<a id="Pic6" name="Pic6"></a>
+</p>
+
+<p>
+<b>Operations</b>:
+<a id="Pic7" name="Pic7"></a>
+</p>
+
+<p>
+Here is why Game Semantics provides so precise way to model a semantics of a language.
+</p>
+
+<p>
+<a id="Pic8" name="Pic8"></a>
+</p>
+
+<p>
+<b>Exercise:</b> \(ifz : \bN \times \bN \times \bN \rightarrow \bN\):
+<a id="Pic9" name="Pic9"></a>
+</p>
+
+<p>
+<a id="Pic10" name="Pic10"></a>
+</p>
+
+<p>
+<b>Exercise:</b> \(while : \bN \times \bN \rightarrow \bN\):
+The picture is wrong: <a id="Pic11" name="Pic11"></a>
+</p>
+
+<p>
+\(while : \bN_3 \times \bN_2 \rightarrow \bN_1\): \(q_{<1>} (q_{<3>}; \underset{u \in \bN, u \not = 0}{\Sigma} u_{<3>}; q_{<2>}; \underset{u \in \bN}{\Sigma} u_{<2>})^* 0_{<1>}\)
+</p>
+
+<p>
+<b>Observation:</b> All iteractions for all constants can ber represented as regular expressions (over a finite \(\bN\)).<br  />
+   <b>Structural rules:</b> \(\semState{x_1:t_1, \dots, x_n:t_n \vdash M:t}{}\) is an <i>interaction</i> (set of sequences) over some alphabet (\(\Gamma, t\)).
+</p>
+
+<p>
+\(A\semState{nat}{} = \angled{\{ Q^a, 0^a, 1^a, 2^a, \dots \}, \{Q\} \times \bN, \{(Q \mapsto 0), (0 \mapsto P, 1 \mapsto P, \dots \}}\), where
+</p>
+<ul class="org-ul">
+<li>\(A\) is an <i>arena</i>;
+</li>
+<li>\(\{Q\} \times \bN\), justification = basic causality;
+</li>
+<li>polarity;
+</li>
+<li>\(\lambda Q = 0, \lambda n = P\) is a ``labelling".
+</li>
+</ul>
+
+<p>
+$A\semState{t_1 \times t_2}{} = \angled{M_1 \disjointcup M_2, J_1 \disjointcup J_2, P_1 \disjointcup P_2}
+</p>
+<ul class="org-ul">
+<li>\(M_1 \disjointcup M_2\) &#x2014; &#x2026;;
+</li>
+<li>\(J_1 \disjointcup J_2\) &#x2014; justification relation;
+</li>
+<li>\(P_1 \disjointcup P_2\) &#x2014; labelling function. 
+</li>
+</ul>
+
+<p>
+\(A\semState{nat \times nat}{} = \angled{\{Q^a, Q^b,0^a,0^b, \dots\} \dots}\)
+</p>
+<ul class="org-ul">
+<li>Initial moves = moves with justification, <i>e.g.</i> \(I_{\semState{nat}{}} = \{Q\}\)
+</li>
+</ul>
+
+<p>
+$A\semState{t_1 \rightarrow t_2}{} = \angled{M_1 \disjointcup M_2, (I_1 \times I_2) \disjointcup J_1 \disjointcup J_2, P_1^* \disjointcup P_2}, where
+</p>
+<ul class="org-ul">
+<li>\(P_1^*\) &#x2014; reverse O/P polarity.
+</li>
+</ul>
+
+<p>
+\(A\semState{x_1:t_1, \dots, x_n:t_n \vdash M:t}{} = A\semState{t_1 \times \dots \times t_n \rightarrow t}{}\).
+</p>
+
+
+<p>
+<b>Axiom:</b> \(\semState{\Gamma, x:t \vdash x:t}{} = \Gamma \times t \rightarrow t\)
+<a id="Pic11" name="Pic11"></a>
+</p>
+
+<p>
+<b>Rule of the initial move:</b>
+</p>
+<ul class="org-ul">
+<li>always from the Opponent;
+</li>
+<li>not justified;
+</li>
+</ul>
+<p>
+<i>I.e.</i> it's in \(I\), the initial move set.
+</p>
+
+<p>
+<b>Rule of justification:</b>
+</p>
+<ul class="org-ul">
+<li>any subsequent move must be <i>justified</i> by a previous move.
+</li>
+</ul>
+
+<p>
+<b>Application:</b> \(\semState{\Gamma,\triangle \vdash F M: t}{} = \semState{\Gamma \vdash F : t' \rightarrow t}{} \bigdot \semState{\traingle \vdash M : t'}{}\)
+<a id="Pic12" name="Pic12"></a>
+</p>
+</div>
 </div>
 </div>
 </div>
