@@ -3,10 +3,10 @@ layout: page
 title: Темы проектов для курсовых/дипломов
 ---
 
-# Ostap, Kisa, and Sample-Based Formatting
+1) Ostap, Kisa, and Sample-Based Formatting
   
 
-# An Operational Semantics for C/C++11 Concurrency and MiniKanren 
+2) An Operational Semantics for C/C++11 Concurrency and MiniKanren 
   В 2011 стандарте C/C++ появилось описание семантики
   параллельных программ с data-races, или модель памяти.
   Она очень сложная и контринтуитивная. Однако она соответствует
@@ -29,7 +29,7 @@ title: Темы проектов для курсовых/дипломов
   Релевантная, но немножко устаревшая презентация проекта:
   [PDF](https://drive.google.com/open?id=0B3UPtzTx9FB1NGh0UlR2cWhNSWM).
 
-# A Redex-like framework for OCaml
+3) A Redex-like framework for OCaml
   При создании и тестировании операционной семантики языка
   программирования крайне полезно иметь запускаемую модель,
   или интерпретатор, этой семантики.
