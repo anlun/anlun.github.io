@@ -26,8 +26,16 @@ I take pictures with Canon 50D.
 It's a magnificient camera.
 Even though, from time to time I think I need to buy a new lighter one.
 
-My cell phone is Meizu M3s. The main advantages of it a metal case and
-a modest price.
+My cell phone is Meizu M3s. Its main advantages are a metal case and
+a modest price (~200$ in Russia). It's quite durable as well--it's fallen
+many times to different surfaces including asphalt and porcelain tiles
+during the half of the year I've been using it, but it got only a couple of
+minor scrapes on the case. Unfortunately, it runs some Chinese version
+of Android, which causes some minor inconveniences, but it's totally compensated
+by the price difference to Samsungs and iPhones.
+
+There are some drawbacks like
+a custom "OS" on top of Android and from time to time appering minor bugs.
 
 # And what software?
 vim
