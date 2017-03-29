@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Uses this"
-date:   2016-04-01 18:43:29
-categories: emacs
+title:  "UsesThis"
+date:   2016-03-29 21:43:29
+categories: hardware software
 ---
 
 I've been a fan of [usesthis.com](http://usesthis.com) for quite a while.
@@ -40,7 +40,7 @@ numbness in my wrists. I used to have a fancy PowerBall with a speed counter, bu
 useless as there is no way to take a look at it w/o stopping doing an exercise, so now I have
 the cheapest ones.
 
-I take pictures with Canon 50D. It's a magnificient camera,
+I take pictures with Canon 50D. It's a magnificent camera,
 even though, from time to time I think about buying a new lighter one.
 
 My cell phone is Meizu M3s. Its main advantages are a metal case and
@@ -62,7 +62,7 @@ useful, but a downside is quite big weight.
 # And what software?
 I'm a Linux user. Long time ago I used Mandriva, then Ubuntu, and I've been using Arch Linux since my
 first year at university. It has rolling releases and packages are not outdated as in the Ubuntu case.
-I wanna try macOS, but, strangely, current MacBooks as a piece of hardware are worser (at least heavier)
+I wanna try macOS, but, strangely, current MacBooks as a piece of hardware are worse (at least heavier)
 than Dell's, ThinkPad's, and others and the OS isn't as customizable as Linux,
 so I have a strong feeling that I'd be disappointed in macOS in case I buy a MacBook. But I'm still
 looking for a cheap opportunity to give it a try.
@@ -76,10 +76,10 @@ that I get pissed off every time I have to edit anything in an editor without th
 
 My main editor is Emacs. The best quote about it is that Emacs is a "great operating system, lacking only a decent editor,"
 but once you install EVIL plugin it gets the best editor ever :)
-One of best things about Emacs is high customizability and a great plugin library. One of my favourite plugins is MaGit,
-which my Git-related part of life slightly easier.
+One of best things about Emacs is high customizability and a great plugin library. One of my favorite plugins is MaGit,
+which makes my Git-related part of life slightly easier.
 
-I use Yandex Music to listen to music. I used to use Google Music, but the set of albums in Yandex Music suits my
+I use Yandex Music to listen to music. I used to have a Google Music subscription, but the set of albums in Yandex Music suits my
 taste better.
 
 # What would be your dream setup?
