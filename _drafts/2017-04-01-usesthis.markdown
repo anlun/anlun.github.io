@@ -20,10 +20,27 @@ In my rare spare time I like to take pictures, pretending to do art.
 # What hardware do you use?
 My main machine is Dell XPS 13. I absolutely adore it for
 being extremely light and compact, having a powerful enough CPU and long-lasting
-battery.
+battery. I connect it to two Dell 24" displays, one of which is vertical oriented,
+via a nice TB3->2xDisplayPort adapter at work and to one Dell 24" at home.
+I'm fond of these displays for 16:10 ratio and an adjustable stand.
+I highly recommend to have more than one laptop adapter: I have one at a work desk, one
+at a home desk, and one extra for traveling. This and an exceptionally good laptop battery
+allow me not to take an adapter most of the time.
 
-I take pictures with Canon 50D.
-It's a magnificient camera.
+I have RSI-related problems in my hands, so I try to use good keyboards as often as possible.
+At work I have Kinesis Advantage, which is the best keyboard I've ever touched by far.
+It looks weird and it's impossible to type on for my desk guests, but the only its real
+disAdvantage is that it's completely non-portable. This is the reason why I have
+Vortex Pok3r keyboard--a 60%-keyboard. It doesn't have arrow keys but emulates them with Fn+HJKL,
+which is an advantage for me, as I can't imagine my life w/o Vim navigation (more on the topic in
+the software section :).
+
+By the way, I've got two PowerBalls (one at work, one at home), which I use to prevent RSI-related
+numbness in my wrists. I used to have a fancy PowerBall with a speed counter, but the counter is
+useless as there is no way to take a look at it w/o stopping doing an exercise, so now I have
+the cheapest ones.
+
+I take pictures with Canon 50D. It's a magnificient camera.
 Even though, from time to time I think I need to buy a new lighter one.
 
 My cell phone is Meizu M3s. Its main advantages are a metal case and
@@ -33,9 +50,6 @@ during the half of the year I've been using it, but it got only a couple of
 minor scrapes on the case. Unfortunately, it runs some Chinese version
 of Android, which causes some minor inconveniences, but it's totally compensated
 by the price difference to Samsungs and iPhones.
-
-There are some drawbacks like
-a custom "OS" on top of Android and from time to time appering minor bugs.
 
 # And what software?
 vim
