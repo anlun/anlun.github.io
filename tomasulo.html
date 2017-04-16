@@ -4,9 +4,9 @@
       var program =
         [ {tag : "ADD", res : "%R3", op1 :  "$1", op2 : "$2" },
           {tag : "SUB", res : "%R2", op1 : "%R3", op2 : "$4" },
-          {tag : "MUL", res : "%R0", op1 : "%R2", op2 : "%R3"},
-          {tag : "ST" , res : "#0" , op1 : "%R0", op2 : ""   },
-          {tag : "LD" , res : "%R4", op1 : "#0" , op2 : ""   } ];
+          {tag : "MUL", res : "%R0", op1 : "%R2", op2 : "%R3"}];
+          <!-- {tag : "ST" , res : "#0" , op1 : "%R0", op2 : ""   }, -->
+          <!-- {tag : "LD" , res : "%R4", op1 : "#0" , op2 : ""   } ]; -->
 
       var timing =
         [ {tag : "ADD", time : 1},
@@ -248,7 +248,7 @@
       }
 
       function printRAT() {
-        document.writeln("Register Alias Table <table border=\"1\">");
+        document.writeln("RAT <table border=\"1\">");
         document.writeln("<tr bgcolor=\"#EEADFF\">");
         document.writeln("<td> reg </td> <td> rentry </td> </tr>");
 
@@ -304,8 +304,8 @@
         document.writeln("</td> <td valign=\"top\">");
         printRegfile();
         document.writeln("</td> <td valign=\"top\">");
-        printMemory();
-        document.writeln("</td> <td valign=\"top\">");
+        <!-- printMemory(); -->
+        <!-- document.writeln("</td> <td valign=\"top\">"); -->
         printRAT();
         document.writeln("</td> <td valign=\"top\">");
         printTiming();
