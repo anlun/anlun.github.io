@@ -7,23 +7,33 @@
           {tag : "MUL", res : "%R0", op1 : "%R2", op2 : "%R3"},
           {tag : "ST" , res : "#0" , op1 : "%R0", op2 : ""   },
           {tag : "LD" , res : "%R4", op1 : "#0" , op2 : ""   } ];
+
+      var timing =
+        [ {tag : "ADD", time : 1},
+          {tag : "SUB", time : 1},
+          {tag : "MUL", time : 3},
+          {tag : "LD" , time : 6},
+          {tag : "ST" , time : 6} ];
       
       var regfile = [0, 0, 0, 0, 0, 0];
       var memory  = [0, 0, 0, 0, 0, 0];
+      var rat = [null, null, null, null, null, null];
       var ip = 0;
       var cycle = 0;
       
       var rtable =
-        [ { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false},
-          { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false},
-          { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false} ];
+        [ { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1},
+          { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1},
+          { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1} ];
       
       function step() {
         cycle++;
         if (ip < program.length) {
-          executeInstr();
+          <!-- executeInstr(); -->
           if (addToRTable()) { ip++; }
         }
+        initREntries();
+        writeBackRResults();
         document.body.innerHTML = "";
         printWorld();
       }
@@ -35,11 +45,18 @@
       function addrSyntaxToN(addrStr) {
         return parseInt(addrStr.substring(1));
       }
+                 
+      function isReg(op) { return (op[0] == "%"); }
           
       function getValue(op) {
         switch (op[0]) {
           case "$": return { val : parseInt(op.substring(1)), rentryN : null };
-          case "%": return { val : regfile[regSyntaxToN(op)], rentryN : null  };
+          case "%":
+            var regN = regSyntaxToN(op)
+            if (rat[regN] == null) {
+              return { val : regfile[regN], rentryN : null  };
+            }
+            return { val : null, rentryN : rat[regN]};
           case "#": return { val : memory[op.substring(1)]  , rentryN : null  };
         }
         return { val : null, rentryN : null };
@@ -75,7 +92,7 @@
       }
                  
       function findFreeREntry() {
-        for (rentryN in rtable) {
+        for (var rentryN in rtable) {
           var rentry = rtable[rentryN];
           if (!rentry.busy) { return rentryN; }
         }
@@ -106,8 +123,94 @@
           rentry.val2 = null;
           rentry.q2 = rval.rentryN;
         }
-        
+        if (isReg(instr.res)) {
+          rat[regSyntaxToN(instr.res)] = rentryN;
+        }
+        rentry.scycle = -1;
+        rentry.ecycle = -1;
         return true;
+      }
+
+      function initREntries() {
+        for (var rentryN in rtable) {
+          var rentry = rtable[rentryN];
+          if (rentry.busy && rentry.scycle < 0 && rentry.val1 != null && rentry.val2 != null) {
+            rentry.scycle = cycle;
+            rentry.ecycle = cycle + instrCycles(rentry.tag);
+          }
+        }
+      }
+
+      function writeBackRResults() {
+        for (var rentryN in rtable) {
+          var rentry = rtable[rentryN];
+          if (rentry.busy && rentry.ecycle == cycle) {
+            rentry.busy = false;
+            var res = 0;
+            switch (rentry.tag) {
+              case "ADD": res = rentry.val1 + rentry.val2; break;
+              case "SUB": res = rentry.val1 - rentry.val2; break;
+              case "MUL": res = rentry.val1 * rentry.val2; break;
+              <!-- TODO -->
+              <!-- case "LD" : res = memory[rentry.val1]; break; -->
+              <!-- case "ST" : var lval = getValue(instr.op1).val; break; -->
+            }
+            writeBackToRTable(rentryN, res);
+            writeBackToRegisters(rentryN, res);
+          }
+        }
+      }
+      
+      function writeBackToRTable(resEntryN, res) {
+        for (var rentryN in rtable) {
+          var rentry = rtable[rentryN];
+          if (rentry.busy) {
+              if (rentry.q1 == resEntryN) {
+                rentry.q1 = null;
+                rentry.val1 = res;
+              }
+              if (rentry.q2 == resEntryN) {
+                rentry.q2 = null;
+                rentry.val2 = res;
+              }
+          }
+        }
+      }
+      
+      function writeBackToRegisters(resEntryN, res) {
+        console.log("RAT: " + rat + " " + resEntryN + " " + res);
+        for (var regN in rat) {
+          if (rat[regN] == resEntryN) {
+            rat[regN] = null;
+            regfile[regN] = res;
+          }
+        }
+      }
+      
+      function instrCycles(tag) {
+        for (var tentryN in timing) {
+           var tentry = timing[tentryN];
+           if (tentry.tag == tag) { return tentry.time; }
+         }
+      }
+      
+      function printTiming() {
+        document.writeln("Timing <table border=\"1\">");
+        document.writeln("<tr bgcolor=\"#EEFFAD\">");
+        for (var property in timing[0]) {
+          document.writeln("<td>" + property + "</td>");
+        }
+        document.writeln("</tr>");
+
+        for (var tentryN in timing) {
+          document.writeln("<tr>");
+          var tentry = timing[tentryN];
+          for (var property in tentry) {
+            document.writeln("<td>" + tentry[property] + "</td>");
+          }
+          document.writeln("</tr>");
+        }
+        document.writeln("</table>");
       }
 
       function printRTable() {
@@ -123,9 +226,8 @@
           document.writeln("<tr> <td> RS" + rentryN + " </td>");
           for (var property in rentry) {
             var pval = rentry[property];
-            if (pval == null) {
-              pval = "⊥";
-            }
+            if (pval == null) { pval = "⊥"; }
+            else if (property[0] == "q") { pval = "RS" + pval; }
             document.writeln("<td>" + pval + "</td>");
           }
           document.writeln("</tr>");
@@ -141,6 +243,21 @@
         for (var regN in regfile) {
           document.writeln("<tr> <td> R" + regN + "</td>");
           document.writeln("<td>" + regfile[regN] + "</td> </tr>");
+        }
+        document.writeln("</table>");
+      }
+
+      function printRAT() {
+        document.writeln("Register Alias Table <table border=\"1\">");
+        document.writeln("<tr bgcolor=\"#EEADFF\">");
+        document.writeln("<td> reg </td> <td> rentry </td> </tr>");
+
+        for (var regN in rat) {
+          document.writeln("<tr> <td> R" + regN + "</td> <td>");
+          if (rat[regN] != null) {
+            document.write("RS" + rat[regN]);
+          }
+          document.writeln("</td> </tr>");
         }
         document.writeln("</table>");
       }
@@ -188,6 +305,10 @@
         printRegfile();
         document.writeln("</td> <td valign=\"top\">");
         printMemory();
+        document.writeln("</td> <td valign=\"top\">");
+        printRAT();
+        document.writeln("</td> <td valign=\"top\">");
+        printTiming();
         document.writeln("</td> </tr> </table>");
         printRTable();
 
