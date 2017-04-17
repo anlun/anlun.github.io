@@ -2,16 +2,18 @@
   <body>
     <script>
       var program =
-        [ {tag : "ADD", res : "%R3", op1 :  "$1", op2 : "$2" },
-          {tag : "SUB", res : "%R2", op1 : "%R3", op2 : "$4" },
-          {tag : "MUL", res : "%R0", op1 : "%R2", op2 : "%R3"}];
+        [ {tag : "ADD", res : "%R3", op1 :  "$1", op2 : "$2"  },
+          {tag : "SUB", res : "%R4", op1 : "$10", op2 : "$8"  },
+          {tag : "SUB", res : "%R2", op1 : "%R3", op2 : "$4"  },
+          {tag : "MUL", res : "%R0", op1 : "%R2", op2 : "%R3" },
+          {tag : "MUL", res : "%R5", op1 : "%R4", op2 : "%R3" } ];
           <!-- {tag : "ST" , res : "#0" , op1 : "%R0", op2 : ""   }, -->
           <!-- {tag : "LD" , res : "%R4", op1 : "#0" , op2 : ""   } ]; -->
 
       var timing =
-        [ {tag : "ADD", time : 1},
-          {tag : "SUB", time : 1},
-          {tag : "MUL", time : 3}];
+        [ {tag : "ADD", time : 2},
+          {tag : "SUB", time : 2},
+          {tag : "MUL", time : 4}];
           <!-- {tag : "LD" , time : 6}, -->
           <!-- {tag : "ST" , time : 6} ]; -->
       
