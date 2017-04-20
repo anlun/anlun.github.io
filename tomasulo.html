@@ -27,19 +27,37 @@
         [ { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1},
           { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1},
           { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1} ];
+          
+      var stepState = 0;
+      var stepStates = ["Add to RT", "Init RT entries", "Write Back RT results"];
+          
+      function substep() {
+        switch (stepState) {
+          case 0: if (ip < program.length) {
+                    if (addToRTable()) { ip++; }
+                  }
+                  break;
+
+          case 1: initREntries();
+                  break;
+
+          case 2: writeBackRResults();
+                  break;
+        }
+        stepState++;
+        if (stepState > stepStates.length) {
+          cycle++;
+          stepState = 0;
+        }
+        <!-- executeInstr(); -->
+      }
       
       function step() {
-        cycle++;
-        if (ip < program.length) {
-          <!-- executeInstr(); -->
-          if (addToRTable()) { ip++; }
-        }
-        initREntries();
-        writeBackRResults();
+        substep();
         document.body.innerHTML = "";
         printWorld();
       }
-      
+          
       function regSyntaxToN(regStr) {
         return parseInt(regStr.substring(2));
       }
@@ -104,7 +122,6 @@
       function addToRTable() {
         var instr = program[ip];
         var rentryN = findFreeREntry();
-        console.log(rentryN);
         if (rentryN < 0) { return false; }
         var rentry = rtable[rentryN];
         rentry.busy = true;
@@ -299,6 +316,20 @@
         document.writeln("</table>");
       }
       
+      function printStepState() {
+        document.writeln("<table border=\"1\"> <tr>");
+        for (var stateN in stepStates) {
+          document.writeln("<td>");
+          if (stateN < stepState) {
+            document.writeln("<font color=\"grey\">" + stepStates[stateN] + "</font>");
+          } else {
+            document.writeln(stepStates[stateN]);
+          }
+          document.writeln("</td>");
+        }
+        document.writeln("</tr> </table>");
+      }
+      
       function printWorld() {
         document.writeln("<h3> Cycle: " + cycle + "</h3>");
         document.writeln("<table> <tr> <td valign=\"top\">");
@@ -313,6 +344,8 @@
         printTiming();
         document.writeln("</td> </tr> </table>");
         printRTable();
+        document.writeln("<br />");
+        printStepState();
 
         document.writeln("<br />");
         document.writeln(
