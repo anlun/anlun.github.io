@@ -29,9 +29,9 @@
           { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1} ];
           
       var stepState = 0;
-      var stepStates = ["Add to RT", "Init RT entries", "Write Back RT results"];
+      var stepStates = ["Add to RT", "Init RT entries", "Write Back RT results", "Next cycle"];
           
-      function substep() {
+      function substepTrans() {
         switch (stepState) {
           case 0: if (ip < program.length) {
                     if (addToRTable()) { ip++; }
@@ -45,15 +45,32 @@
                   break;
         }
         stepState++;
-        if (stepState > stepStates.length) {
+        if (stepState > stepStates.length - 1) {
           cycle++;
           stepState = 0;
         }
-        <!-- executeInstr(); -->
+      }
+
+      function substep() {
+        substepTrans();
+        document.body.innerHTML = "";
+        printWorld();
+      }
+
+      function stepTrans() {
+        switch (stepState) {
+          case 0: if (ip < program.length) {
+                    if (addToRTable()) { ip++; }
+                  }
+          case 1: initREntries();
+          case 2: writeBackRResults();
+        }
+        cycle++;
+        stepState = 0;
       }
       
       function step() {
-        substep();
+        stepTrans();
         document.body.innerHTML = "";
         printWorld();
       }
@@ -345,13 +362,19 @@
         document.writeln("</td> </tr> </table>");
         printRTable();
         document.writeln("<br />");
-        printStepState();
+        <!-- printStepState(); -->
 
         document.writeln("<br />");
+        
+        document.writeln("<table> <tr>");
         document.writeln(
-          "<input type=\"button\" id=\"step-button\" value=\"Step\">");
+          "<td> <input type=\"button\" id=\"step-button\" value=\"Next cycle\"> </td>");
+        document.writeln(
+          "<td> <input type=\"button\" id=\"substep-button\" value=\"" + stepStates[stepState] + "\"> </td>");
         var stepButton = document.getElementById("step-button") ;
         stepButton.onclick = step;
+        var substepButton = document.getElementById("substep-button") ;
+        substepButton.onclick = substep;
       }
       printWorld();
     </script>
