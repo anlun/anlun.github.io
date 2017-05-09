@@ -1,0 +1,12 @@
+---
+layout: page
+title: Promising Compilation to ARMv8
+---
+A compilation correctness proof from the [Promise](http://sf.snu.ac.kr/promise-concurrency/) machine to
+[ARMv8](http://www.cl.cam.ac.uk/~sf502/popl16/index.html).
+
+_Authors_: Anton Podkopaev, [Ori Lahav](https://people.mpi-sws.org/~orilahav/), [Viktor Vafeiadis](https://people.mpi-sws.org/~viktor/)
+
+[[draft](https://drive.google.com/open?id=0B3UPtzTx9FB1UFNkR3cwckdlQkk),
+ [PLC presentation](https://drive.google.com/open?id=0B3UPtzTx9FB1bVc4UC1SaHhmQ2s)].
+ 
