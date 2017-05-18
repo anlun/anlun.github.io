@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Promising Compilation to ARMv8
+title: Promising Compilation to ARMv8 POP
 ---
 A compilation correctness proof from the [Promise](http://sf.snu.ac.kr/promise-concurrency/) machine to
 [ARMv8](http://www.cl.cam.ac.uk/~sf502/popl16/index.html).
