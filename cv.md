@@ -98,4 +98,4 @@ functional programming.
 
 | [Viktor Vafeiadis](https://people.mpi-sws.org/~viktor/) | [Dmitri Boulytchev](https://research.jetbrains.org/researchers/db) |
 | :-- | :-- |
-| Tenured Faculty <br /> Max Planck Institute for Software Systems <br /> Germany | Assistant Professor <br /> St. Petersburg University <br /> JetBrains Research |
+| Tenured Faculty <br /> MPI-SWS <br /> Germany | Assistant Professor <br /> St. Petersburg University <br /> Russia |
