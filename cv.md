@@ -92,10 +92,10 @@ functional programming.
 
 ### References
 
-| [Ilya Sergey](http://ilyasergey.net/) | [Aleksandar Nanevski](http://software.imdea.org/~aleks/) |
-| :-- | :-- |
-|  Lecturer <br /> University College London | Associate Research Professor <br /> IMDEA Software Institute <br /> Madrid
+<!-- | [Ilya Sergey](http://ilyasergey.net/) | [Aleksandar Nanevski](http://software.imdea.org/~aleks/) | -->
+<!-- | :-- | :-- | -->
+<!-- |  Lecturer <br /> University College London | Associate Research Professor <br /> IMDEA Software Institute <br /> Madrid -->
 
-| [Dmitri Boulytchev](https://research.jetbrains.org/researchers/db) |
-| :-- |
-| Assistant Professor <br /> St. Petersburg State University <br /> JetBrains Research |
+| [Viktor Vafeiadis](https://people.mpi-sws.org/~viktor/) | [Dmitri Boulytchev](https://research.jetbrains.org/researchers/db) |
+| :-- | :-- |
+| Tenured Faculty <br /> Max Planck Institute for Software Systems <br /> Germany | Assistant Professor <br /> St. Petersburg University <br /> JetBrains Research |
