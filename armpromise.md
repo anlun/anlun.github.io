@@ -2,7 +2,7 @@
 layout: page
 title: Promising Compilation to ARMv8
 ---
-_Authors_: Anton Podkopaev, [Ori Lahav](https://people.mpi-sws.org/~orilahav/), [Viktor Vafeiadis](https://people.mpi-sws.org/~viktor/) \\
+_Authors_: Anton Podkopaev, [Ori Lahav](https://people.mpi-sws.org/~orilahav/), [Viktor Vafeiadis](https://people.mpi-sws.org/~viktor/)
 
 ### ARMv8.3
 A compilation correctness proof from the [Promise](http://sf.snu.ac.kr/promise-concurrency/) machine to
