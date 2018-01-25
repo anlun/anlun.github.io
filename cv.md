@@ -40,32 +40,36 @@ functional programming.
   - Topic: computer games programming class.
 
 ### Internships 
-- [MPI-SWS](http://mpi-sws.org/), May to August 2016.
+- [MPI-SWS](http://mpi-sws.org/), May--August 2016; January, May, September--October 2017.
   - Adviser: [Viktor Vafeiadis](http://www.mpi-sws.org/~viktor/).
-  - Topic: Compilation soundness of C++11 atomics to ARM.
+  - Topic: Compilation correctness from C/C++11 atomics to the ARMv8 memory model.
 - [IMDEA Software Institute](http://software.imdea.org/), June to August 2015.
   - Advisers: [Ilya Sergey](http://ilyasergey.net/) and [Aleksandar Nanevski](http://software.imdea.org/~aleks/).
   - Topic: An operational semantics for the C/C++11 memory.
 
 
-
 ### Publications
-1. **Operational Aspects of C/C++ Concurrency**
+1. **Promising Compilation to ARMv8 POP**
+   <br />
+   A.Podkopaev, O.Lahav, V.Vafeiadis
+   <br />
+   In ECOOP 2017.
+2. **Operational Aspects of C/C++ Concurrency**
    <br />
    A.Podkopaev, I.Sergey, A.Nanevski
    <br />
    arXiv, 2016
-2. **A Language-Independent Code Formatting by Syntactic Matching and Templates**
+3. **A Language-Independent Code Formatting by Syntactic Matching and Templates**
    <br />
    A.Podkopaev, A.Korovianskii, I.Ozernykh
    <br />
    NTV SPbSTU 4 (224), October 2015 [In Russian].
-3. **Polynomial-Time Optimal Pretty-Printing Combinators with Choice**
+4. **Polynomial-Time Optimal Pretty-Printing Combinators with Choice**
    <br />
    A.Podkopaev, D.Boulytchev
    <br />
    Proceedings of 9th International Andrei Ershov Memorial Conference on Perspectives of System Informatics (PSI 2014). 
-4. **Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System**
+5. **Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System**
    <br />
    A.Kuzenkova, A.Deripaska, K.Taran, A.Podkopaev, Yu.Litvinov, T.Bryksin 
    <br />
