@@ -49,31 +49,36 @@ functional programming.
 
 
 ### Publications
-1. **Promising Compilation to ARMv8 POP**
+1. **Promising Compilation to ARMv8.3** (in Russian)
+   <br />
+   A.Podkopaev, O.Lahav, V.Vafeiadis
+   <br />
+   In proceedings of ISP RAS, 2017.
+2. **Promising Compilation to ARMv8 POP**
    <br />
    A.Podkopaev, O.Lahav, V.Vafeiadis
    <br />
    In ECOOP 2017.
-2. **Operational Aspects of C/C++ Concurrency**
+3. **Operational Aspects of C/C++ Concurrency**
    <br />
    A.Podkopaev, I.Sergey, A.Nanevski
    <br />
    arXiv, 2016
-3. **A Language-Independent Code Formatting by Syntactic Matching and Templates**
+4. **A Language-Independent Code Formatting by Syntactic Matching and Templates** (in Russian)
    <br />
    A.Podkopaev, A.Korovianskii, I.Ozernykh
    <br />
-   NTV SPbSTU 4 (224), October 2015 [In Russian].
-4. **Polynomial-Time Optimal Pretty-Printing Combinators with Choice**
+   NTV SPbSTU 4 (224), October 2015.
+5. **Polynomial-Time Optimal Pretty-Printing Combinators with Choice**
    <br />
    A.Podkopaev, D.Boulytchev
    <br />
    Proceedings of 9th International Andrei Ershov Memorial Conference on Perspectives of System Informatics (PSI 2014). 
-5. **Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System**
+6. **Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System** (in Russian)
    <br />
    A.Kuzenkova, A.Deripaska, K.Taran, A.Podkopaev, Yu.Litvinov, T.Bryksin 
    <br />
-   NTV SPbSTU 4 (128), 2011 [In Russian]. 
+   NTV SPbSTU 4 (128), 2011. 
 
 ### Teaching
 - **Compilers**, Lecturer
@@ -100,6 +105,10 @@ functional programming.
 <!-- | :-- | :-- | -->
 <!-- |  Lecturer <br /> University College London | Associate Research Professor <br /> IMDEA Software Institute <br /> Madrid -->
 
-| [Viktor Vafeiadis](https://people.mpi-sws.org/~viktor/) | [Dmitri Boulytchev](https://research.jetbrains.org/researchers/db) |
+| [Viktor Vafeiadis](https://people.mpi-sws.org/~viktor/) | [Ori Lahav](http://www.cs.tau.ac.il/~orilahav/) |
 | :-- | :-- |
-| Tenured Faculty <br /> MPI-SWS <br /> Germany | Assistant Professor <br /> St. Petersburg University <br /> Russia |
+| Tenured Faculty <br /> MPI-SWS <br /> Germany | Faculty member <br /> Tel Aviv University <br /> Israel|
+
+| [Dmitri Boulytchev](https://research.jetbrains.org/researchers/db) |
+| :-- |
+| Assistant Professor <br /> St. Petersburg University <br /> Russia |
