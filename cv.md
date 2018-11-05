@@ -35,7 +35,7 @@ functional programming.
   - [St. Petersburg Lyceum 239](http://en.wikipedia.org/wiki/Saint\_Petersburg\_Lyceum\_239), Russia.
 
 ### Employment
-- **Researcher** at [JetBrains Research](https://research.jetbrains.org/), June 2013.
+- **Researcher** at [JetBrains Research](https://research.jetbrains.org/), from June 2013.
 - **Middle school teacher** at [St. Petersburg Lyceum 239](http://en.wikipedia.org/wiki/Saint\_Petersburg\_Lyceum\_239),
 2009 -- 2011.
   - Topic: computer games programming class.
