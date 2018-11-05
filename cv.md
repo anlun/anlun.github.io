@@ -16,9 +16,10 @@ concurrency, weak memory models,
 functional programming.
 
 ### Education
-- **PhD student**, 2014 -- 2018 (expected)
+- **Ph.D. in Computer Science**, 2014 -- 2018
+[[thesis](https://disser.spbu.ru/files/disser2/disser/Vb8LCvNwbP.pdf), [video](https://youtu.be/PPWU6sXNaJ8)] (all in Russian)
   - [St. Petersburg State University](eng.spbu.ru), Russia
-  - Adviser: prof. [Dmitri Boulytchev](https://research.jetbrains.org/researchers/db)
+  - Thesis title: _Operational methods in application to weak memory models_
   - Area of study: Programming languages and software verification
 - **M.Sc. in mathematics and computer science**, 2009 -- 2014
 [[thesis](http://se.math.spbu.ru/SE/diploma/2014/s/Podkopaev_Diploma.pdf), [video](https://youtu.be/8mWGLT5L3k8)] (all in Russian)
@@ -40,20 +41,20 @@ functional programming.
   - Topic: computer games programming class.
 
 ### Internships 
-- [MPI-SWS](http://mpi-sws.org/), May--August 2016; January, May, September--October 2017.
+- [MPI-SWS](http://mpi-sws.org/), May--August 2016; January, May, September--October 2017; September--October 2018.
   - Adviser: [Viktor Vafeiadis](http://www.mpi-sws.org/~viktor/).
-  - Topic: Compilation correctness from C/C++11 atomics to the ARMv8 memory model.
+  - Topic: Compilation correctness from C/C++11 atomics to hardware memory models.
 - [IMDEA Software Institute](http://software.imdea.org/), June to August 2015.
   - Advisers: [Ilya Sergey](http://ilyasergey.net/) and [Aleksandar Nanevski](http://software.imdea.org/~aleks/).
   - Topic: An operational semantics for the C/C++11 memory.
 
 
-### Publications
-1. **Promising Compilation to ARMv8.3** (in Russian)
+### Selected publications
+1. **Bridging the Gap Between Programming Languages and Hardware Weak Memory Models**
    <br />
    A.Podkopaev, O.Lahav, V.Vafeiadis
    <br />
-   In proceedings of ISP RAS, 2017.
+   In POPL 2019.
 2. **Promising Compilation to ARMv8 POP**
    <br />
    A.Podkopaev, O.Lahav, V.Vafeiadis
@@ -64,24 +65,16 @@ functional programming.
    A.Podkopaev, I.Sergey, A.Nanevski
    <br />
    arXiv, 2016
-4. **A Language-Independent Code Formatting by Syntactic Matching and Templates** (in Russian)
-   <br />
-   A.Podkopaev, A.Korovianskii, I.Ozernykh
-   <br />
-   NTV SPbSTU 4 (224), October 2015.
-5. **Polynomial-Time Optimal Pretty-Printing Combinators with Choice**
+4. **Polynomial-Time Optimal Pretty-Printing Combinators with Choice**
    <br />
    A.Podkopaev, D.Boulytchev
    <br />
    Proceedings of 9th International Andrei Ershov Memorial Conference on Perspectives of System Informatics (PSI 2014). 
-6. **Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System** (in Russian)
-   <br />
-   A.Kuzenkova, A.Deripaska, K.Taran, A.Podkopaev, Yu.Litvinov, T.Bryksin 
-   <br />
-   NTV SPbSTU 4 (128), 2011. 
 
 ### Teaching
-- **Compilers**, Lecturer
+- **Compilers**, Lecturer and Teaching Assistant
+  <br />
+  Spring 2018, [Computer Science Center](https://compscicenter.ru/)
   <br />
   Spring 2015, 2016, [St. Petersburg ITMO University](http://en.ifmo.ru/)
   <br />
@@ -111,4 +104,4 @@ functional programming.
 
 | [Dmitri Boulytchev](https://research.jetbrains.org/researchers/db) |
 | :-- |
-| Assistant Professor <br /> St. Petersburg University <br /> Russia |
+| Associate Professor <br /> St. Petersburg University <br /> Russia |
