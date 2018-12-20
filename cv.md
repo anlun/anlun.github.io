@@ -36,6 +36,8 @@ functional programming.
 
 ### Employment
 - **Researcher** at [JetBrains Research](https://research.jetbrains.org/), from June 2013.
+- **Docent** at [Higher School of Economics](https://spb.hse.ru/en/), from December 2018.
+- **Lecturer** at [St. Petersburg Academic University](http://www.spbau.ru/main_eng/info_main_eng), 2015 -- 2018.
 - **Middle school teacher** at [St. Petersburg Lyceum 239](http://en.wikipedia.org/wiki/Saint\_Petersburg\_Lyceum\_239),
 2009 -- 2011.
   - Topic: computer games programming class.
@@ -72,6 +74,9 @@ functional programming.
    Proceedings of 9th International Andrei Ershov Memorial Conference on Perspectives of System Informatics (PSI 2014). 
 
 ### Teaching
+- **Semantics of Programming Languages**, Lecturer
+  <br />
+  Spring 2018, [Higher School of Economics](https://spb.hse.ru/en/)
 - **Compilers**, Lecturer and Teaching Assistant
   <br />
   Spring 2018, [Computer Science Center](https://compscicenter.ru/)
