@@ -10,6 +10,10 @@ Podkopaev.emailme = function (text) {
     if (!text) text = 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't';
       document.write('<a href="mai'+'lto:' + 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't">'+text+'</a>');
 };
+  
+function ghURL (suffix, name) {
+    document.write('<a href="https://github.com/anlun/anlun.github.io/raw/master/' + suffix + '">' + name + '</a>');
+};
 </script>
 
 <section>
@@ -122,7 +126,7 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
          <a href="https://plv.mpi-sws.org/imm">Project</a>,
          <a href="https://arxiv.org/abs/1807.07892">arXiv</a>,
          <a href="https://github.com/weakmemory/imm">GitHub</a>,
-         <a href="https://github.com/anlun/anlun.github.io/raw/master/slides/Podkopaev-al-POPL19-slides.pdf">POPL slides</a>]
+         <script>ghURL("slides/Podkopaev-al-POPL19-slides.pdf","POPL slides");</script>]
     </li>
     <li> <b>
         Relational programming with memoization and negation (In Russian)
@@ -144,7 +148,7 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
          <br />
          In NTV SPbSTU 4 (10), December 2017.
          <br />
-         [<a href="http://ntv.spbstu.ru/telecom/article/T10.4.2017_05/">Paper</a>]
+         [<script>ghURL("papers/Moiseenko-Podkopaev-NTV18.pdf","Paper");</script>]
     </li>
     <li> <b>Promising Compilation to ARMv8.3 (In Russian)</b>
          <br />
