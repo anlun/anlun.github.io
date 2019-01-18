@@ -11,20 +11,91 @@ Podkopaev.emailme = function (text) {
       document.write('<a href="mai'+'lto:' + 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't">'+text+'</a>');
 };
 
-function ghURLstring (suffix, name) {
-    return '<a href="https://github.com/anlun/anlun.github.io/raw/master/' + suffix + '">' + name + '</a>';
+function ghURLstring (suffix) {
+    return 'https://github.com/anlun/anlun.github.io/raw/master/' + suffix;
 };
   
 function ghURL (suffix, name) {
-    document.write(ghURLstring(suffix, name));
+    document.write('<a href="' + ghURLstring(suffix) + '">' + name + '</a>');
 };
   
-
-function lahav () {
-    document.write('<a href="http://www.cs.tau.ac.il/~orilahav/">O. Lahav</a>');
+var authors = {
+    "A. Podkopaev" : { "surname" : "Podkopaev",
+                       "short"   : "A. Podkopaev",
+                       "url"     : ""
+                     },
+    "O. Lahav"     : { "surname" : "Lahav",
+                       "name"    : "Ori",
+                       "url"     : "http://www.cs.tau.ac.il/~orilahav/"
+                     },
+    "V. Vafeiadis" : { "surname" : "Vafeiadis",
+                       "name"    : "Viktor",
+                       "url"     : "https://people.mpi-sws.org/~viktor/"
+                     }
+};
+function authorString (fname) {
+    if (authors[fname]["url"] == "") {
+        return fname
+    }
+    return '<a href="' + authors[fname]["url"] + '">' + fname + '</a>';
 }
-function vafeiadis() {
-    document.write('<a href="https://people.mpi-sws.org/~viktor/">V. Vafeiadis</a>');
+  
+function author (fname) {
+    document.write(authorString(fname));
+};
+  
+function lahav () {
+    document.write(author("O. Lahav"));
+}
+function vafeiadis () {
+    document.write(author("V. Vafeiadis"));
+}
+  
+var papers = [
+    { "title" : "Bridging the Gap Between Programming Languages and Hardware Weak Memory Models",
+      "authors" : ["A. Podkopaev", "O. Lahav", "V. Vafeiadis"],
+      "venue" : "POPL'19",
+      "full venue" : 'Symposium on Principles of Programming Languages, <a href="https://popl19.sigplan.org/">POPL 2019</a>',
+      "links" :
+        { 'Paper'       : 'https://plv.mpi-sws.org/imm/paper.pdf',
+          'Full paper'  : 'https://plv.mpi-sws.org/imm/Podkopaev-al-POPL19_full.pdf',
+          'Project'     : 'https://plv.mpi-sws.org/imm',
+          'arXiv'       : 'https://arxiv.org/abs/1807.07892',
+          'GitHub'      : 'https://github.com/weakmemory/imm',
+          'POPL slides' : ghURLstring("slides/Podkopaev-al-POPL19-slides.pdf")
+        }
+    }
+];
+  
+function paperReprString (paperObj) {
+    var authors = paperObj["authors"].map(authorString).reduce(
+        function (acc, value) {
+            acc += ", " + value;
+        });
+
+    var links = "";
+    for (link in paperObj["links"]) {
+        if (links != "") {
+            links += ", ";
+        }
+        links += "<a href=" + paperObj["links"][link] + ">" + link + "</a>";
+    }
+    if (links != "") {
+        links = "<br />" + "[" + links + "]"
+    }
+
+    return "<li>" +
+           "<b>" + paperObj["title"] + "</b>" +
+           "<br />" +
+           authors +
+           "<br />" +
+           "In " + paperObj["full venue"] +
+           links +
+           "</li>";
+}
+
+function paperRepr (paperObj) {
+    document.write(paperReprString(paperObj));
 }
 </script>
 
@@ -124,11 +195,14 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
   [<a href="http://dblp.uni-trier.de/pers/hd/p/Podkopaev:Anton">DBLP</a>,
    <a href="https://scholar.google.ru/citations?user=dAfcyZ0AAAAJ">Google Scholar</a>]
   <ol>
+    <script>
+      papers.forEach(paperRepr);
+    </script>
     <li> <b>
         Bridging the Gap Between Programming Languages and Hardware Weak Memory Models
       </b>
          <br />
-         A.Podkopaev, <script>lahav();</script>, <script>vafeiadis();</script>
+         A.Podkopaev, <script>author("O. Lahav");</script>, <script>author("V. Vafeiadis");</script>
          <br />
          In Symposium on Principles of Programming Languages, <a href="https://popl19.sigplan.org/">POPL 2019</a>.
          <br />
@@ -154,7 +228,7 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
         On compilation correctness for a subset of a promising memory model to the ARMv8.3 memory model (In Russian)
       </b>
          <br />
-         A.Podkopaev, <script>lahav();</script>, <script>vafeiadis();</script>
+         A.Podkopaev, <script>author("O. Lahav");</script>, <script>author("V. Vafeiadis");</script>
          <br />
          In NTV SPbSTU 4 (10), December 2017.
          <br />
@@ -162,7 +236,7 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
     </li>
     <li> <b>Promising Compilation to ARMv8.3 (In Russian)</b>
          <br />
-         A.Podkopaev, <script>lahav();</script>, <script>vafeiadis();</script>
+         A.Podkopaev, <script>author("O. Lahav");</script>, <script>author("V. Vafeiadis");</script>
          <br />
          In proceedings of ISP RAS, 2017.
          <br />
@@ -171,7 +245,7 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
     </li>
     <li> <b>Promising Compilation to ARMv8 POP</b>
          <br />
-         A.Podkopaev, <script>lahav();</script>, <script>vafeiadis();</script>
+         A.Podkopaev, <script>author("O. Lahav");</script>, <script>author("V. Vafeiadis");</script>
          <br />
          In 2017 European Conference on Object-Oriented Programming,
          <a href="http://2017.ecoop.org">ECOOP 2017</a>.
@@ -223,7 +297,7 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
   <ol>
     <li> <b>Promising compilation to {x86, Power, ARM}</b>
          <br />
-         A.Podkopaev (based on work of D. Dreyer, C.-K. Hur,  J. Kang, <script>lahav();</script>, A. Podkopaev, <script>vafeiadis();</script>)
+         A.Podkopaev (based on work of D. Dreyer, C.-K. Hur,  J. Kang, <script>author("O. Lahav");</script>, A. Podkopaev, <script>author("V. Vafeiadis");</script>)
          <br />
          [<a href="https://drive.google.com/file/d/0B3UPtzTx9FB1MTFEbEg5bnIzZ2s/view?usp=sharing">Slides</a>]
     </li>
