@@ -36,11 +36,30 @@ var authors = {
     "E. Moiseenko" : { "surname" : "Moiseenko",
                        "name"    : "Evgenii",
                        "url"     : "https://research.jetbrains.org/researchers/evg.moiseenko"
-                     }
+                     },
+
+    "I. Sergey"    : { "surname" : "Sergey",
+                       "name"    : "Ilya",
+                       "url"     : "http://ilyasergey.net/"
+                     },
+
+    "A. Nanevski"  : { "surname" : "Nanevski",
+                       "name"    : "Aleksandar",
+                       "url"     : "http://software.imdea.org/~aleks"
+                     },
+
+    "D. Boulytchev"  : { "surname" : "Boulytchev",
+                         "name"    : "Dmitry",
+                         "url"     : "https://research.jetbrains.org/researchers/db"
+                       },
 };
+
 function authorString (fname) {
+    if (!(fname in authors)) {
+        return fname;
+    }
     if (authors[fname]["url"] == "") {
-        return fname
+        return fname;
     }
     return '<a href="' + authors[fname]["url"] + '">' + fname + '</a>';
 }
@@ -68,8 +87,7 @@ var papers = [
           'arXiv'       : 'https://arxiv.org/abs/1807.07892',
           'GitHub'      : 'https://github.com/weakmemory/imm',
           'POPL slides' : ghURLstring("slides/Podkopaev-al-POPL19-slides.pdf")
-        }
-    },
+        }},
     
     { "title" : "Relational programming with memoization and negation (In Russian)",
       "authors" : ["E. Moiseenko", "A. Podkopaev"],
@@ -101,13 +119,54 @@ var papers = [
 
     { "title" : "Promising Compilation to ARMv8 POP",
       "authors" : ["A. Podkopaev", "O. Lahav", "V. Vafeiadis"],
-      "venue" : 'ECOOP 2017',
+      "venue" : "ECOOP'17",
       "full venue" : "2017 European Conference on Object-Oriented Programming",
       "links" :
         { 'Full paper' : "https://drive.google.com/file/d/0B3UPtzTx9FB1Y29vaGs0aHBSVXM/view",
           "PLC'17 slides" : "https://drive.google.com/open?id=0B3UPtzTx9FB1bVc4UC1SaHhmQ2s",
           "ECOOP'17 slides" : "https://drive.google.com/open?id=0B3UPtzTx9FB1SW1EMGt4aFAtcGc",
           "ECOOP talk video" : "https://youtu.be/OfWxjAtijjM",
+        }
+    },
+    
+    { "title" : "Operational Aspects of C/C++ Concurrency",
+      "authors" : ["A. Podkopaev", "I. Sergey", "A. Nanevski"],
+      "venue" : "arXiv'16",
+      "full venue" : "",
+      "links" :
+        { 'arXiv' : "http://arxiv.org/abs/1606.01400",
+        }
+    },
+
+    { "title" : "A Language-Independent Code Formatting by Syntactic Matching and Templates (In Russian)",
+      "authors" : ["A. Podkopaev", "A. Korovianskii", "I. Ozernykh"],
+      "venue" : "NTV'15",
+      "full venue" : "NTV SPbSTU 4 (224), October 2015",
+      "links" :
+        { 'Paper'  : "http://ntv.spbstu.ru/fulltext/T4.224.2015_04.PDF",
+          'GitHub' : "https://github.com/prettyPrinting",
+        }
+    },
+
+    { "title" : "Polynomial-Time Optimal Pretty-Printing Combinators with Choice",
+      "authors" : ["A. Podkopaev", "D. Boulytchev"],
+      "venue" : "PSI'14",
+      "full venue" : "proceedings of 9th International Andrei Ershov Memorial Conference on Perspectives of System Informatics, PSI 2014",
+      "links" :
+        { 'Springer link': "http://link.springer.com/chapter/10.1007%2F978-3-662-46823-4_21",
+          'GitHub (Haskell)' : "https://github.com/anlun/polynomialPPCombinators",
+          'GitHub (Kotlin)' : "https://github.com/prettyPrinting/format",
+        }
+    },
+
+    { "title" : "Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System (In Russian)",
+      "authors" : ["A. Kuzenkova", "A. Deripaska", "K. Taran", "A. Podkopaev", "Yu. Litvinov", "T. Bryksin"],
+      "venue" : "NTV'11",
+      "full venue" : "NTV SPbSTU 4 (128), 2011",
+      "links" :
+        { 'Paper' : "http://ntv.spbstu.ru/issue/T4.128.2011.PDF",
+          'Elibrary' : "http://elibrary.ru/item.asp?id=16927165",
+          'Project' : "http://qreal.ru/",
         }
     },
 ];
@@ -125,14 +184,16 @@ function paperReprString (paperObj) {
     if (links != "") {
         links = "<br />" + "[" + links + "]"
     }
+    var venue = "";
+    if (paperObj["full venue"] != "") {
+        venue = "<br />" + "In " + paperObj["full venue"];
+           
+    }
 
     return "<li>" +
            "<b>" + paperObj["title"] + "</b>" +
            "<br />" +
-           authors +
-           "<br />" +
-           "In " + paperObj["full venue"] +
-           links +
+           authors + venue + links +
            "</li>";
 }
 
@@ -240,49 +301,12 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
     <script>
       papers.forEach(paperRepr);
     </script>
-    <li> <b>Operational Aspects of C/C++ Concurrency</b>
-         <br />
-         A.Podkopaev, <a href="http://ilyasergey.net/">I.Sergey</a>, <a href="http://software.imdea.org/~aleks">A.Nanevski</a>
-         <br />
-         [<a href="http://arxiv.org/abs/1606.01400">arXiv</a>]
-    </li>
-    <li> <b>A Language-Independent Code Formatting by Syntactic Matching and Templates (In Russian)</b>
-         <br />
-         A.Podkopaev, A.Korovianskii, I.Ozernykh
-         <br />
-         In NTV SPbSTU 4 (224), October 2015.
-         <br />
-         [<a href="http://ntv.spbstu.ru/fulltext/T4.224.2015_04.PDF">PDF</a>,
-          <a href="https://github.com/prettyPrinting">Repo</a>]
-    </li>
-    <li> <b>Polynomial-Time Optimal Pretty-Printing Combinators with Choice</b>
-         <br />
-         A.Podkopaev, <a href="https://research.jetbrains.org/researchers/db">D.Boulytchev</a>
-         <br />
-           In
-           Proceedings of 9th International Andrei Ershov Memorial Conference on
-           Perspectives of System Informatics, PSI 2014.
-         <br />
-         [<a href="http://link.springer.com/chapter/10.1007%2F978-3-662-46823-4_21">Springer link</a>,
-          <a href="https://github.com/anlun/polynomialPPCombinators">Repo (Haskell)</a>,
-          <a href="https://github.com/prettyPrinting/format">Repo (Kotlin)</a>]
-    </li>
-    <li> <b> Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System (In Russian)</b>
-         <br />
-         A.Kuzenkova, A.Deripaska, K.Taran, A.Podkopaev, Yu.Litvinov, T.Bryksin
-         <br />
-         In NTV SPbSTU 4 (128), 2011.
-         <br />
-         [<a href="http://elibrary.ru/item.asp?id=16927165">Elibrary</a>,
-          <a href="http://ntv.spbstu.ru/issue/T4.128.2011.PDF">Journal PDF</a>,
-          <a href="http://qreal.ru/">Project page</a>].
-    </li>
   </ol>
   <center><h2> Talks </h2></center>
   <ol>
     <li> <b>Promising compilation to {x86, Power, ARM}</b>
          <br />
-         A.Podkopaev (based on work of D. Dreyer, C.-K. Hur,  J. Kang, <script>author("O. Lahav");</script>, A. Podkopaev, <script>author("V. Vafeiadis");</script>)
+         Based on work of D. Dreyer, C.-K. Hur,  J. Kang, <script>author("O. Lahav");</script>, A. Podkopaev, <script>author("V. Vafeiadis");</script>.
          <br />
          [<a href="https://drive.google.com/file/d/0B3UPtzTx9FB1MTFEbEg5bnIzZ2s/view?usp=sharing">Slides</a>]
     </li>
