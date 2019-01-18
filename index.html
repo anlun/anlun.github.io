@@ -10,9 +10,13 @@ Podkopaev.emailme = function (text) {
     if (!text) text = 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't';
       document.write('<a href="mai'+'lto:' + 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't">'+text+'</a>');
 };
+
+function ghURLstring (suffix, name) {
+    return '<a href="https://github.com/anlun/anlun.github.io/raw/master/' + suffix + '">' + name + '</a>';
+};
   
 function ghURL (suffix, name) {
-    document.write('<a href="https://github.com/anlun/anlun.github.io/raw/master/' + suffix + '">' + name + '</a>');
+    document.write(ghURLstring(suffix, name));
 };
 </script>
 
@@ -157,8 +161,8 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
          <br />
          In proceedings of ISP RAS, 2017.
          <br />
-         [<a href="https://drive.google.com/file/d/18uKTXswnpW5TVdgjLr2e0EvdSIFZYa4J/view?usp=sharing">Draft</a>,
-          <a href="https://drive.google.com/open?id=1l0v7XB2PMCcq-y18oJaIIUiHTN3NU_C9">Full proof</a>]
+         [<script>ghURL("papers/Podkopaev-al-ISPRAS17.pdf","Draft");</script>,
+          <script>ghURL("papers/Podkopaev-al-ISPRAS17-proof.pdf","Appendix");</script>]
     </li>
     <li> <b>Promising Compilation to ARMv8 POP</b>
          <br />
