@@ -31,6 +31,11 @@ var authors = {
     "V. Vafeiadis" : { "surname" : "Vafeiadis",
                        "name"    : "Viktor",
                        "url"     : "https://people.mpi-sws.org/~viktor/"
+                     },
+
+    "E. Moiseenko" : { "surname" : "Moiseenko",
+                       "name"    : "Evgenii",
+                       "url"     : "https://research.jetbrains.org/researchers/evg.moiseenko"
                      }
 };
 function authorString (fname) {
@@ -64,14 +69,51 @@ var papers = [
           'GitHub'      : 'https://github.com/weakmemory/imm',
           'POPL slides' : ghURLstring("slides/Podkopaev-al-POPL19-slides.pdf")
         }
-    }
+    },
+    
+    { "title" : "Relational programming with memoization and negation (In Russian)",
+      "authors" : ["E. Moiseenko", "A. Podkopaev"],
+      "venue" : "NTV'18",
+      "full venue" : 'NTV SPbSTU 2 (11), August 2018',
+      "links" :
+        { 'Paper' : ghURLstring("papers/Moiseenko-Podkopaev-NTV18.pdf")
+        }
+    },
+
+    { "title" : "On compilation correctness for a subset of a promising memory model to the ARMv8.3 memory model (In Russian)",
+      "authors" : ["A. Podkopaev", "O. Lahav", "V. Vafeiadis"],
+      "venue" : "NTV'17",
+      "full venue" : "NTV SPbSTU 4 (10), December 2017",
+      "links" :
+        { 'Paper' : ghURLstring("papers/Podkopaev-al-NTV17.pdf")
+        }
+    },
+
+    { "title" : "Promising Compilation to ARMv8.3 (In Russian)",
+      "authors" : ["A. Podkopaev", "O. Lahav", "V. Vafeiadis"],
+      "venue" : "ISP RAS'17",
+      "full venue" : "proceedings of ISP RAS, 2017",
+      "links" :
+        { 'Draft' : ghURLstring("papers/Podkopaev-al-ISPRAS17.pdf"),
+          'Appendix' : ghURLstring("papers/Podkopaev-al-ISPRAS17-proof.pdf")
+        }
+    },
+
+    { "title" : "Promising Compilation to ARMv8 POP",
+      "authors" : ["A. Podkopaev", "O. Lahav", "V. Vafeiadis"],
+      "venue" : 'ECOOP 2017',
+      "full venue" : "2017 European Conference on Object-Oriented Programming",
+      "links" :
+        { 'Full paper' : "https://drive.google.com/file/d/0B3UPtzTx9FB1Y29vaGs0aHBSVXM/view",
+          "PLC'17 slides" : "https://drive.google.com/open?id=0B3UPtzTx9FB1bVc4UC1SaHhmQ2s",
+          "ECOOP'17 slides" : "https://drive.google.com/open?id=0B3UPtzTx9FB1SW1EMGt4aFAtcGc",
+          "ECOOP talk video" : "https://youtu.be/OfWxjAtijjM",
+        }
+    },
 ];
-  
+
 function paperReprString (paperObj) {
-    var authors = paperObj["authors"].map(authorString).reduce(
-        function (acc, value) {
-            acc += ", " + value;
-        });
+    var authors = paperObj["authors"].map(authorString).join(', ');
 
     var links = "";
     for (link in paperObj["links"]) {
@@ -198,63 +240,6 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
     <script>
       papers.forEach(paperRepr);
     </script>
-    <li> <b>
-        Bridging the Gap Between Programming Languages and Hardware Weak Memory Models
-      </b>
-         <br />
-         A.Podkopaev, <script>author("O. Lahav");</script>, <script>author("V. Vafeiadis");</script>
-         <br />
-         In Symposium on Principles of Programming Languages, <a href="https://popl19.sigplan.org/">POPL 2019</a>.
-         <br />
-         [<a href="https://plv.mpi-sws.org/imm/paper.pdf">Paper</a>,
-         <a href="https://plv.mpi-sws.org/imm/Podkopaev-al-POPL19_full.pdf">Full paper</a>,
-         <a href="https://plv.mpi-sws.org/imm">Project</a>,
-         <a href="https://arxiv.org/abs/1807.07892">arXiv</a>,
-         <a href="https://github.com/weakmemory/imm">GitHub</a>,
-         <script>ghURL("slides/Podkopaev-al-POPL19-slides.pdf","POPL slides");</script>]
-    </li>
-    <li> <b>
-        Relational programming with memoization and negation (In Russian)
-      </b>
-         <br />
-         <a href="https://research.jetbrains.org/researchers/evg.moiseenko"> E. Moiseenko</a>,
-         A.Podkopaev
-         <br />
-         In NTV SPbSTU 2 (11), August 2018.
-         <br />
-         [<script>ghURL("papers/Moiseenko-Podkopaev-NTV18.pdf","Paper");</script>]
-    </li>
-    <li> <b>
-        On compilation correctness for a subset of a promising memory model to the ARMv8.3 memory model (In Russian)
-      </b>
-         <br />
-         A.Podkopaev, <script>author("O. Lahav");</script>, <script>author("V. Vafeiadis");</script>
-         <br />
-         In NTV SPbSTU 4 (10), December 2017.
-         <br />
-         [<script>ghURL("papers/Podkopaev-al-NTV17.pdf","Paper");</script>]
-    </li>
-    <li> <b>Promising Compilation to ARMv8.3 (In Russian)</b>
-         <br />
-         A.Podkopaev, <script>author("O. Lahav");</script>, <script>author("V. Vafeiadis");</script>
-         <br />
-         In proceedings of ISP RAS, 2017.
-         <br />
-         [<script>ghURL("papers/Podkopaev-al-ISPRAS17.pdf","Draft");</script>,
-          <script>ghURL("papers/Podkopaev-al-ISPRAS17-proof.pdf","Appendix");</script>]
-    </li>
-    <li> <b>Promising Compilation to ARMv8 POP</b>
-         <br />
-         A.Podkopaev, <script>author("O. Lahav");</script>, <script>author("V. Vafeiadis");</script>
-         <br />
-         In 2017 European Conference on Object-Oriented Programming,
-         <a href="http://2017.ecoop.org">ECOOP 2017</a>.
-         <br />
-         [<a href="https://drive.google.com/file/d/0B3UPtzTx9FB1Y29vaGs0aHBSVXM/view">Full paper</a>,
-          <a href="https://drive.google.com/open?id=0B3UPtzTx9FB1bVc4UC1SaHhmQ2s">PLC slides</a>,
-          <a href="https://drive.google.com/open?id=0B3UPtzTx9FB1SW1EMGt4aFAtcGc">ECOOP slides</a>,
-          <a href="https://youtu.be/OfWxjAtijjM">ECOOP talk video</a>]
-    </li>
     <li> <b>Operational Aspects of C/C++ Concurrency</b>
          <br />
          A.Podkopaev, <a href="http://ilyasergey.net/">I.Sergey</a>, <a href="http://software.imdea.org/~aleks">A.Nanevski</a>
