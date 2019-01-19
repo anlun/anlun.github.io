@@ -3,6 +3,8 @@ layout: default
 title: Anton Podkopaev
 ---
 
+{% include papersData.html %}
+
 <script>
 var Podkopaev = {} ;
 
@@ -10,196 +12,6 @@ Podkopaev.emailme = function (text) {
     if (!text) text = 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't';
       document.write('<a href="mai'+'lto:' + 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't">'+text+'</a>');
 };
-
-function ghURLstring (suffix) {
-    return 'https://github.com/anlun/anlun.github.io/raw/master/' + suffix;
-};
-  
-function ghURL (suffix, name) {
-    document.write('<a href="' + ghURLstring(suffix) + '">' + name + '</a>');
-};
-  
-var authors = {
-    "A. Podkopaev" : { "surname" : "Podkopaev",
-                       "short"   : "A. Podkopaev",
-                       "url"     : ""
-                     },
-    "O. Lahav"     : { "surname" : "Lahav",
-                       "name"    : "Ori",
-                       "url"     : "http://www.cs.tau.ac.il/~orilahav/"
-                     },
-    "V. Vafeiadis" : { "surname" : "Vafeiadis",
-                       "name"    : "Viktor",
-                       "url"     : "https://people.mpi-sws.org/~viktor/"
-                     },
-
-    "E. Moiseenko" : { "surname" : "Moiseenko",
-                       "name"    : "Evgenii",
-                       "url"     : "https://research.jetbrains.org/researchers/evg.moiseenko"
-                     },
-
-    "I. Sergey"    : { "surname" : "Sergey",
-                       "name"    : "Ilya",
-                       "url"     : "http://ilyasergey.net/"
-                     },
-
-    "A. Nanevski"  : { "surname" : "Nanevski",
-                       "name"    : "Aleksandar",
-                       "url"     : "http://software.imdea.org/~aleks"
-                     },
-
-    "D. Boulytchev"  : { "surname" : "Boulytchev",
-                         "name"    : "Dmitry",
-                         "url"     : "https://research.jetbrains.org/researchers/db"
-                       },
-};
-
-function authorString (fname) {
-    if (!(fname in authors)) {
-        return fname;
-    }
-    if (authors[fname]["url"] == "") {
-        return fname;
-    }
-    return '<a href="' + authors[fname]["url"] + '">' + fname + '</a>';
-}
-  
-function author (fname) {
-    document.write(authorString(fname));
-};
-  
-function lahav () {
-    document.write(author("O. Lahav"));
-}
-function vafeiadis () {
-    document.write(author("V. Vafeiadis"));
-}
-  
-var papers = [
-    { "title" : "Bridging the Gap Between Programming Languages and Hardware Weak Memory Models",
-      "authors" : ["A. Podkopaev", "O. Lahav", "V. Vafeiadis"],
-      "venue" : "POPL'19",
-      "full venue" : 'Symposium on Principles of Programming Languages, <a href="https://popl19.sigplan.org/">POPL 2019</a>',
-      "links" :
-        { 'Paper'       : 'https://plv.mpi-sws.org/imm/paper.pdf',
-          'Full paper'  : 'https://plv.mpi-sws.org/imm/Podkopaev-al-POPL19_full.pdf',
-          'Project'     : 'https://plv.mpi-sws.org/imm',
-          'arXiv'       : 'https://arxiv.org/abs/1807.07892',
-          'GitHub'      : 'https://github.com/weakmemory/imm',
-          'POPL slides' : ghURLstring("slides/Podkopaev-al-POPL19-slides.pdf")
-        }},
-    
-    { "title" : "Relational programming with memoization and negation (In Russian)",
-      "authors" : ["E. Moiseenko", "A. Podkopaev"],
-      "venue" : "NTV'18",
-      "full venue" : 'NTV SPbSTU 2 (11), August 2018',
-      "links" :
-        { 'Paper' : ghURLstring("papers/Moiseenko-Podkopaev-NTV18.pdf")
-        }
-    },
-
-    { "title" : "On compilation correctness for a subset of a promising memory model to the ARMv8.3 memory model (In Russian)",
-      "authors" : ["A. Podkopaev", "O. Lahav", "V. Vafeiadis"],
-      "venue" : "NTV'17",
-      "full venue" : "NTV SPbSTU 4 (10), December 2017",
-      "links" :
-        { 'Paper' : ghURLstring("papers/Podkopaev-al-NTV17.pdf")
-        }
-    },
-
-    { "title" : "Promising Compilation to ARMv8.3 (In Russian)",
-      "authors" : ["A. Podkopaev", "O. Lahav", "V. Vafeiadis"],
-      "venue" : "ISP RAS'17",
-      "full venue" : "proceedings of ISP RAS, 2017",
-      "links" :
-        { 'Draft' : ghURLstring("papers/Podkopaev-al-ISPRAS17.pdf"),
-          'Appendix' : ghURLstring("papers/Podkopaev-al-ISPRAS17-proof.pdf")
-        }
-    },
-
-    { "title" : "Promising Compilation to ARMv8 POP",
-      "authors" : ["A. Podkopaev", "O. Lahav", "V. Vafeiadis"],
-      "venue" : "ECOOP'17",
-      "full venue" : "2017 European Conference on Object-Oriented Programming",
-      "links" :
-        { 'Full paper' : "https://drive.google.com/file/d/0B3UPtzTx9FB1Y29vaGs0aHBSVXM/view",
-          "PLC'17 slides" : "https://drive.google.com/open?id=0B3UPtzTx9FB1bVc4UC1SaHhmQ2s",
-          "ECOOP'17 slides" : "https://drive.google.com/open?id=0B3UPtzTx9FB1SW1EMGt4aFAtcGc",
-          "ECOOP talk video" : "https://youtu.be/OfWxjAtijjM",
-        }
-    },
-    
-    { "title" : "Operational Aspects of C/C++ Concurrency",
-      "authors" : ["A. Podkopaev", "I. Sergey", "A. Nanevski"],
-      "venue" : "arXiv'16",
-      "full venue" : "",
-      "links" :
-        { 'arXiv' : "http://arxiv.org/abs/1606.01400",
-        }
-    },
-
-    { "title" : "A Language-Independent Code Formatting by Syntactic Matching and Templates (In Russian)",
-      "authors" : ["A. Podkopaev", "A. Korovianskii", "I. Ozernykh"],
-      "venue" : "NTV'15",
-      "full venue" : "NTV SPbSTU 4 (224), October 2015",
-      "links" :
-        { 'Paper'  : "http://ntv.spbstu.ru/fulltext/T4.224.2015_04.PDF",
-          'GitHub' : "https://github.com/prettyPrinting",
-        }
-    },
-
-    { "title" : "Polynomial-Time Optimal Pretty-Printing Combinators with Choice",
-      "authors" : ["A. Podkopaev", "D. Boulytchev"],
-      "venue" : "PSI'14",
-      "full venue" : "proceedings of 9th International Andrei Ershov Memorial Conference on Perspectives of System Informatics, PSI 2014",
-      "links" :
-        { 'Springer link': "http://link.springer.com/chapter/10.1007%2F978-3-662-46823-4_21",
-          'GitHub (Haskell)' : "https://github.com/anlun/polynomialPPCombinators",
-          'GitHub (Kotlin)' : "https://github.com/prettyPrinting/format",
-        }
-    },
-
-    { "title" : "Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System (In Russian)",
-      "authors" : ["A. Kuzenkova", "A. Deripaska", "K. Taran", "A. Podkopaev", "Yu. Litvinov", "T. Bryksin"],
-      "venue" : "NTV'11",
-      "full venue" : "NTV SPbSTU 4 (128), 2011",
-      "links" :
-        { 'Paper' : "http://ntv.spbstu.ru/issue/T4.128.2011.PDF",
-          'Elibrary' : "http://elibrary.ru/item.asp?id=16927165",
-          'Project' : "http://qreal.ru/",
-        }
-    },
-];
-
-function paperReprString (paperObj) {
-    var authors = paperObj["authors"].map(authorString).join(', ');
-
-    var links = "";
-    for (link in paperObj["links"]) {
-        if (links != "") {
-            links += ", ";
-        }
-        links += "<a href=" + paperObj["links"][link] + ">" + link + "</a>";
-    }
-    if (links != "") {
-        links = "<br />" + "[" + links + "]"
-    }
-    var venue = "";
-    if (paperObj["full venue"] != "") {
-        venue = "<br />" + "In " + paperObj["full venue"];
-           
-    }
-
-    return "<li>" +
-           "<b>" + paperObj["title"] + "</b>" +
-           "<br />" +
-           authors + venue + links +
-           "</li>";
-}
-
-function paperRepr (paperObj) {
-    document.write(paperReprString(paperObj));
-}
 </script>
 
 <section>
@@ -235,14 +47,13 @@ Curriculum vitæ: [<a href="cv">HTML</a>]
 </section>
 
 <section>
-  <center><h1> Publications </h1></center>
+  <center><h1> Selected Publications </h1></center>
   [<a href="http://dblp.uni-trier.de/pers/hd/p/Podkopaev:Anton">DBLP</a>,
-   <a href="https://scholar.google.ru/citations?user=dAfcyZ0AAAAJ">Google Scholar</a>]
-  <ol>
+   <a href="https://scholar.google.ru/citations?user=dAfcyZ0AAAAJ">Google Scholar</a>,
+   <a href="publications">Full list of publications</a>]
     <script>
-      papers.forEach(paperRepr);
+      papersShort();
     </script>
-  </ol>
   <center><h2> Talks </h2></center>
   <ol>
     <li> <b>Promising compilation to {x86, Power, ARM}</b>
