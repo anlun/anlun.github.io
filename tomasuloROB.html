@@ -1,0 +1,383 @@
+<html>
+  <body>
+    <script>
+      var program =
+        [ {tag : "ADD", res : "%R3", op1 :  "$1", op2 : "$2"  },
+          {tag : "SUB", res : "%R4", op1 : "$10", op2 : "$8"  },
+          {tag : "SUB", res : "%R2", op1 : "%R3", op2 : "$4"  },
+          {tag : "MUL", res : "%R0", op1 : "%R2", op2 : "%R3" },
+          {tag : "MUL", res : "%R5", op1 : "%R4", op2 : "%R3" } ];
+          <!-- {tag : "ST" , res : "#0" , op1 : "%R0", op2 : ""   }, -->
+          <!-- {tag : "LD" , res : "%R4", op1 : "#0" , op2 : ""   } ]; -->
+
+      var timing =
+        [ {tag : "ADD", time : 2},
+          {tag : "SUB", time : 2},
+          {tag : "MUL", time : 4}];
+          <!-- {tag : "LD" , time : 6}, -->
+          <!-- {tag : "ST" , time : 6} ]; -->
+      
+      var regfile = [0, 0, 0, 0, 0, 0];
+      var memory  = [0, 0, 0, 0, 0, 0];
+      var rat = [null, null, null, null, null, null];
+      var ip = 0;
+      var cycle = 0;
+      
+      var rtable =
+        [ { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1},
+          { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1},
+          { busy : false, tag : null, val1 : null, val2 : null, q1 : null, q2 : null, disp : false, scycle : -1, ecycle : -1} ];
+          
+      var stepState = 0;
+      var stepStates = ["Add to RT", "Init RT entries", "Write Back RT results", "Next cycle"];
+          
+      function substepTrans() {
+        switch (stepState) {
+          case 0: if (ip < program.length) {
+                    if (addToRTable()) { ip++; }
+                  }
+                  break;
+
+          case 1: initREntries();
+                  break;
+
+          case 2: writeBackRResults();
+                  break;
+        }
+        stepState++;
+        if (stepState > stepStates.length - 1) {
+          cycle++;
+          stepState = 0;
+        }
+      }
+
+      function substep() {
+        substepTrans();
+        document.body.innerHTML = "";
+        printWorld();
+      }
+
+      function stepTrans() {
+        switch (stepState) {
+          case 0: if (ip < program.length) {
+                    if (addToRTable()) { ip++; }
+                  }
+          case 1: initREntries();
+          case 2: writeBackRResults();
+        }
+        cycle++;
+        stepState = 0;
+      }
+      
+      function step() {
+        stepTrans();
+        document.body.innerHTML = "";
+        printWorld();
+      }
+          
+      function regSyntaxToN(regStr) {
+        return parseInt(regStr.substring(2));
+      }
+
+      function addrSyntaxToN(addrStr) {
+        return parseInt(addrStr.substring(1));
+      }
+                 
+      function isReg(op) { return (op[0] == "%"); }
+          
+      function getValue(op) {
+        switch (op[0]) {
+          case "$": return { val : parseInt(op.substring(1)), rentryN : null };
+          case "%":
+            var regN = regSyntaxToN(op)
+            if (rat[regN] == null) {
+              return { val : regfile[regN], rentryN : null  };
+            }
+            return { val : null, rentryN : rat[regN]};
+          case "#": return { val : memory[op.substring(1)]  , rentryN : null  };
+        }
+        return { val : null, rentryN : null };
+      }
+      
+      function executeInstr() {
+        var instr = program[ip];
+        switch (instr.tag) {
+          case "ADD":
+            var lval = getValue(instr.op1).val;
+            var rval = getValue(instr.op2).val;
+            regfile[regSyntaxToN(instr.res)] = lval + rval;
+            break;
+          case "SUB":
+            var lval = getValue(instr.op1).val;
+            var rval = getValue(instr.op2).val;
+            regfile[regSyntaxToN(instr.res)] = lval - rval;
+            break;
+          case "MUL":
+            var lval = getValue(instr.op1).val;
+            var rval = getValue(instr.op2).val;
+            regfile[regSyntaxToN(instr.res)] = lval * rval;
+            break;
+          case "LD":
+            var lval = getValue(instr.op1).val;
+            regfile[regSyntaxToN(instr.res)] = lval;
+            break;
+          case "ST":
+            var lval = getValue(instr.op1).val;
+            memory[addrSyntaxToN(instr.res)] = lval;
+            break;
+        }
+      }
+                 
+      function findFreeREntry() {
+        for (var rentryN in rtable) {
+          var rentry = rtable[rentryN];
+          if (!rentry.busy) { return rentryN; }
+        }
+        return -1;
+      }
+      
+      function addToRTable() {
+        var instr = program[ip];
+        var rentryN = findFreeREntry();
+        if (rentryN < 0) { return false; }
+        var rentry = rtable[rentryN];
+        rentry.busy = true;
+        rentry.tag = instr.tag;
+        var lval = getValue(instr.op1);
+        if (lval.val != null) {
+          rentry.val1 = lval.val;
+          rentry.q1   = null;
+        } else {
+          rentry.val1 = null;
+          rentry.q1 = lval.rentryN;
+        }
+        var rval = getValue(instr.op2);
+        if (rval.val != null) {
+          rentry.val2 = rval.val;
+          rentry.q2   = null;
+        } else {
+          rentry.val2 = null;
+          rentry.q2 = rval.rentryN;
+        }
+        if (isReg(instr.res)) {
+          rat[regSyntaxToN(instr.res)] = rentryN;
+        }
+        rentry.scycle = -1;
+        rentry.ecycle = -1;
+        return true;
+      }
+
+      function initREntries() {
+        for (var rentryN in rtable) {
+          var rentry = rtable[rentryN];
+          if (rentry.busy && rentry.scycle < 0 && rentry.val1 != null && rentry.val2 != null) {
+            rentry.scycle = cycle;
+            rentry.ecycle = cycle + instrCycles(rentry.tag);
+          }
+        }
+      }
+
+      function writeBackRResults() {
+        for (var rentryN in rtable) {
+          var rentry = rtable[rentryN];
+          if (rentry.busy && rentry.ecycle == cycle) {
+            rentry.busy = false;
+            var res = 0;
+            switch (rentry.tag) {
+              case "ADD": res = rentry.val1 + rentry.val2; break;
+              case "SUB": res = rentry.val1 - rentry.val2; break;
+              case "MUL": res = rentry.val1 * rentry.val2; break;
+              <!-- TODO -->
+              <!-- case "LD" : res = memory[rentry.val1]; break; -->
+              <!-- case "ST" : var lval = getValue(instr.op1).val; break; -->
+            }
+            writeBackToRTable(rentryN, res);
+            writeBackToRegisters(rentryN, res);
+          }
+        }
+      }
+      
+      function writeBackToRTable(resEntryN, res) {
+        for (var rentryN in rtable) {
+          var rentry = rtable[rentryN];
+          if (rentry.busy) {
+              if (rentry.q1 == resEntryN) {
+                rentry.q1 = null;
+                rentry.val1 = res;
+              }
+              if (rentry.q2 == resEntryN) {
+                rentry.q2 = null;
+                rentry.val2 = res;
+              }
+          }
+        }
+      }
+      
+      function writeBackToRegisters(resEntryN, res) {
+        console.log("RAT: " + rat + " " + resEntryN + " " + res);
+        for (var regN in rat) {
+          if (rat[regN] == resEntryN) {
+            rat[regN] = null;
+            regfile[regN] = res;
+          }
+        }
+      }
+      
+      function instrCycles(tag) {
+        for (var tentryN in timing) {
+           var tentry = timing[tentryN];
+           if (tentry.tag == tag) { return tentry.time; }
+         }
+      }
+      
+      function printTiming() {
+        document.writeln("Timing <table border=\"1\">");
+        document.writeln("<tr bgcolor=\"#EEFFAD\">");
+        for (var property in timing[0]) {
+          document.writeln("<td>" + property + "</td>");
+        }
+        document.writeln("</tr>");
+
+        for (var tentryN in timing) {
+          document.writeln("<tr>");
+          var tentry = timing[tentryN];
+          for (var property in tentry) {
+            document.writeln("<td>" + tentry[property] + "</td>");
+          }
+          document.writeln("</tr>");
+        }
+        document.writeln("</table>");
+      }
+
+      function printRTable() {
+        document.writeln("Reservation Table <table border=\"1\">");
+        document.writeln("<tr bgcolor=\"#FFEEAD\"> <td> IP </td>");
+        for (var property in rtable[0]) {
+          document.writeln("<td>" + property + "</td>");
+        }
+        document.writeln("</tr>");
+
+        for (var rentryN in rtable) {
+          var rentry = rtable[rentryN];
+          document.writeln("<tr> <td> RS" + rentryN + " </td>");
+          for (var property in rentry) {
+            var pval = rentry[property];
+            if (pval == null) { pval = "⊥"; }
+            else if (property[0] == "q") { pval = "RS" + pval; }
+            document.writeln("<td>" + pval + "</td>");
+          }
+          document.writeln("</tr>");
+        }
+        document.writeln("</table>");
+      }
+      
+      function printRegfile() {
+        document.writeln("RegFile <table border=\"1\">");
+        document.writeln("<tr bgcolor=\"#FFBBBB\">");
+        document.writeln("<td> reg </td> <td> value </td> </tr>");
+
+        for (var regN in regfile) {
+          document.writeln("<tr> <td> R" + regN + "</td>");
+          document.writeln("<td>" + regfile[regN] + "</td> </tr>");
+        }
+        document.writeln("</table>");
+      }
+
+      function printRAT() {
+        document.writeln("RAT <table border=\"1\">");
+        document.writeln("<tr bgcolor=\"#EEADFF\">");
+        document.writeln("<td> reg </td> <td> rentry </td> </tr>");
+
+        for (var regN in rat) {
+          document.writeln("<tr> <td> R" + regN + "</td> <td>");
+          if (rat[regN] != null) {
+            document.write("RS" + rat[regN]);
+          }
+          document.writeln("</td> </tr>");
+        }
+        document.writeln("</table>");
+      }
+
+      function printMemory() {
+        document.writeln("Memory <table border=\"1\">");
+        document.writeln("<tr bgcolor=\"#BBFFBB\">");
+        document.writeln("<td> addr </td> <td> value </td> </tr>");
+
+        for (var addr in memory) {
+          document.writeln("<tr> <td> #" + addr + "</td>");
+          document.writeln("<td>" + memory[addr] + "</td> </tr>");
+        }
+        document.writeln("</table>");
+      }
+      
+      function printProgram() {
+        document.writeln("Program <table border=\"1\">");
+        document.writeln("<tr bgcolor=\"#BBBBFF\"> <td> IP </td>");
+        for (var property in program[0]) {
+          document.writeln("<td>" + property + "</td>");
+        }
+        document.writeln("</tr>");
+
+        for (var instrN in program) {
+          var instr = program[instrN];
+          document.writeln("<tr> <td>");
+          if (instrN == ip) {
+            document.writeln("→");
+          }
+          document.writeln("</td>");
+          for (var property in instr) {
+            document.writeln("<td>" + instr[property] + "</td>");
+          }
+          document.writeln("</tr>");
+        }
+        document.writeln("</table>");
+      }
+      
+      function printStepState() {
+        document.writeln("<table border=\"1\"> <tr>");
+        for (var stateN in stepStates) {
+          document.writeln("<td>");
+          if (stateN < stepState) {
+            document.writeln("<font color=\"grey\">" + stepStates[stateN] + "</font>");
+          } else {
+            document.writeln(stepStates[stateN]);
+          }
+          document.writeln("</td>");
+        }
+        document.writeln("</tr> </table>");
+      }
+      
+      function printWorld() {
+        document.writeln("<h3> Cycle: " + cycle + "</h3>");
+        document.writeln("<table> <tr> <td valign=\"top\">");
+        printProgram();
+        document.writeln("</td> <td valign=\"top\">");
+        printRegfile();
+        document.writeln("</td> <td valign=\"top\">");
+        <!-- printMemory(); -->
+        <!-- document.writeln("</td> <td valign=\"top\">"); -->
+        printRAT();
+        document.writeln("</td> <td valign=\"top\">");
+        printTiming();
+        document.writeln("</td> </tr> </table>");
+        printRTable();
+        document.writeln("<br />");
+        <!-- printStepState(); -->
+
+        document.writeln("<br />");
+        
+        document.writeln("<table> <tr>");
+        document.writeln(
+          "<td> <input type=\"button\" id=\"step-button\" value=\"Next cycle\"> </td>");
+        document.writeln(
+          "<td> <input type=\"button\" id=\"substep-button\" value=\"" + stepStates[stepState] + "\"> </td>");
+        var stepButton = document.getElementById("step-button") ;
+        stepButton.onclick = step;
+        var substepButton = document.getElementById("substep-button") ;
+        substepButton.onclick = substep;
+      }
+      printWorld();
+    </script>
+
+  </body>
+</html>
