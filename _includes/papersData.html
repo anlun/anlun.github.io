@@ -65,12 +65,47 @@ var authors = {
                        },
 
     "E. Namakonov"  : { "surname" : "Namakonov",
-                        "name"    : "Egor"
+                        "name"    : "Egor",
+                        "url"     : "https://research.jetbrains.org/researchers/fresheed"
                       },
 
     "O. Melkonian"  : { "surname" : "Melkonian",
                         "name"    : "Orestis",
                         "url"     : "https://omelkonian.github.io/"
+                      },
+
+    "C. Watt"       : { "surname" : "Watt",
+                        "name"    : "Conrad",
+                        "url"     : "https://www.cl.cam.ac.uk/~caw77/"
+                      },
+
+    "C. Pulte"      : { "surname" : "Pulte",
+                        "name"    : "Christopher",
+                        "url"     : "https://www.cl.cam.ac.uk/~cp526/"
+                      },
+
+    "G. Barbier"    : { "surname" : "Barbier",
+                        "name"    : "Guillaume"
+                      },
+
+    "S. Dolan"      : { "surname" : "Dolan",
+                        "name"    : "Stephen",
+                        "url"     : "http://stedolan.net/"
+                      },
+
+    "S. Flur"       : { "surname" : "Flur",
+                        "name"    : "Shaked",
+                        "url"     : "https://www.cl.cam.ac.uk/~sf502/"
+                      },
+
+    "J. Pichon-Pharabod" : { "surname" : "Pichon-Pharabod",
+                             "name"    : "Jean",
+                             "url"     : "https://www.cl.cam.ac.uk/~jp622/"
+                           },
+
+    "S. Guo"        : { "surname" : "Guo",
+                        "name"    : "Shu-yu",
+                        "url"     : "http://rfrn.org/~shu/"
                       },
 };
 
@@ -96,6 +131,34 @@ function vafeiadis () {
 }
   
 var papers = [
+    { "title" : "Promising 2.0: Global Optimizations in Relaxed Memory Concurrency",
+      "authors" : ["S.-H. Lee", "M. Cho", "A. Podkopaev", "S. Chakraborty",
+                   "C.-K. Hur", "O. Lahav", "V. Vafeiadis"],
+      "venue" : "PLDI'20",
+      "full venue" : 'Conference on Programming Language Design and Implementation, <a href="https://pldi20.sigplan.org/">PLDI 2020 </a>',
+      "links" :
+        { 'Draft'       : 'https://sf.snu.ac.kr/publications/promising2.pdf',
+          'Project'     : 'https://sf.snu.ac.kr/promising2.0',
+          'GitHub 1'    : 'https://github.com/snu-sf/promising2-coq',
+          'GitHub 2'    : 'https://github.com/weakmemory/promising2ToImm'
+        },
+      "selected" : true,
+    },
+
+    { "title" : "Repairing and Mechanising the JavaScript Relaxed Memory Model",
+      "authors" : ["C. Watt", "C. Pulte", "A. Podkopaev", "G. Barbier",
+                   "S. Dolan", "S. Flur", "J. Pichon-Pharabod", "S. Guo"],
+      "venue" : "PLDI'20",
+      "full venue" : 'Conference on Programming Language Design and Implementation, <a href="https://pldi20.sigplan.org/">PLDI 2020 </a>',
+      "links" :
+        { 'Draft'       : 'https://sf.snu.ac.kr/publications/promising2.pdf',
+          'Project'     : 'https://sf.snu.ac.kr/promising2.0',
+          'GitHub 1'    : 'https://github.com/snu-sf/promising2-coq',
+          'GitHub 2'    : 'https://github.com/weakmemory/promising2ToImm'
+        },
+      "selected" : true,
+    },
+
     { "title" : "Reconciling Event Structures with Modern Multiprocessors",
       "authors" : ["E. Moiseenko", "A. Podkopaev", "O. Lahav", "O. Melkonian", "V. Vafeiadis"],
       "venue" : "arXiv'19",
