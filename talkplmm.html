@@ -1,0 +1,37 @@
+---
+layout: default
+title: Programming language memory models: Problems, solutions, and directions
+---
+
+<h3>Annotation</h3>
+Due to compiler and hardware optimizations, modern programming languages (PLs) do not provide sequential consistent memory model (SC, [Lamport:TC79]),
+which guarantees that all concurrent behaviors of a program could be explained as a sequential execution of some interleaving of program's threads.
+Instead, they have weak memory models which allow more behaviors.
+
+Such memory models have to balance between performance and guarantees provided to software developers, or, as one may say,
+the balance is actually between performance and sanity.
+That is, performance forces a memory model to allow more optimizations and, therefore, more program behaviors,
+whereas sanity forces a memory model to provide guarantees like data-race-freedom (DRF) that a program without races has only
+sequentially consistent executions which restricts the set of allowed executions.
+
+In this talk, we introduce weak memory concurrency, consider requirements imposed on PL memory models,
+and examine ones used by industry (C11 [Batty-al:POPL11] and Java [Manson-al:POPL05]) and their drawbacks.
+Then, we explore new memory models (RC11 [Lahav-al:PLDI17], MRD [Paviotti-al:ESOP20], Promising 1.0 [Kang-al:POPL17],
+Promising 2.0 [Hwan-al:PLDI20], Weakestmo [Chakraborty-Vafeiadis:POPL19]) proposed as a solution for the drawbacks:
+what these models provide, which compromises they take, how expensive performance-wise, if at all, these compromises are,
+and how hard is to adapt the models for mainstream languages.
+We conclude with a discussion on how to choose a memory model for your language or VM depending on your desiderata.
+
+Target audience:
+<ol>
+  <li> folks interested in low-level concurrency mechanics; </li>
+  <li> language and VM developers. </li>
+</ol>
+
+Audience takeaway:
+<ol>
+  <li> Memory models of mainstream languages (C/C++ and Java) have major issues. </li>
+  <li> There are solutions making different compromises.
+  <li> There are guidelines for choosing or modifying a memory model for your language or VM. </li>
+</li>
+</ol>
