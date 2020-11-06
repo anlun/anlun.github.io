@@ -38,27 +38,25 @@ We conclude with a discussion on how to choose a memory model for your language 
 </li>
 </ul>
 
+<h1> Модели памяти языков программирования: Проблемы, решения и направления развития (Доклад) </h1>
 <h2>Аннотация [RUS]</h2>
 <p>
-Due to compiler and hardware optimizations, modern programming languages (PLs) do not provide sequential consistent memory model (SC, [Lamport:TC79]),
-which guarantees that all concurrent behaviors of a program could be explained as a sequential execution of some interleaving of program's threads.
-Instead, they have weak memory models which allow more behaviors.
+  Использование компиляторных и процессорных оптимизаций приводит к тому, что современные языки программирования не гарантируют
+  модель памяти <em>последовательной консистентности</em> (sequential consistency, SC, [Lamport:TC79]) для многопоточных программ.
+  <!-- что любое наблюдаемое поведение многопоточной программы может быть воспроизведено как последовательное исполнение -->
+  <!-- некоторого чередования инструкций программных потоков. -->
+  Вместо этого, такие языки обладают <em>слабыми моделями памяти</em>, допускающими больше возможных результатов исполнения
+  программ.
+  Такие модели памяти балансируют между производительностью, как следствие свободы, предоставляемой компилятору и процессору,
+  и гарантиями на "разумность" поведения программы, предоставляемыми программисту.
 </p>
 <p>
-Such memory models have to balance between performance and guarantees provided to software developers, or, as one may say,
-the balance is actually between performance and sanity.
-That is, performance forces a memory model to allow more optimizations and, therefore, more program behaviors,
-whereas sanity forces a memory model to provide guarantees like data-race-freedom (DRF) that a program without races has only
-sequentially consistent executions which restricts the set of allowed executions.
-</p>
-<p>
-In this talk, we introduce weak memory concurrency, consider requirements imposed on PL memory models,
-and examine ones used by industry (C11 [Batty-al:POPL11] and Java [Manson-al:POPL05]) and their drawbacks.
-Then, we explore new memory models (RC11 [Lahav-al:PLDI17], MRD [Paviotti-al:ESOP20], Promising 1.0 [Kang-al:POPL17],
-Promising 2.0 [Hwan-al:PLDI20], Weakestmo [Chakraborty-Vafeiadis:POPL19]) proposed as a solution for the drawbacks:
-what these models provide, which compromises they take, how expensive performance-wise, if at all, these compromises are,
-and how hard is to adapt the models for mainstream languages.
-We conclude with a discussion on how to choose a memory model for your language or VM depending on your desiderata.
+  В этом докладе вводятся слабые модели памяти, рассматриваются требования к моделям памяти языков программирования,
+  а также обсуждаются достоинства и недостатки моделей, используемых в индустрии (C/C++11 [Batty-al:POPL11] и Java [Manson-al:POPL05]).
+  Далее рассматриваются новые модели памяти (RC11 [Lahav-al:PLDI17], MRD [Paviotti-al:ESOP20], Promising 1.0 [Kang-al:POPL17],
+  Promising 2.0 [Hwan-al:PLDI20], Weakestmo [Chakraborty-Vafeiadis:POPL19]), призванные решить упомянутые недостатки.
+  В заключении обсуждается то, как стоит подходить к выбору и/или модификации модели памяти для языка программирования или
+  виртуальной машины.
 </p>
 
 <h3>Целевая аудитория:</h3>
@@ -70,7 +68,6 @@ We conclude with a discussion on how to choose a memory model for your language 
 <h3>Основные идеи доклада:</h3>
 <ul>
   <li> Модели памяти популярных языков (C/C++ и Java) имеют существенные недостатки. </li>
-  <li> Существуют модели без них, но с разными компромиссами.
-  <li> There are guidelines for choosing or modifying a memory model for your language or VM. </li>
-</li>
+  <li> Существуют модели без них, но с разными компромиссами. </li>
+  <li> Предлагается способ подбора или модификации модели памяти под требования языка и/или виртуальной машины. </li>
 </ul>

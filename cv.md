@@ -35,9 +35,9 @@ functional programming.
   - [St. Petersburg Lyceum 239](http://en.wikipedia.org/wiki/Saint\_Petersburg\_Lyceum\_239), Russia.
 
 ### Employment
-- **Postdoctoral Researcher** at [MPI-SWS](https://www.mpi-sws.org/), from July 2019.
 - **Researcher** at [JetBrains Research](https://research.jetbrains.org/), from June 2013.
 - **Docent** at [Higher School of Economics](https://spb.hse.ru/en/), from December 2018.
+- **Postdoctoral Researcher** at [MPI-SWS](https://www.mpi-sws.org/), July 2019 -- October 2020.
 - **Lecturer** at [St. Petersburg Academic University](http://www.spbau.ru/main_eng/info_main_eng), 2015 -- 2018.
 - **Middle school teacher** at [St. Petersburg Lyceum 239](http://en.wikipedia.org/wiki/Saint\_Petersburg\_Lyceum\_239),
 2009 -- 2011.
