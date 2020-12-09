@@ -127,7 +127,12 @@ var authors = {
     "S. Chakraborty" : { "surname" : "Chakraborty",
                          "name"    : "Soham",
                          "url"     : "http://www.cse.iitd.ac.in/~soham/"
-                       }
+                       },
+
+    "J. Oberhauser"  : { "surname" : "Oberhauser",
+                         "name"    : "Jonas",
+                         "url" : "https://dblp.org/pid/175/6610.html"
+                       },
 };
 function authorString (fname) {
     if (!(fname in authors)) {
@@ -151,6 +156,16 @@ function vafeiadis () {
 }
   
 var papers = [
+    { "title" : "Making Weak Memory Models Fair",
+      "authors" : ["O. Lahav", "E. Namakonov", "J. Oberhauser", "A. Podkopaev", "V. Vafeiadis"],
+      "venue" : "arXiv'20",
+      "full venue" : "",
+      "links" :
+        { 'arXiv' : "https://arxiv.org/abs/2012.01067",
+        },
+      "selected" : true,
+    },
+
     { "title" : "Reconciling Event Structures with Modern Multiprocessors",
       "authors" : ["E. Moiseenko", "A. Podkopaev", "O. Lahav", "O. Melkonian", "V. Vafeiadis"],
       "venue" : "ECOOP'20",
