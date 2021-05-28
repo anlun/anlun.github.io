@@ -2,6 +2,8 @@
 layout: page
 title: misc
 ---
+[2805](https://github.com/anlun/publicFiles/raw/master/slides/2021-syrcose-keynote.pdf)
+
 [1905](https://github.com/anlun/publicFiles/raw/master/slides/tau-compl-corr.pdf)
 
 [0104](https://github.com/anlun/publicFiles/raw/master/teaching/semantics/hse-4-19-1.pdf)
