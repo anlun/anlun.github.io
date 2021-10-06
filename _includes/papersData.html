@@ -204,6 +204,7 @@ var papers = [
         },
       "selected" : true,
       "rank" : "Scopus",
+      "main-coauthor": true,
     },
 
     { "title" : "Making Weak Memory Models Fair",
@@ -234,6 +235,7 @@ var papers = [
         },
       "selected" : true,
       "rank" : "A",
+      "main-coauthor": true,
     },
 
     { "title" : "Promising 2.0: Global Optimizations in Relaxed Memory Concurrency",
@@ -295,6 +297,7 @@ var papers = [
       "selected" : true,
       "comment"  : "https://news.ycombinator.com/item?id=17598907",
       "rank" : "A*",
+      "main-coauthor": true,
     },
     
     { "title" : "Relational programming with memoization and negation (In Russian)",
@@ -312,7 +315,8 @@ var papers = [
       "full venue" : "NTV SPbSTU 4 (10), December 2017",
       "links" :
         { 'Paper' : ghURLstring("papers/Podkopaev-al-NTV17.pdf")
-        }
+        },
+      "main-coauthor": true,
     },
 
     { "title" : "Promising Compilation to ARMv8.3 (In Russian)",
@@ -322,7 +326,8 @@ var papers = [
       "links" :
         { 'Draft' : ghURLstring("papers/Podkopaev-al-ISPRAS17.pdf"),
           'Appendix' : ghURLstring("papers/Podkopaev-al-ISPRAS17-proof.pdf")
-        }
+        },
+      "main-coauthor": true,
     },
 
     { "title" : "Promising Compilation to ARMv8 POP",
@@ -337,6 +342,7 @@ var papers = [
         },
       "selected" : true,
       "rank" : "A",
+      "main-coauthor": true,
     },
     
     { "title" : "Operational Aspects of C/C++ Concurrency",
@@ -357,7 +363,8 @@ var papers = [
       "links" :
         { 'Paper'  : ghURLstring("papers/Podkopaev-al-NTV15.pdf"),
           'GitHub' : "https://github.com/prettyPrinting",
-        }
+        },
+      "main-coauthor": true,
     },
 
     { "title" : "Polynomial-Time Optimal Pretty-Printing Combinators with Choice",
@@ -372,6 +379,7 @@ var papers = [
         },
       "selected" : true,
       "rank" : "Scopus",
+      "main-coauthor": true,
     },
 
     { "title" : "Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System (In Russian)",
@@ -424,7 +432,7 @@ function paperRepr (paperObj) {
 }
 
 function papersFull () {
-    document.write("<ol>");
+    document.write("<ol reversed>");
     papers.forEach(paperRepr);
     document.write("</ol>");
 }
@@ -446,6 +454,53 @@ function papersShort () {
         document.write("<td>");
         document.write("<b>" + paperObj["title"] + "</b> <br />");
         document.write(paperAuthors(paperObj) +  paperLinks(paperObj));
+        document.write("</td>");
+
+        document.write("</tr>");
+    });
+    document.write("</tbody>");
+    document.write("</table>");
+}
+
+function authorHighlightAnton (fname) {
+    if (fname != "A. Podkopaev") {
+        return fname;
+    }
+    return '<b>' + fname + '</b>';
+}
+
+function papersRanked () {
+    document.write('<table width="100%">');
+    document.write("<tbody>");
+    var index = 1;
+    papers.forEach(function (paperObj) {
+        if (!("rank" in paperObj) || !paperObj["rank"]) {
+            return;
+        }
+
+        document.write("<tr>");
+
+        document.write('<td>');
+        if ("main-coauthor" in paperObj && paperObj["main-coauthor"] && (paperObj["rank"][0] == 'A')) {
+             document.write("✓");
+        }
+        document.write("</td>");
+
+        document.write('<td>');
+        document.write(index.toString() + ')'); index = index + 1;
+        document.write("</td>");
+
+        document.write('<td>');
+        document.write(paperObj["rank"]);
+        document.write("</td>");
+
+        document.write('<td class="myitem">');
+        document.write(paperObj["venue"]);
+        document.write("</td>");
+
+        document.write("<td>");
+        document.write(paperObj["authors"].map(authorHighlightAnton).join(', ') + ". <br />");
+        document.write(paperObj["title"]);
         document.write("</td>");
 
         document.write("</tr>");
