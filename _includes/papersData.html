@@ -133,6 +133,36 @@ var authors = {
                          "name"    : "Jonas",
                          "url" : "https://dblp.org/pid/175/6610.html"
                        },
+
+    "A. Jeffrey"     : { "surname" : "Jeffrey",
+                         "name"    : "Alan",
+                         "url"     : "http://asaj.org/"
+                       },
+
+    "J. Riely"       : { "surname" : "Riely",
+                         "name"    : "James",
+                         "url"     : "https://fpl.cs.depaul.edu/jriely/"
+                       },
+
+    "M. Batty"       : { "surname" : "Batty",
+                         "name"    : "Mark",
+                         "url"     : "https://www.kent.ac.uk/computing/people/3126/batty-mark"
+                       },
+
+    "S. Cooksey"     : { "surname" : "Cooksey",
+                         "name"    : "Simon",
+                         "url"     : "https://graymalk.in/"
+                       },
+
+    "I. Kaysin"      : { "surname" : "Kaysin",
+                         "name"    : "Ilya",
+                         "url"     : "https://ilya.fun"
+                       },
+
+    "D. Koznov"      : { "surname" : "Koznov",
+                         "name"    : "Dmitri",
+                         "url"     : "https://www.math.spbu.ru/user/dkoznov/"
+                       },
 };
 function authorString (fname) {
     if (!(fname in authors)) {
@@ -156,6 +186,26 @@ function vafeiadis () {
 }
   
 var papers = [
+    { "title" : "The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency",
+      "authors" : ["A. Jeffrey", "J. Riely", "M. Batty", "S. Cooksey", "I. Kaysin", "A. Podkopaev"],
+      "venue" : "POPL'22",
+      "full venue" : 'Symposium on Principles of Programming Languages, <a href="https://popl22.sigplan.org/">POPL 2022</a> (to appear)',
+      "selected" : true,
+      "rank" : "A*",
+    },
+
+    { "title" : "A Survey of Programming Language Memory Models",
+      "authors" : ["E. Moiseenko", "A. Podkopaev", "D. Koznov"],
+      "venue" : "Programming'21",
+      "full venue" : "Journal 'Programming and Computer Software', 2021",
+      "links" :
+        { 'Paper'           : ghURLstring("papers/Moiseenko-al-Programming21.pdf"),
+          'Paper (Russian)' : ghURLstring("papers/Moiseenko-al-Programming21rus.pdf"),
+        },
+      "selected" : true,
+      "rank" : "Scopus",
+    },
+
     { "title" : "Making Weak Memory Models Fair",
       "authors" : ["O. Lahav", "E. Namakonov", "J. Oberhauser", "A. Podkopaev", "V. Vafeiadis"],
       "venue" : "OOPSLA'21",
@@ -167,6 +217,7 @@ var papers = [
           'DOI': "https://doi.org/10.1145/3485475",
         },
       "selected" : true,
+      "rank" : "A",
     },
 
     { "title" : "Reconciling Event Structures with Modern Multiprocessors",
@@ -182,6 +233,7 @@ var papers = [
           'Talk'     : "https://www.youtube.com/watch?v=SiZcjPPuk4E",
         },
       "selected" : true,
+      "rank" : "A",
     },
 
     { "title" : "Promising 2.0: Global Optimizations in Relaxed Memory Concurrency",
@@ -198,6 +250,7 @@ var papers = [
           'GitHub 2'       : 'https://github.com/weakmemory/promising2ToImm'
         },
       "selected" : true,
+      "rank" : "A*",
     },
 
     { "title" : "Repairing and Mechanising the JavaScript Relaxed Memory Model",
@@ -212,6 +265,7 @@ var papers = [
           'Artifact on GitHub' : 'https://github.com/conrad-watt/repairing-and-mechanising-the-javascript-relaxed-memory-model',
         },
       "selected" : true,
+      "rank" : "A*",
     },
 
     { "title" : "Compilation of OCaml memory model into Power (In Russian)",
@@ -240,6 +294,7 @@ var papers = [
         },
       "selected" : true,
       "comment"  : "https://news.ycombinator.com/item?id=17598907"
+      "rank" : "A*",
     },
     
     { "title" : "Relational programming with memoization and negation (In Russian)",
@@ -281,6 +336,7 @@ var papers = [
           "PLC'17 slides (in Russian)" : ghURLstring("slides/Podkopaev-al-PLC17-slides.pdf"),
         },
       "selected" : true,
+      "rank" : "A",
     },
     
     { "title" : "Operational Aspects of C/C++ Concurrency",
@@ -315,6 +371,7 @@ var papers = [
           'GitHub (Kotlin)' : "https://github.com/prettyPrinting/format",
         },
       "selected" : true,
+      "rank" : "Scopus",
     },
 
     { "title" : "Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System (In Russian)",
