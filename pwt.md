@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: none
 title: Artifact 56 for Evaluation for POPL'22
 ---
 
