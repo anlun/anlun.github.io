@@ -219,6 +219,7 @@ var papers = [
         },
       "selected" : true,
       "rank" : "A",
+      "award" : "Distinguished Paper Award",
     },
 
     { "title" : "Reconciling Event Structures with Modern Multiprocessors",
@@ -419,11 +420,22 @@ function paperLinks (paperObj) {
     return links;
 }
 
+function paperAward (paperObj) {
+    if (!("award" in paperObj) || !paperObj["award"]) {
+        return "";
+    }
+    return '<br/> <span style="color: #800000;"><strong><em>' +
+           paperObj["award"] +
+           '</em></strong></span>';
+}
+
+
 function paperReprString (paperObj) {
     return "<li>" +
            "<b>" + paperObj["title"] + "</b>" +
            "<br />" +
            paperAuthors(paperObj) + paperFullVenue(paperObj) + paperLinks(paperObj) +
+           paperAward(paperObj) +
            "</li>";
 }
 
