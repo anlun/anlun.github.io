@@ -133,6 +133,36 @@ var authors = {
                          "name"    : "Jonas",
                          "url" : "https://dblp.org/pid/175/6610.html"
                        },
+
+    "A. Jeffrey"     : { "surname" : "Jeffrey",
+                         "name"    : "Alan",
+                         "url"     : "http://asaj.org/"
+                       },
+
+    "J. Riely"       : { "surname" : "Riely",
+                         "name"    : "James",
+                         "url"     : "https://fpl.cs.depaul.edu/jriely/"
+                       },
+
+    "M. Batty"       : { "surname" : "Batty",
+                         "name"    : "Mark",
+                         "url"     : "https://www.kent.ac.uk/computing/people/3126/batty-mark"
+                       },
+
+    "S. Cooksey"     : { "surname" : "Cooksey",
+                         "name"    : "Simon",
+                         "url"     : "https://graymalk.in/"
+                       },
+
+    "I. Kaysin"      : { "surname" : "Kaysin",
+                         "name"    : "Ilya",
+                         "url"     : "https://ilya.fun"
+                       },
+
+    "D. Koznov"      : { "surname" : "Koznov",
+                         "name"    : "Dmitri",
+                         "url"     : "https://www.math.spbu.ru/user/dkoznov/"
+                       },
 };
 function authorString (fname) {
     if (!(fname in authors)) {
@@ -156,14 +186,40 @@ function vafeiadis () {
 }
   
 var papers = [
-    { "title" : "Making Weak Memory Models Fair",
-      "authors" : ["O. Lahav", "E. Namakonov", "J. Oberhauser", "A. Podkopaev", "V. Vafeiadis"],
-      "venue" : "arXiv'20",
-      "full venue" : "",
+    { "title" : "The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency",
+      "authors" : ["A. Jeffrey", "J. Riely", "M. Batty", "S. Cooksey", "I. Kaysin", "A. Podkopaev"],
+      "venue" : "POPL'22",
+      "full venue" : 'Symposium on Principles of Programming Languages, <a href="https://popl22.sigplan.org/">POPL 2022</a> (to appear)',
+      "selected" : true,
+      "rank" : "A*",
+    },
+
+    { "title" : "A Survey of Programming Language Memory Models",
+      "authors" : ["E. Moiseenko", "A. Podkopaev", "D. Koznov"],
+      "venue" : "Programming'21",
+      "full venue" : "Journal 'Programming and Computer Software', 2021",
       "links" :
-        { 'arXiv' : "https://arxiv.org/abs/2012.01067",
+        { 'Paper'           : ghURLstring("papers/Moiseenko-al-Programming21.pdf"),
+          'Paper (Russian)' : ghURLstring("papers/Moiseenko-al-Programming21rus.pdf")
         },
       "selected" : true,
+      "rank" : "Q3",
+      "main-coauthor": true,
+    },
+
+    { "title" : "Making Weak Memory Models Fair",
+      "authors" : ["O. Lahav", "E. Namakonov", "J. Oberhauser", "A. Podkopaev", "V. Vafeiadis"],
+      "venue" : "OOPSLA'21",
+      "full venue" : "OOPSLA 2021",
+      "links" :
+        { 'Paper' : ghURLstring("papers/Lahav-al-OOPSLA21.pdf"),
+          'arXiv' : "https://arxiv.org/abs/2012.01067",
+          'Artifact @Zenodo' : "https://doi.org/10.5281/zenodo.5496483",
+          'DOI': "https://doi.org/10.1145/3485475",
+        },
+      "selected" : true,
+      "rank" : "A",
+      "award" : "Distinguished Paper Award",
     },
 
     { "title" : "Reconciling Event Structures with Modern Multiprocessors",
@@ -179,6 +235,8 @@ var papers = [
           'Talk'     : "https://www.youtube.com/watch?v=SiZcjPPuk4E",
         },
       "selected" : true,
+      "rank" : "A",
+      "main-coauthor": true,
     },
 
     { "title" : "Promising 2.0: Global Optimizations in Relaxed Memory Concurrency",
@@ -195,6 +253,7 @@ var papers = [
           'GitHub 2'       : 'https://github.com/weakmemory/promising2ToImm'
         },
       "selected" : true,
+      "rank" : "A*",
     },
 
     { "title" : "Repairing and Mechanising the JavaScript Relaxed Memory Model",
@@ -209,6 +268,7 @@ var papers = [
           'Artifact on GitHub' : 'https://github.com/conrad-watt/repairing-and-mechanising-the-javascript-relaxed-memory-model',
         },
       "selected" : true,
+      "rank" : "A*",
     },
 
     { "title" : "Compilation of OCaml memory model into Power (In Russian)",
@@ -236,7 +296,9 @@ var papers = [
           'EWSCS\'19 slides' : ghURLstring("slides/Podkopaev-al-EWSCS19-slides.pdf")
         },
       "selected" : true,
-      "comment"  : "https://news.ycombinator.com/item?id=17598907"
+      "comment"  : "https://news.ycombinator.com/item?id=17598907",
+      "rank" : "A*",
+      "main-coauthor": true,
     },
     
     { "title" : "Relational programming with memoization and negation (In Russian)",
@@ -254,7 +316,8 @@ var papers = [
       "full venue" : "NTV SPbSTU 4 (10), December 2017",
       "links" :
         { 'Paper' : ghURLstring("papers/Podkopaev-al-NTV17.pdf")
-        }
+        },
+      "main-coauthor": true,
     },
 
     { "title" : "Promising Compilation to ARMv8.3 (In Russian)",
@@ -264,7 +327,8 @@ var papers = [
       "links" :
         { 'Draft' : ghURLstring("papers/Podkopaev-al-ISPRAS17.pdf"),
           'Appendix' : ghURLstring("papers/Podkopaev-al-ISPRAS17-proof.pdf")
-        }
+        },
+      "main-coauthor": true,
     },
 
     { "title" : "Promising Compilation to ARMv8 POP",
@@ -278,6 +342,8 @@ var papers = [
           "PLC'17 slides (in Russian)" : ghURLstring("slides/Podkopaev-al-PLC17-slides.pdf"),
         },
       "selected" : true,
+      "rank" : "A",
+      "main-coauthor": true,
     },
     
     { "title" : "Operational Aspects of C/C++ Concurrency",
@@ -298,7 +364,8 @@ var papers = [
       "links" :
         { 'Paper'  : ghURLstring("papers/Podkopaev-al-NTV15.pdf"),
           'GitHub' : "https://github.com/prettyPrinting",
-        }
+        },
+      "main-coauthor": true,
     },
 
     { "title" : "Polynomial-Time Optimal Pretty-Printing Combinators with Choice",
@@ -312,6 +379,8 @@ var papers = [
           'GitHub (Kotlin)' : "https://github.com/prettyPrinting/format",
         },
       "selected" : true,
+      "rank" : "Scopus",
+      "main-coauthor": true,
     },
 
     { "title" : "Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System (In Russian)",
@@ -351,11 +420,22 @@ function paperLinks (paperObj) {
     return links;
 }
 
+function paperAward (paperObj) {
+    if (!("award" in paperObj) || !paperObj["award"]) {
+        return "";
+    }
+    return '<br/> <span style="color: #800000;"><strong><em>' +
+           paperObj["award"] +
+           '</em></strong></span>';
+}
+
+
 function paperReprString (paperObj) {
     return "<li>" +
            "<b>" + paperObj["title"] + "</b>" +
            "<br />" +
            paperAuthors(paperObj) + paperFullVenue(paperObj) + paperLinks(paperObj) +
+           paperAward(paperObj) +
            "</li>";
 }
 
@@ -364,7 +444,7 @@ function paperRepr (paperObj) {
 }
 
 function papersFull () {
-    document.write("<ol>");
+    document.write("<ol reversed>");
     papers.forEach(paperRepr);
     document.write("</ol>");
 }
@@ -386,6 +466,53 @@ function papersShort () {
         document.write("<td>");
         document.write("<b>" + paperObj["title"] + "</b> <br />");
         document.write(paperAuthors(paperObj) +  paperLinks(paperObj));
+        document.write("</td>");
+
+        document.write("</tr>");
+    });
+    document.write("</tbody>");
+    document.write("</table>");
+}
+
+function authorHighlightAnton (fname) {
+    if (fname != "A. Podkopaev") {
+        return fname;
+    }
+    return '<b>' + fname + '</b>';
+}
+
+function papersRanked () {
+    document.write('<table width="100%">');
+    document.write("<tbody>");
+    var index = 1;
+    papers.forEach(function (paperObj) {
+        if (!("rank" in paperObj) || !paperObj["rank"]) {
+            return;
+        }
+
+        document.write("<tr>");
+
+        document.write('<td>');
+        if ("main-coauthor" in paperObj && paperObj["main-coauthor"] && (paperObj["rank"][0] == 'A')) {
+             document.write("✓");
+        }
+        document.write("</td>");
+
+        document.write('<td>');
+        document.write(index.toString() + ')'); index = index + 1;
+        document.write("</td>");
+
+        document.write('<td>');
+        document.write(paperObj["rank"]);
+        document.write("</td>");
+
+        document.write('<td class="myitem">');
+        document.write(paperObj["venue"]);
+        document.write("</td>");
+
+        document.write("<td>");
+        document.write(paperObj["authors"].map(authorHighlightAnton).join(', ') + ". <br />");
+        document.write(paperObj["title"]);
         document.write("</td>");
 
         document.write("</tr>");
