@@ -2,6 +2,8 @@
 layout: page
 title: misc
 ---
+[0411](https://github.com/anlun/publicFiles/raw/master/slides/2011-11-sirius.pdf)
+
 [2407](https://github.com/anlun/publicFiles/raw/master/slides/2021-07-24-lalambda.pdf)
 
 [2805](https://github.com/anlun/publicFiles/raw/master/slides/2021-syrcose-keynote.pdf)
