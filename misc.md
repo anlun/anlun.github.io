@@ -4,6 +4,8 @@ title: misc
 ---
 [1712](https://github.com/anlun/publicFiles/raw/master/slides/2021-miniconf.pdf)
 
+[1312](https://github.com/anlun/publicFiles/raw/master/slides/2021-12-13-itmo-wmm-intro.pdf)
+
 [0411](https://github.com/anlun/publicFiles/raw/master/slides/2021-11-sirius.pdf)
 
 [2407](https://github.com/anlun/publicFiles/raw/master/slides/2021-07-24-lalambda.pdf)
