@@ -234,7 +234,7 @@ var papers = [
 
     { "title" : "Reconciling Event Structures with Modern Multiprocessors",
       "authors" : ["E. Moiseenko", "A. Podkopaev", "O. Lahav", "O. Melkonian", "V. Vafeiadis"],
-      "venue" : "CORE2020: ECOOP'20",
+      "venue" : "ECOOP'20",
       "full venue" : "2020 European Conference on Object-Oriented Programming",
       "links" :
         { 'Paper'    : "https://drops.dagstuhl.de/opus/volltexte/2020/13162/pdf/LIPIcs-ECOOP-2020-5.pdf",
@@ -245,7 +245,7 @@ var papers = [
           'Talk'     : "https://www.youtube.com/watch?v=SiZcjPPuk4E",
         },
       "selected" : true,
-      "rank" : "A",
+      "rank" : "CORE2020: A",
       "main-coauthor": true,
     },
 
@@ -503,7 +503,7 @@ function papersRanked () {
         document.write("<tr>");
 
         document.write('<td>');
-        if ("main-coauthor" in paperObj && paperObj["main-coauthor"] && (paperObj["rank"][0] == 'A')) {
+        if ("main-coauthor" in paperObj && paperObj["main-coauthor"] && paperObj["rank"].includes(": A")) {
              document.write("✓");
         }
         document.write("</td>");
