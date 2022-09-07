@@ -1,2 +1,1 @@
-qm_react.js filter=lfs diff=lfs merge=lfs -text
 qm_react.js.map filter=lfs diff=lfs merge=lfs -text
