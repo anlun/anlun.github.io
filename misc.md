@@ -2,6 +2,8 @@
 layout: page
 title: misc
 ---
+[1209](https://github.com/anlun/publicFiles/raw/master/slides/2022-09-12-jub.pdf)
+
 [2203](https://github.com/anlun/publicFiles/raw/master/slides/2022-03-22-jbr.pdf)
 
 [1712](https://github.com/anlun/publicFiles/raw/master/slides/2021-miniconf.pdf)
