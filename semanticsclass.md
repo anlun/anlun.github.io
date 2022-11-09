@@ -1,5 +1,5 @@
 ---
-layout: plain
+layout: none
 title: Programming Language Semantics
 ---
 

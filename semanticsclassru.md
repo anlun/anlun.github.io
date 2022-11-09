@@ -1,5 +1,5 @@
 ---
-layout: plain
+layout: none
 title: Семантика языков программирования
 ---
 
