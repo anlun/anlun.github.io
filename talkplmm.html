@@ -3,6 +3,17 @@
 <title> Programming language memory models: Problems, Solutions, and Directions </title>
 <h1> Programming language memory models: Problems, Solutions, and Directions (Talk) </h1>
 
+<h2>Annotation (short) [ENG]</h2>
+<p>
+Due to compiler and hardware optimizations, modern programming languages (PLs) do not provide sequential consistent memory model.
+Instead, they have weak memory models which allow more behaviors.
+Such memory models have to balance between performance and guarantees provided to software developers, or, as one may say,
+the balance is actually between performance and sanity.
+In this talk, we introduce weak memory concurrency, consider requirements imposed on PL memory models,
+examine ones used by industry (C11 and Java), their drawbacks, and discuss solutions proposed by the academic community.
+We conclude with a discussion on how to choose a memory model for your language or VM depending on your desiderata.
+</p>
+
 <h2>Annotation [ENG]</h2>
 <p>
 Due to compiler and hardware optimizations, modern programming languages (PLs) do not provide sequential consistent memory model (SC, [Lamport:TC79]),
