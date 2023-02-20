@@ -2,6 +2,8 @@
 layout: page
 title: misc
 ---
+[2002](https://drive.google.com/file/d/1unTxiXZKwjHNgM84b8XdG-PaaCdnReC2/view?usp=sharing)
+
 [1209](https://github.com/anlun/publicFiles/raw/master/slides/2022-09-12-jub.pdf)
 
 [2203](https://github.com/anlun/publicFiles/raw/master/slides/2022-03-22-jbr.pdf)
