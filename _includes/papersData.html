@@ -163,6 +163,21 @@ var authors = {
                          "name"    : "Dmitri",
                          "url"     : "https://www.math.spbu.ru/user/dkoznov/"
                        },
+
+    "A. Kozyrev"     : { "surname" : "Kozyrev",
+                         "name"    : "Andrei",
+                         "url"     : ""
+                       },
+
+    "G. Solovev"     : { "surname" : "Solovev",
+                         "name"    : "Gleb",
+                         "url"     : ""
+                       },
+
+    "N. Khramov"     : { "surname" : "Khramov",
+                         "name"    : "Nikita",
+                         "url"     : ""
+                       },
 };
 function authorString (fname) {
     if (!(fname in authors)) {
@@ -186,6 +201,20 @@ function vafeiadis () {
 }
   
 var papers = [
+    { "title" : "CoqPilot, a plugin for LLM-based generation of proofs",
+      "authors" : ["A. Kozyrev", "G. Solovev", "N. Khramov", "A. Podkopaev"],
+      "venue" : "ASE Demo'24",
+      "full venue" : 'International Conference on Automated Software Engineering, <a href="https://conf.researchr.org/home/ase-2024">ASE 2024</a>',
+      "links" :
+        { 'Draft'            : ghURLstring("papers/Kozyrev-al-ASE24.pdf"),
+          'Video (5 min)'    : "https://www.youtube.com/watch?v=oB1Lx-So9Lo",
+          'Video (10 min)'   : "https://youtu.be/P-LHXf7vntM?si=hKLPuXZJcyp1JcG-",
+          'GitHub'           : "https://github.com/JetBrains-Research/coqpilot",
+        },
+      "selected" : true,
+      "rank" : "CORE2023: A*",
+    },
+
     { "title" : "The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency",
       "authors" : ["A. Jeffrey", "J. Riely", "M. Batty", "S. Cooksey", "I. Kaysin", "A. Podkopaev"],
       "venue" : "POPL'22",
