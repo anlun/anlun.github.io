@@ -178,6 +178,22 @@ var authors = {
                          "name"    : "Nikita",
                          "url"     : ""
                        },
+
+    "M. Izadi"       : { "surname" : "Izadi",
+                         "name"    : "Maliheh",
+                         "url"     : "https://malihehizadi.github.io"
+                       },
+
+    "R. Koohestani"  : { "surname" : "Koohestani",
+                         "name"    : "Roham",
+                         "url"     : "https://rohamkoohestani.com"
+                       },
+
+    "Z. Li"         : { "surname" : "Li",
+                         "name"    : "Ziyou",
+                         "url"     : ""
+                       },
+
 };
 function authorString (fname) {
     if (!(fname in authors)) {
@@ -226,6 +242,18 @@ var papers = [
       "selected" : true,
     },
 
+    { "title" : "Are Agents Just Automata? On the Formal Equivalence Between Agentic AI and the Chomsky Hierarchy",
+      "authors" : ["R. Koohestani", "Z. Li", "A. Podkopaev", "M. Izadi"],
+      "venue" : "arXiv'25",
+      "full venue" : '',
+      "links" :
+        { 
+          'arXiv'            : "https://arxiv.org/abs/2510.23487",
+        },
+      "selected" : false,
+    },
+
+    
     { "title" : "LitmusKt: Concurrency Stress Testing for Kotlin",
       "authors" : ["D. Lochmelis", "E. Moiseenko", "Y. Golubev", "A. Podkopaev"],
       "venue" : "FSE Demo'25",
