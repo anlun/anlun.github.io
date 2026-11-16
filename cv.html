@@ -1,333 +1,322 @@
----
-layout: default
-title: Anton Podkopaev — CV
----
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anton Podkopaev — CV</title>
+<meta name="description" content="Curriculum vitae of Anton Podkopaev, research lead at JetBrains Research.">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="//code.cdn.mozilla.net/fonts/fira.css">
 <style>
-.cv h2 { border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-top: 2em; }
-.cv h3 { margin: 1.2em 0 0.3em; }
-.cv .row { display: flex; justify-content: space-between; gap: 1em; flex-wrap: wrap; }
-.cv .where { font-variant: small-caps; color: #555; font-size: 0.9em; }
-.cv .when { font-style: italic; white-space: nowrap; }
-.cv .role { margin: 0.4em 0 1em 1.5em; }
-.cv .role > p, .cv .role > ul { margin: 0.2em 0 0.4em; }
-.cv .award { color: #b00; }
-.cv ol li, .cv ul li { margin: 4px 0; }
-.cv table { border-spacing: 0; }
-.cv td, .cv th { padding: 2px 10px 2px 0; text-align: left; }
-.cv .contacts { text-align: center; }
-.cv .note { font-size: 0.9em; color: #555; }
+:root {
+  --ink: #1a1a1a; --muted: #6b6b6b; --line: #e3e3e3; --link: #1a4fd6;
+  --tag: #eef1fb; --tag-ink: #33407a; --award: #fdeaea; --award-ink: #a3201c;
+}
+* { box-sizing: border-box; }
+html { font-size: 14px; }
+body {
+  margin: 0; color: var(--ink); background: #fff;
+  font-family: 'Fira Sans', -apple-system, 'Segoe UI', sans-serif; line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.page { max-width: 1180px; margin: 0 auto; padding: 28px 32px 40px; }
+
+/* Header */
+header {
+  display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px 32px;
+  padding-bottom: 14px; border-bottom: 2px solid var(--ink);
+}
+header h1 { margin: 0; font-size: 2.2rem; line-height: 1.1; letter-spacing: -0.01em; }
+header h1 a { color: inherit; }
+header .role { color: var(--muted); margin-top: 4px; font-size: 1.05rem; }
+header .contacts { text-align: right; }
+header .contacts a { margin-left: 10px; }
+header .contacts .loc { color: var(--muted); }
+.pdf {
+  display: inline-block; margin-top: 6px; padding: 3px 12px; border: 1px solid var(--link);
+  border-radius: 4px; font-weight: 500;
+}
+.pdf:hover { background: var(--link); color: #fff; text-decoration: none; }
+
+/* Columns */
+.cols { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 0 40px; }
+aside { border-left: 1px solid var(--line); padding-left: 28px; }
+
+h2 {
+  font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+  margin: 22px 0 8px; padding-bottom: 3px; border-bottom: 1px solid var(--line);
+}
+h3 { font-size: 0.95rem; margin: 12px 0 4px; }
+
+/* Generic row: text left, date right */
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.date { color: var(--muted); font-size: 0.9rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.sub { color: var(--muted); }
+ul { margin: 2px 0 6px; padding-left: 1.15em; }
+li { margin: 1px 0; }
+p { margin: 1px 0; }
+
+/* Experience */
+.org { margin: 10px 0 2px; }
+.org > .row:first-child b { font-size: 1.05rem; }
+.pos { margin: 3px 0 0 0; }
+.pos .title { font-weight: 500; }
+.earlier { margin-top: 10px; }
+.earlier .row { padding: 1px 0; }
+
+/* Publications */
+.pubs { list-style: none; padding: 0; margin: 0; }
+.pubs li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; margin: 0 0 6px; }
+.pubs .venue { color: var(--muted); font-size: 0.9rem; text-align: right; padding-top: 1px; }
+.pubs .t { font-weight: 500; }
+.pubs .a { color: #444; }
+.me { font-weight: 600; color: var(--ink); }
+.tag {
+  display: inline-block; font-size: 0.75rem; line-height: 1.5; padding: 0 5px; margin-left: 3px;
+  border-radius: 3px; background: var(--tag); color: var(--tag-ink); white-space: nowrap; vertical-align: 1px;
+}
+.tag.award { background: var(--award); color: var(--award-ink); }
+
+/* Sidebar lists */
+aside .item { margin: 0 0 6px; }
+aside ul { padding-left: 1em; }
+table.teach { border-collapse: collapse; width: 100%; }
+table.teach td { padding: 1px 0; vertical-align: baseline; }
+table.teach td.date { padding-right: 10px; width: 1%; }
+
+footer { margin-top: 28px; color: var(--muted); font-size: 0.85rem; text-align: center; }
+
+@media (max-width: 860px) {
+  .page { padding: 20px 16px; }
+  .cols { grid-template-columns: 1fr; }
+  aside { border-left: 0; padding-left: 0; }
+  header .contacts { text-align: left; }
+  header .contacts a { margin: 0 10px 0 0; }
+  .pubs li { grid-template-columns: 1fr; gap: 0; }
+  .pubs .venue { text-align: left; }
+}
+@media print {
+  html { font-size: 11px; }
+  .page { padding: 0; max-width: none; }
+  .pdf, footer { display: none; }
+  a { color: inherit; }
+}
 </style>
+</head>
+<body>
+<div class="page">
 
-<section class="cv">
+<header>
+  <div>
+    <h1><a href="/">Anton Podkopaev</a></h1>
+    <div class="role">Research lead at JetBrains Research · Adjunct professor at Constructor University Bremen</div>
+  </div>
+  <div class="contacts">
+    <div><span class="loc">Amsterdam, the Netherlands</span>
+      <script>document.write('<a href="mai'+'lto:' + 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't">' + 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't</a>');</script></div>
+    <div>
+      <a href="https://www.linkedin.com/in/antonpodkopaev/">LinkedIn</a>
+      <a href="https://github.com/anlun">GitHub</a>
+      <a href="https://scholar.google.ru/citations?user=dAfcyZ0AAAAJ">Scholar</a>
+      <a href="https://orcid.org/0000-0002-9448-6587">ORCID</a>
+      <a class="pdf" href="cv.pdf">PDF</a>
+    </div>
+  </div>
+</header>
 
-<p class="contacts">
-  <script>document.write('<a href="mai'+'lto:' + 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't">' + 'a' + 'nton' + '@pod' + 'kopa' + 'ev' + '.ne' + 't</a>');</script>
-  &middot; Amsterdam, the Netherlands
-  &middot; <a href="https://www.linkedin.com/in/antonpodkopaev/">LinkedIn</a>
-  &middot; <a href="https://github.com/anlun">GitHub</a>
-  &middot; <a href="https://scholar.google.ru/citations?user=dAfcyZ0AAAAJ">Google Scholar</a>
-  <br />
-  <b><a href="cv.pdf">Download PDF version</a></b>
-</p>
+<div class="cols">
+<main>
 
-<!-- ============================================================ -->
-<h2>Education and Qualifications</h2>
+<!-- ================= Experience ================= -->
+<h2>Experience</h2>
 
-<div class="row">
-  <span><a href="https://english.spbu.ru/">St. Petersburg University</a>, Mathematics and Mechanics Faculty</span>
-  <span class="where">St. Petersburg, Russia</span>
-</div>
-<div class="role">
-  <div class="row"><b>Ph.D. in Computer Science, GPA 5.0/5.0</b><span class="when">2014 – 2018</span></div>
-  <p>Thesis: <i>Operational methods in application to weak memory models</i></p>
-  <div class="row"><b>M.Sc. in Mathematics and Computer Science, GPA 4.8/5.0, <i>First class honours</i></b><span class="when">2009 – 2014</span></div>
-  <p>Thesis: <i>Polynomial-time optimal pretty-printing combinators with choice</i></p>
-</div>
+<div class="org">
+  <div class="row"><b><a href="https://research.jetbrains.org/">JetBrains Research</a></b>
+    <span class="date">Amsterdam (2022–) · St. Petersburg (2012–2022)</span></div>
 
-<!-- ============================================================ -->
-<h2>Employment History</h2>
+  <div class="pos">
+    <div class="row"><span class="title">Head of Agentic Performance Research team</span><span class="date">Feb 2025 – now</span></div>
+    <p>Leading a research team focused on improving performance of agentic systems.</p>
+  </div>
 
-<div class="row">
-  <a href="https://research.jetbrains.org/">JetBrains Research</a>
-  <span class="where">St. Petersburg, Russia (before Jun '22); Amsterdam, the Netherlands (from Jun '22)</span>
-</div>
-<div class="role">
-  <div class="row"><b>Head of Agentic Performance Research team</b><span class="when">Feb '25 – present</span></div>
-  <p>Leading a research team focused on improving performance of agentic systems.</p>
+  <div class="pos">
+    <div class="row"><span class="title">Head of Programming Language Research lab</span><span class="date">Jun 2022 – Jan 2025</span></div>
+    <p>Managing a PL laboratory comprising multiple research teams.</p>
+    <ul>
+      <li>Lead the <a href="https://coqpilot.net">CoqPilot</a> project, a VS Code plugin for an LLM-based generation of Rocq proofs.</li>
+      <li>Lead the LitmusKt project, a tool for stress testing of concurrency implementation of Kotlin/Native.</li>
+      <li>Lead a group working on theoretical aspects of weak memory models.</li>
+    </ul>
+  </div>
 
-  <div class="row"><b>Head of Programming Language Research lab</b><span class="when">Jun '22 – Jan '25</span></div>
-  <p>Managing a PL laboratory comprising multiple research teams.</p>
-  <ul>
-    <li>Lead the <a href="https://coqpilot.net">CoqPilot</a> project, a VS Code plugin for an LLM-based generation of Rocq proofs.</li>
-    <li>Lead the LitmusKt project, a tool for stress testing of concurrency implementation of Kotlin/Native.</li>
-    <li>Lead a group working on theoretical aspects of weak memory models.</li>
-  </ul>
+  <div class="pos">
+    <div class="row"><span class="title">Senior Researcher, Group Leader</span><span class="date">May 2018 – May 2022</span></div>
+    <ul>
+      <li>Research on weak memory models; the main contributor of <a href="https://github.com/weakmemory/imm">IMM</a>, a project for proving correctness of compilation mappings from PL to hardware memory models.</li>
+      <li>The main developer of IMM's Rocq mechanization and related projects, <a href="https://github.com/weakmemory/">github.com/weakmemory</a>.</li>
+    </ul>
+  </div>
 
-  <div class="row"><b>Senior Researcher, Group Leader</b><span class="when">May '18 – May '22</span></div>
-  <p>Research on weak memory models.</p>
-  <ul>
-    <li>The main contributor of <a href="https://github.com/weakmemory/imm">IMM</a>, a project for proving correctness of compilation mappings from PL to hardware memory models.</li>
-    <li>The main developer of IMM's Rocq mechanization and related projects, <a href="https://github.com/weakmemory/">github.com/weakmemory</a>.</li>
-  </ul>
-
-  <div class="row"><b>Researcher</b><span class="when">Oct '13 – Apr '18</span></div>
-  <div class="row"><b>Research Intern</b><span class="when">Oct '12 – Aug '13</span></div>
-</div>
-
-<div class="row">
-  <a href="https://constructor.university/">Constructor University</a>
-  <span class="where">Bremen, Germany</span>
-</div>
-<div class="role">
-  <div class="row"><b>Adjunct Professor</b><span class="when">Mar '23 – present</span></div>
-  <ul>
-    <li>Advising programming languages (PL) track at the
-      <a href="https://lp.jetbrains.com/software-data-and-technology-constructor-university/">“Software, Data and Technology”</a> program.</li>
-    <li>Teaching courses on programming language semantics, interactive theorem proving (the Rocq proof assistant) in application to programming languages, weak memory concurrency.</li>
-    <li>Supervising bachelor and master students' theses in the areas of PL, Generative AI, concurrency, and formal verification.</li>
-  </ul>
+  <div class="pos">
+    <div class="row"><span class="title">Researcher <span class="sub">· Research Intern before Oct 2013</span></span><span class="date">Oct 2012 – Apr 2018</span></div>
+  </div>
 </div>
 
-<div class="row">
-  <a href="https://www.hse.ru/en/">HSE University</a>
-  <span class="where">St. Petersburg, Russia</span>
-</div>
-<div class="role">
-  <div class="row"><b>Associate Professor</b><span class="when">Nov '18 – Jun '22</span></div>
-</div>
-
-<div class="row">
-  <a href="https://www.mpi-sws.org/">MPI-SWS</a>
-  <span class="where">Kaiserslautern, Germany</span>
-</div>
-<div class="role">
-  <div class="row"><b>Post-doctoral Researcher</b><span class="when">Jun '19 – Oct '20</span></div>
-  <div class="row"><b>Research Intern</b><span class="when">May–Aug '16, Jan '17, May '17, Sep–Oct '17, Sep–Oct '18</span></div>
+<div class="org">
+  <div class="row"><b><a href="https://constructor.university/">Constructor University</a></b>
+    <span class="date">Bremen, Germany</span></div>
+  <div class="pos">
+    <div class="row"><span class="title">Adjunct Professor</span><span class="date">Mar 2023 – now</span></div>
+    <ul>
+      <li>Advising the PL track of the <a href="https://lp.jetbrains.com/software-data-and-technology-constructor-university/">“Software, Data and Technology”</a> program.</li>
+      <li>Teaching programming language semantics, interactive theorem proving (Rocq) for programming languages, weak memory concurrency.</li>
+      <li>Supervising BSc and MSc theses in PL, Generative AI, concurrency, and formal verification.</li>
+    </ul>
+  </div>
 </div>
 
-<div class="row">
-  <a href="https://spbau.ru/">St. Petersburg Academic University</a>
-  <span class="where">St. Petersburg, Russia</span>
-</div>
-<div class="role">
-  <div class="row"><b>Lecturer</b><span class="when">Sep '15 – Aug '18</span></div>
-</div>
-
-<div class="row">
-  <a href="https://software.imdea.org/">IMDEA Software</a>
-  <span class="where">Madrid, Spain</span>
-</div>
-<div class="role">
-  <div class="row"><b>Research Intern</b><span class="when">Jun '15 – Aug '15</span></div>
+<div class="earlier">
+  <div class="row"><span><span class="title">Postdoctoral Researcher</span>, <a href="https://www.mpi-sws.org/">MPI-SWS</a> <span class="sub">Kaiserslautern</span></span><span class="date">Jun 2019 – Oct 2020</span></div>
+  <div class="row"><span><span class="title">Associate Professor</span>, <a href="https://www.hse.ru/en/">HSE University</a> <span class="sub">St. Petersburg</span></span><span class="date">Nov 2018 – Jun 2022</span></div>
+  <div class="row"><span><span class="title">Lecturer</span>, <a href="https://spbau.ru/">St. Petersburg Academic University</a></span><span class="date">Sep 2015 – Aug 2018</span></div>
+  <div class="row"><span><span class="title">Research Intern</span>, <a href="https://www.mpi-sws.org/">MPI-SWS</a> <span class="sub">five visits</span></span><span class="date">May 2016 – Oct 2018</span></div>
+  <div class="row"><span><span class="title">Research Intern</span>, <a href="https://software.imdea.org/">IMDEA Software Institute</a> <span class="sub">Madrid</span></span><span class="date">Jun – Aug 2015</span></div>
+  <div class="row"><span><span class="title">Middle School Teacher</span>, <a href="https://239.ru/">Lyceum 239</a> <span class="sub">St. Petersburg</span></span><span class="date">Sep 2009 – May 2011</span></div>
 </div>
 
-<div class="row">
-  <a href="https://239.ru/">Lyceum 239</a>
-  <span class="where">St. Petersburg, Russia</span>
-</div>
-<div class="role">
-  <div class="row"><b>Middle School Teacher</b><span class="when">Sep '09 – May '11</span></div>
-</div>
+<!-- ================= Publications ================= -->
+<h2>Publications <span style="text-transform:none;letter-spacing:0;font-weight:normal">· <a href="publications">with links</a> · <a href="http://dblp.uni-trier.de/pers/hd/p/Podkopaev:Anton">DBLP</a></span></h2>
 
-<!-- ============================================================ -->
-<h2>Skills</h2>
-<p>Interactive Theorem Proving (Rocq/Coq), Weak Memory Models, Formal Verification, Research Management,
-   Application of Generative AI, Kotlin, Low-level concurrency.</p>
-<p><b>Natural languages:</b> English <i>(full professional proficiency)</i>, Dutch <i>(elementary proficiency)</i>,
-   Russian <i>(mother tongue)</i>.</p>
+<h3>Conference papers</h3>
+<ol class="pubs">
+  <li><span class="venue">AAMAS'26</span><span><span class="t">RocqStar: Leveraging Similarity-driven Retrieval and Agentic Systems for Rocq generation</span> <span class="tag">CORE A*</span><br>
+    <span class="a">A. Kozyrev, G. Solovev, N. Khramov, <span class="me">A. Podkopaev</span></span></span></li>
+  <li><span class="venue">POPL'25</span><span><span class="t">Relaxed Memory Concurrency Re-executed</span> <span class="tag">CORE A*</span><span class="tag award">Distinguished Paper</span><br>
+    <span class="a">E. Moiseenko, M. Meluzzi, I. Meleshchenko, I. Kabashnyi, <span class="me">A. Podkopaev</span>, S. Chakraborty</span></span></li>
+  <li><span class="venue">FSE'25 Demo</span><span><span class="t">LitmusKt: Concurrency Stress Testing for Kotlin</span> <span class="tag">CORE A*</span><br>
+    <span class="a">D. Lochmelis, E. Moiseenko, Y. Golubev, <span class="me">A. Podkopaev</span></span></span></li>
+  <li><span class="venue">ASE'24 Demo</span><span><span class="t">CoqPilot, a plugin for LLM-based generation of proofs</span> <span class="tag">CORE A*</span><br>
+    <span class="a">A. Kozyrev, G. Solovev, N. Khramov, <span class="me">A. Podkopaev</span></span></span></li>
+  <li><span class="venue">POPL'22</span><span><span class="t">The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency</span> <span class="tag">CORE A*</span><br>
+    <span class="a">A. Jeffrey, J. Riely, M. Batty, S. Cooksey, I. Kaysin, <span class="me">A. Podkopaev</span></span></span></li>
+  <li><span class="venue">OOPSLA'21</span><span><span class="t">Making Weak Memory Models Fair</span> <span class="tag">CORE A</span><span class="tag award">Distinguished Paper</span><br>
+    <span class="a">O. Lahav, E. Namakonov, J. Oberhauser, <span class="me">A. Podkopaev</span>, V. Vafeiadis</span></span></li>
+  <li><span class="venue">PLDI'20</span><span><span class="t">Promising 2.0: Global Optimizations in Relaxed Memory Concurrency</span> <span class="tag">CORE A*</span><br>
+    <span class="a">S.-H. Lee, M. Cho, <span class="me">A. Podkopaev</span>, S. Chakraborty, C.-K. Hur, O. Lahav, V. Vafeiadis</span></span></li>
+  <li><span class="venue">PLDI'20</span><span><span class="t">Repairing and Mechanising the JavaScript Relaxed Memory Model</span> <span class="tag">CORE A*</span><br>
+    <span class="a">C. Watt, C. Pulte, <span class="me">A. Podkopaev</span>, G. Barbier, S. Dolan, S. Flur, J. Pichon-Pharabod, S. Guo</span></span></li>
+  <li><span class="venue">ECOOP'20</span><span><span class="t">Reconciling Event Structures with Modern Multiprocessors</span> <span class="tag">CORE A</span><br>
+    <span class="a">E. Moiseenko, <span class="me">A. Podkopaev</span>, O. Lahav, O. Melkonian, V. Vafeiadis</span></span></li>
+  <li><span class="venue">POPL'19</span><span><span class="t">Bridging the Gap Between Programming Languages and Hardware Weak Memory Models</span> <span class="tag">CORE A*</span><br>
+    <span class="a"><span class="me">A. Podkopaev</span>, O. Lahav, V. Vafeiadis</span></span></li>
+  <li><span class="venue">ECOOP'17</span><span><span class="t">Promising Compilation to ARMv8 POP</span> <span class="tag">CORE A</span><br>
+    <span class="a"><span class="me">A. Podkopaev</span>, O. Lahav, V. Vafeiadis</span></span></li>
+  <li><span class="venue">PSI'14</span><span><span class="t">Polynomial-Time Optimal Pretty-Printing Combinators with Choice</span> <span class="tag">CORE B</span><br>
+    <span class="a"><span class="me">A. Podkopaev</span>, D. Boulytchev</span></span></li>
+</ol>
 
-<!-- ============================================================ -->
-<h2>Publications and Selected Manuscripts</h2>
-<p class="note">See also the <a href="publications">full list of publications with links</a>,
-  <a href="http://dblp.uni-trier.de/pers/hd/p/Podkopaev:Anton">DBLP</a>, and
-  <a href="https://scholar.google.ru/citations?user=dAfcyZ0AAAAJ">Google Scholar</a>.</p>
-
-<h3>Articles in international conference proceedings</h3>
-<ol>
-  <li>A. Kozyrev, G. Solovev, N. Khramov, <b>A. Podkopaev</b>.<br />
-      <i>RocqStar: Leveraging Similarity-driven Retrieval and Agentic Systems for Rocq generation</i>,<br />
-      in <b>AAMAS'26</b> (CORE <b>A*</b>)</li>
-  <li>E. Moiseenko, M. Meluzzi, I. Meleshchenko, I. Kabashnyi, <b>A. Podkopaev</b>, S. Chakraborty.<br />
-      <i>Relaxed Memory Concurrency Re-executed</i>,<br />
-      in <b>POPL'25</b> (CORE <b>A*</b>) <span class="award">Distinguished Paper award</span></li>
-  <li>D. Lochmelis, E. Moiseenko, Y. Golubev, <b>A. Podkopaev</b>.<br />
-      <i>LitmusKt: Concurrency Stress Testing for Kotlin</i>,<br />
-      in <b>FSE'25</b> (CORE <b>A*</b>), Demonstration track</li>
-  <li>A. Kozyrev, G. Solovev, N. Khramov, <b>A. Podkopaev</b>.<br />
-      <i>CoqPilot, a plugin for LLM-based generation of proofs</i>,<br />
-      in <b>ASE'24</b> (CORE <b>A*</b>), Demonstration track</li>
-  <li>A. Jeffrey, J. Riely, M. Batty, S. Cooksey, I. Kaysin, <b>A. Podkopaev</b>.<br />
-      <i>The Leaky Semicolon: Compositional Semantic Dependencies for Relaxed-Memory Concurrency</i>,<br />
-      in <b>POPL'22</b> (CORE <b>A*</b>)</li>
-  <li>O. Lahav, E. Namakonov, J. Oberhauser, <b>A. Podkopaev</b>, V. Vafeiadis.<br />
-      <i>Making Weak Memory Models Fair</i>,<br />
-      in <b>OOPSLA'21</b> (CORE <b>A</b>) <span class="award">Distinguished Paper award</span></li>
-  <li>S.-H. Lee, M. Cho, <b>A. Podkopaev</b>, S. Chakraborty, C.-K. Hur, O. Lahav, V. Vafeiadis.<br />
-      <i>Promising 2.0: Global Optimizations in Relaxed Memory Concurrency</i>,<br />
-      in <b>PLDI'20</b> (CORE <b>A*</b>)</li>
-  <li>C. Watt, C. Pulte, <b>A. Podkopaev</b>, G. Barbier, S. Dolan, S. Flur, J. Pichon-Pharabod, S. Guo.<br />
-      <i>Repairing and Mechanising the JavaScript Relaxed Memory Model</i>,<br />
-      in <b>PLDI'20</b> (CORE <b>A*</b>)</li>
-  <li>E. Moiseenko, <b>A. Podkopaev</b>, O. Lahav, O. Melkonian, V. Vafeiadis.<br />
-      <i>Reconciling Event Structures with Modern Multiprocessors</i>,<br />
-      in <b>ECOOP'20</b> (CORE <b>A</b>)</li>
-  <li><b>A. Podkopaev</b>, O. Lahav, V. Vafeiadis.<br />
-      <i>Bridging the Gap Between Programming Languages and Hardware Weak Memory Models</i>,<br />
-      in <b>POPL'19</b> (CORE <b>A*</b>)</li>
-  <li><b>A. Podkopaev</b>, O. Lahav, V. Vafeiadis.<br />
-      <i>Promising Compilation to ARMv8 POP</i>,<br />
-      in <b>ECOOP'17</b> (CORE <b>A</b>)</li>
-  <li><b>A. Podkopaev</b>, D. Boulytchev.<br />
-      <i>Polynomial-Time Optimal Pretty-Printing Combinators with Choice</i>,<br />
-      in <b>PSI'14</b> (CORE <b>B</b>)</li>
+<h3>Workshop papers and preprints</h3>
+<ol class="pubs">
+  <li><span class="venue">VerifAI'26</span><span><span class="t">RocqSmith: Can Automatic Optimization Forge Better Proof Agents?</span> <span class="sub">VerifAI@ICLR'26,</span> <a href="https://arxiv.org/abs/2602.05762">arXiv</a><br>
+    <span class="a">A. Kozyrev, N. Khramov, D. Lochmelis, V. Morelli, G. Solovev, <span class="me">A. Podkopaev</span></span></span></li>
+  <li><span class="venue">arXiv 2025</span><span><span class="t">Can LLMs Enable Verification in Mainstream Programming?</span> <a href="https://arxiv.org/abs/2503.14183">arXiv</a><br>
+    <span class="a">A. Shefer, I. Engel, S. Alekseev, D. Berezun, E. Verbitskaia, <span class="me">A. Podkopaev</span></span></span></li>
+  <li><span class="venue">arXiv 2016</span><span><span class="t">Operational Aspects of C/C++ Concurrency</span> <a href="http://arxiv.org/abs/1606.01400">arXiv</a><br>
+    <span class="a"><span class="me">A. Podkopaev</span>, I. Sergey, A. Nanevski</span></span></li>
 </ol>
 
 <h3>Journal articles</h3>
-<ol start="13">
-  <li>E. Moiseenko, V. Gladstein, <b>A. Podkopaev</b>, D. Koznov.<br />
-      <i>Mechanization of pomset languages in the Coq proof assistant for the specification of weak memory models</i>,<br />
-      in Scientific and Technical Journal of Information Technologies, Mechanics and Optics, 2022 (SJR: <b>Q4</b>)</li>
-  <li>E. Moiseenko, <b>A. Podkopaev</b>, D. Koznov.<br />
-      <i>A Survey of Programming Language Memory Models</i>,<br />
-      in Programming and Computer Software, 2021 (SJR: <b>Q3</b>)</li>
-  <li>E. Namakonov, <b>A. Podkopaev</b>.<br />
-      <i>Compilation of OCaml memory model into Power</i>,<br />
-      in Proceedings of ISP RAS, 2019</li>
-  <li>E. Moiseenko, <b>A. Podkopaev</b>.<br />
-      <i>Relational programming with memoization and negation</i>,<br />
-      in NTV SPbSTU 2 (11), August 2018</li>
-  <li><b>A. Podkopaev</b>, O. Lahav, V. Vafeiadis.<br />
-      <i>On compilation correctness for a subset of a promising memory model to the ARMv8.3 memory model</i>,<br />
-      in NTV SPbSTU 4 (10), December 2017</li>
-  <li><b>A. Podkopaev</b>, O. Lahav, V. Vafeiadis.<br />
-      <i>Promising Compilation to ARMv8.3</i>,<br />
-      in Proceedings of ISP RAS, 2017</li>
-  <li><b>A. Podkopaev</b>, A. Korovianskii, I. Ozernykh.<br />
-      <i>A Language-Independent Code Formatting by Syntactic Matching and Templates</i>,<br />
-      in NTV SPbSTU 4 (224), October 2015</li>
-  <li>A. Kuzenkova, A. Deripaska, K. Taran, <b>A. Podkopaev</b>, Yu. Litvinov, T. Bryksin.<br />
-      <i>Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System</i>,<br />
-      in NTV SPbSTU 4 (128), 2011</li>
+<ol class="pubs">
+  <li><span class="venue">2022</span><span><span class="t">Mechanization of pomset languages in the Coq proof assistant for the specification of weak memory models</span> <span class="tag">SJR Q4</span><br>
+    <span class="a">E. Moiseenko, V. Gladstein, <span class="me">A. Podkopaev</span>, D. Koznov</span> <span class="sub">· Sci. Tech. J. of Information Technologies, Mechanics and Optics</span></span></li>
+  <li><span class="venue">2021</span><span><span class="t">A Survey of Programming Language Memory Models</span> <span class="tag">SJR Q3</span><br>
+    <span class="a">E. Moiseenko, <span class="me">A. Podkopaev</span>, D. Koznov</span> <span class="sub">· Programming and Computer Software</span></span></li>
+  <li><span class="venue">2019</span><span><span class="t">Compilation of OCaml memory model into Power</span><br>
+    <span class="a">E. Namakonov, <span class="me">A. Podkopaev</span></span> <span class="sub">· Proceedings of ISP RAS</span></span></li>
+  <li><span class="venue">2018</span><span><span class="t">Relational programming with memoization and negation</span><br>
+    <span class="a">E. Moiseenko, <span class="me">A. Podkopaev</span></span> <span class="sub">· NTV SPbSTU 2 (11)</span></span></li>
+  <li><span class="venue">2017</span><span><span class="t">On compilation correctness for a subset of a promising memory model to the ARMv8.3 memory model</span><br>
+    <span class="a"><span class="me">A. Podkopaev</span>, O. Lahav, V. Vafeiadis</span> <span class="sub">· NTV SPbSTU 4 (10)</span></span></li>
+  <li><span class="venue">2017</span><span><span class="t">Promising Compilation to ARMv8.3</span><br>
+    <span class="a"><span class="me">A. Podkopaev</span>, O. Lahav, V. Vafeiadis</span> <span class="sub">· Proceedings of ISP RAS</span></span></li>
+  <li><span class="venue">2015</span><span><span class="t">A Language-Independent Code Formatting by Syntactic Matching and Templates</span><br>
+    <span class="a"><span class="me">A. Podkopaev</span>, A. Korovianskii, I. Ozernykh</span> <span class="sub">· NTV SPbSTU 4 (224)</span></span></li>
+  <li><span class="venue">2011</span><span><span class="t">Tools for Rapid Development of Domain-Specific Solutions In QReal Metacase System</span><br>
+    <span class="a">A. Kuzenkova, A. Deripaska, K. Taran, <span class="me">A. Podkopaev</span>, Yu. Litvinov, T. Bryksin</span> <span class="sub">· NTV SPbSTU 4 (128)</span></span></li>
 </ol>
 
-<h3>Technical reports</h3>
-<ol start="21">
-  <li>A. Kozyrev, N. Khramov, D. Lochmelis, V. Morelli, G. Solovev, <b>A. Podkopaev</b>.<br />
-      <i>RocqSmith: Can Automatic Optimization Forge Better Proof Agents?</i>,<br />
-      in VerifAI@ICLR'26, <a href="https://arxiv.org/abs/2602.05762">arXiv:2602.05762</a></li>
-  <li>A. Shefer, I. Engel, S. Alekseev, D. Berezun, E. Verbitskaia, <b>A. Podkopaev</b>.<br />
-      <i>Can LLMs Enable Verification in Mainstream Programming?</i>,<br />
-      arXiv, 2025, <a href="https://arxiv.org/abs/2503.14183">arXiv:2503.14183</a></li>
-  <li><b>A. Podkopaev</b>, I. Sergey, A. Nanevski.<br />
-      <i>Operational Aspects of C/C++ Concurrency</i>,<br />
-      arXiv, 2016, <a href="http://arxiv.org/abs/1606.01400">arXiv:1606.01400</a></li>
-</ol>
+</main>
 
-<!-- ============================================================ -->
+<aside>
+
+<!-- ================= Education ================= -->
+<h2>Education</h2>
+<div class="item">
+  <div class="row"><b>Ph.D. in Computer Science</b><span class="date">2014 – 2018</span></div>
+  <div class="sub">St. Petersburg University · GPA 5.0/5.0</div>
+  <div><i>Operational methods in application to weak memory models</i></div>
+</div>
+<div class="item">
+  <div class="row"><b>M.Sc. in Mathematics and CS</b><span class="date">2009 – 2014</span></div>
+  <div class="sub">St. Petersburg University · GPA 4.8/5.0, first class honours</div>
+  <div><i>Polynomial-time optimal pretty-printing combinators with choice</i></div>
+</div>
+
+<!-- ================= Skills ================= -->
+<h2>Skills</h2>
+<p>Interactive theorem proving (Rocq/Coq), weak memory models, formal verification, research management,
+   applications of generative AI, Kotlin, low-level concurrency.</p>
+<p style="margin-top:4px">English <span class="sub">(full professional proficiency)</span>, Dutch <span class="sub">(limited working proficiency)</span>, Russian <span class="sub">(native)</span></p>
+
+<!-- ================= Talks ================= -->
+<h2>Selected talks</h2>
+<div class="item">
+  <div class="row"><span><b>Keynote</b>, <a href="https://www.sen-symposium.nl/">SEN Symposium</a></span><span class="date">2025</span></div>
+  <div><i>Generative AI and Formal Verification. Could they benefit each other?</i></div>
+</div>
+<div class="item">
+  <div class="row"><span><b>Keynote</b>, <a href="http://syrcose.ispras.ru/">SyRCoSE</a></span><span class="date">2021</span></div>
+  <div><i>Programming Language Memory Models: Problems, Solutions, and Directions</i></div>
+</div>
+<div class="item">
+  <div class="row"><span><b>Talk</b>, <a href="https://hydraconf.com/archive/2020/">Hydra</a></span><span class="date">2020</span></div>
+  <div><i><a href="talkplmm">Programming Language Memory Models: Problems, Solutions, and Directions</a></i></div>
+</div>
+
+<!-- ================= Teaching ================= -->
 <h2>Teaching</h2>
-
-<h3>Full semester university courses</h3>
-<table>
-  <tr><th>Semester</th><th>Place*</th><th>Title</th><th>Role</th></tr>
-  <tr><td>Fall 2023</td><td>CUB</td><td>Weak Memory Models</td><td>Lecturer, Course designer</td></tr>
-  <tr><td>Spring 2023</td><td>CUB, NUP</td><td>Programming Language Semantics</td><td>Lecturer, Course designer</td></tr>
-  <tr><td>Spring 2022</td><td>CSC, HSE</td><td>Programming Language Semantics</td><td>Lecturer, Course designer</td></tr>
-  <tr><td>Spring 2021</td><td>CSC, HSE</td><td>Programming Language Semantics</td><td>Lecturer, Course designer</td></tr>
-  <tr><td>Spring 2020</td><td>CSC, HSE</td><td>Programming Language Semantics</td><td>Lecturer, Course designer</td></tr>
-  <tr><td>Spring 2019</td><td>HSE</td><td>Programming Language Semantics</td><td>Lecturer, Course designer</td></tr>
-  <tr><td>Spring 2018</td><td>CSC</td><td>Compilers: Design and Implementation</td><td>TA</td></tr>
-  <tr><td>Fall 2017</td><td>AU</td><td>Compilers: Design and Implementation</td><td>TA</td></tr>
-  <tr><td>Fall 2016</td><td>AU</td><td>Compilers: Design and Implementation</td><td>TA</td></tr>
-  <tr><td>Spring 2016</td><td>ITMO</td><td>Compilers: Design and Implementation</td><td>Lecturer</td></tr>
-  <tr><td>Fall 2015</td><td>AU</td><td>Compilers: Design and Implementation</td><td>Lecturer</td></tr>
-  <tr><td>Spring 2015</td><td>ITMO</td><td>Compilers: Design and Implementation</td><td>Lecturer</td></tr>
-  <tr><td>Fall 2015</td><td>SPbU</td><td>Introduction to programming</td><td>Lecturer, TA, Course designer</td></tr>
-  <tr><td>Spring 2015</td><td>SPbU</td><td>Introduction to programming</td><td>Lecturer, TA, Course designer</td></tr>
+<table class="teach">
+  <tr><td class="date">2023</td><td><b>Weak Memory Models</b> <span class="sub">Constructor Univ.</span></td></tr>
+  <tr><td class="date">2019–23</td><td><b>PL Semantics</b> <span class="sub">Constructor Univ., Neapolis Univ. Paphos, HSE, CS Center</span></td></tr>
+  <tr><td class="date">2015–18</td><td><b>Compilers</b> <span class="sub">ITMO, SPb Academic Univ., CS Center</span></td></tr>
+  <tr><td class="date">2015</td><td><b>Intro to Programming</b> <span class="sub">St. Petersburg Univ.</span></td></tr>
+  <tr><td class="date">2021</td><td><b>Lecturer</b>, <a href="https://sochisirius.ru/obuchenie/graduates/smena1089/5250">Sirius Winter School on Formal Methods</a> <span class="sub">(Coq)</span></td></tr>
+  <tr><td class="date">2021</td><td><b>Lecturer</b>, <a href="https://lalambda.school/">LaLambda Summer School</a> <span class="sub">(weak memory)</span></td></tr>
 </table>
-<p class="note">* CUB — Constructor University Bremen, NUP — Neapolis University Paphos, CSC — Computer Science Center,
-  HSE — HSE University (St. Petersburg branch), ITMO — ITMO University, AU — St. Petersburg Academic University,
-  SPbU — St. Petersburg University.</p>
+<p class="sub" style="font-size:0.9rem;margin-top:3px">Lecturer and course designer for all semantics and memory-model courses; lecturer/TA for Compilers.</p>
 
-<h3>Summer/Winter graduate schools</h3>
-<ul>
-  <li><a href="https://sochisirius.ru/obuchenie/graduates/smena1089/5250">Winter School on Formal Methods for Design and Verification of Software</a>,
-      November 2021, Sirius, Russia.<br />
-      Lecturer (gave 5 lectures and seminars on the Coq proof assistant).</li>
-  <li><a href="https://lalambda.school/">LaLambda'21: Summer School on verification, compilers, and functional programming</a>,
-      July 2021, Moscow Region, Russia.<br />
-      Lecturer (gave 5 lectures on weak memory models).</li>
-</ul>
+<!-- ================= Supervision ================= -->
+<h2>Supervision</h2>
+<div class="item"><b>PhD:</b> Evgenii Moiseenko <span class="sub">(2018–23, unfinished)</span>, Egor Namakonov <span class="sub">(2020–22, unfinished)</span> <span class="sub">· SPbU &amp; JetBrains Research</span></div>
+<div class="item"><b>MSc:</b> A. Kozyrev, N. Khramov, G. Solovev <span class="sub">(CUB '25)</span>; I. Kaysin <span class="sub">(HSE '22)</span>; E. Namakonov <span class="sub">(SPbU '20)</span>; E. Moiseenko <span class="sub">(SPbU '18)</span></div>
+<div class="item"><b>BSc:</b> A. Kozyrev, G. Solovev, D. Lochmelis, I. Klimov, N. Mittcev <span class="sub">(CUB '23)</span></div>
 
-<!-- ============================================================ -->
-<h2>Academic Supervision</h2>
+<!-- ================= Service ================= -->
+<h2>Service</h2>
+<div class="item"><b>PC:</b>
+  <a href="https://popl24.sigplan.org/">POPL'24</a>, <a href="https://conf.researchr.org/home/aplas-2022">APLAS'22</a>,
+  <a href="https://hydraconf.com/">Hydra'22</a>, SEIM'18–'20</div>
+<div class="item"><b>Co-chair:</b> <a href="https://seim-conf.org/en/archive/2021/">SEIM'21</a>, <a href="https://seim-conf.org/en/archive/2022/">SEIM'22</a></div>
+<div class="item"><b>AEC:</b> <a href="https://pldi21.sigplan.org/track/pldi-2021-PLDI-Research-Artifacts">PLDI'21</a></div>
+<div class="item"><b>SRC selection:</b> <a href="https://pldi22.sigplan.org/">PLDI'22</a>, <a href="https://popl22.sigplan.org/">POPL'22</a></div>
 
-<h3>PhD students</h3>
-<ul>
-  <li>Evgenii Moiseenko, St. Petersburg University and JetBrains Research, September '18 – October '23</li>
-  <li>Egor Namakonov, St. Petersburg University and JetBrains Research, September '20 – August '22</li>
-</ul>
+</aside>
+</div>
 
-<h3>MSc advisees</h3>
-<ul>
-  <li>Andrei Kozyrev (graduated June '25), Constructor University Bremen</li>
-  <li>Nikita Khramov (graduated June '25), Constructor University Bremen</li>
-  <li>Gleb Solovev (graduated June '25), Constructor University Bremen</li>
-  <li>Ilya Kaysin (graduated June '22), HSE University (St. Petersburg)</li>
-  <li>Egor Namakonov (graduated June '20), St. Petersburg University</li>
-  <li>Evgenii Moiseenko (graduated June '18), St. Petersburg University</li>
-</ul>
+<footer><a href="/">podkopaev.net</a> · <a href="cv.pdf">PDF version</a></footer>
 
-<h3>Undergraduate advisees</h3>
-<ul>
-  <li>Andrei Kozyrev (graduated June '23), Constructor University Bremen</li>
-  <li>Gleb Solovev (graduated June '23), Constructor University Bremen</li>
-  <li>Denis Lochmelis (graduated June '23), Constructor University Bremen</li>
-  <li>Ivan Klimov (graduated June '23), Constructor University Bremen</li>
-  <li>Nikita Mittcev (graduated June '23), Constructor University Bremen</li>
-</ul>
-
-<!-- ============================================================ -->
-<h2>Service to the Research Community</h2>
-
-<h3>Conference co-chair</h3>
-<ul>
-  <li><a href="https://seim-conf.org/en/archive/2022/">SEIM'22: 7th Conference on Software Engineering and Information Management</a></li>
-  <li><a href="https://seim-conf.org/en/archive/2021/">SEIM'21: 6th Conference on Software Engineering and Information Management</a></li>
-</ul>
-
-<h3>Program committee member</h3>
-<ul>
-  <li><a href="https://popl24.sigplan.org/">POPL'24: 51st ACM SIGPLAN Symposium on Principles of Programming Languages</a></li>
-  <li><a href="https://conf.researchr.org/home/aplas-2022">APLAS'22: 20th Asian Symposium on Programming Languages and Systems</a></li>
-  <li><a href="https://hydraconf.com/">Hydra'22: Concurrent and Distributed Computing Conference</a></li>
-  <li><a href="https://seim-conf.org/en/archive/2020/">SEIM'20: 5th Conference on Software Engineering and Information Management</a></li>
-  <li><a href="https://seim-conf.org/en/archive/2019/">SEIM'19: 4th Conference on Software Engineering and Information Management</a></li>
-  <li><a href="https://seim-conf.org/en/archive/2018/">SEIM'18: 3rd Conference on Software Engineering and Information Management</a></li>
-</ul>
-
-<h3>Artifact evaluation committee member</h3>
-<ul>
-  <li><a href="https://pldi21.sigplan.org/track/pldi-2021-PLDI-Research-Artifacts">PLDI'21: 42nd ACM SIGPLAN Conf. on Programming Language Design and Implementation</a></li>
-</ul>
-
-<h3>Other service</h3>
-<ul>
-  <li><a href="https://pldi22.sigplan.org/">PLDI'22</a>, Student Research Competition, <i>Selection Committee member</i></li>
-  <li><a href="https://popl22.sigplan.org/">POPL'22</a>, Student Research Competition, <i>Selection Committee member</i></li>
-</ul>
-
-<!-- ============================================================ -->
-<h2>Selected Talks</h2>
-<ul>
-  <li><a href="https://www.sen-symposium.nl/">SEN Symposium'25 (Amsterdam, NL)</a>, <i>Keynote speaker</i>,<br />
-      <i>Generative AI and Formal Verification. Could they benefit each other?</i></li>
-  <li><a href="http://syrcose.ispras.ru/">SyRCoSE'21 (Moscow, Russia)</a>, <i>Keynote speaker</i>,<br />
-      <i>Programming Language Memory Models: Problems, Solutions, and Directions</i></li>
-  <li><a href="https://hydraconf.com/archive/2020/">Hydra'20 (St. Petersburg, Russia)</a>, <i>Speaker</i>,<br />
-      <i>Programming language memory models: Problems, solutions, and directions</i></li>
-</ul>
-
-<p class="contacts"><b><a href="cv.pdf">Download PDF version</a></b></p>
-
-</section>
+</div>
+</body>
+</html>
